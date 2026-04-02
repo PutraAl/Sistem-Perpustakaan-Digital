@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Models\Buku;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
@@ -65,21 +64,3 @@ class BukuController extends Controller
         //
     }
 }
-=======
-use Illuminate\Http\Request;
-
-class BukuController extends Controller
-{
-   public function index() {
-    $buku = [
-        ["id"=>1,"nama"=>"Pemrograman Web"],
-        ["id"=>2,"nama"=>"Basis Data"],
-        ["id"=>3,"nama"=>"Algoritma"]
-    ];
-
-    return view('buku.index', compact('buku'));
-}
-
-}
- 
->>>>>>> 616c0eb9db87caf721e5bdaf3079a6b87cb44b63
