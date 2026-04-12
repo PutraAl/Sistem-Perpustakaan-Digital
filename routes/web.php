@@ -13,7 +13,7 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 })->name('admin.dashboard');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('/admin')->group(function () {
     Route::get('/peminjaman', [PeminjamanController::class,'index_admin'])->name('admin.peminjaman');
 });
 
