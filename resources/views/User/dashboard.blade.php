@@ -1,9 +1,10 @@
-@extends('layout.member')
+@extends('layout.app')
 
 @section('content')
 <div class="container">
     <h1>Dashboard Anggota</h1>
-    <p>Selamat datang, {{ Auth::user()->name }}!</p>
+    <p>Selamat datang, Admin!</p>
+    {{-- {{ Auth::user()->name }} --}}
     <div class="row">
         <div class="col-md-6">
             <a href="/member/buku" class="btn btn-primary w-100">Lihat Daftar Buku</a>

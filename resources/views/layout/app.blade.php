@@ -1,126 +1,144 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Perpustakaan Digital')</title>
-    {{-- @vite('resources/css/app.css') --}}
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Siperdig — User Dashboard</title>
+    @vite('resources/css/app.css')
 </head>
-<body class="bg-gray-50 font-sans">
 
-    @include('components.navbar')
+<body class="bg-gray-100 font-sans">
 
-    <main>
-        @yield('content')
-    </main>
-
-    @include('components.footer')
-
-</body>
-</html>
-
-
-// File: resources/views/components/navbar.blade.php
-<nav class="bg-white/80 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">L</div>
-            <span class="text-lg font-semibold text-gray-800">LibraryOS</span>
-        </div>
-
-        <div class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            <a href="{{ route('landing') }}" class="hover:text-blue-600">Home</a>
-            <a href="{{ route('buku') }}" class="hover:text-blue-600">Koleksi</a>
-            <a href="{{ route('kategori') }}" class="hover:text-blue-600">Kategori</a>
-        </div>
-
-        <a href="{{ route('login') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">
-            Login
-        </a>
-    </div>
-</nav>
-
-
-// File: resources/views/components/footer.blade.php
-<footer class="bg-gray-900 text-gray-400 py-10 mt-20">
-    <div class="max-w-7xl mx-auto px-6 text-center text-sm">
-        <p>© 2026 LibraryOS. All rights reserved.</p>
-    </div>
-</footer>
-
-
-// File: resources/views/landing/index.blade.php
-@extends('layouts.app')
-
-@section('title', 'Landing Page')
-
-@section('content')
-
-<!-- HERO PREMIUM -->
-<section class="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
-    <div>
-        <h1 class="text-5xl font-bold text-gray-900 leading-tight">
-            Akses Perpustakaan Digital Tanpa Batas
-        </h1>
-        <p class="mt-6 text-gray-600 text-lg">
-            Temukan ribuan buku, kelola peminjaman, dan nikmati pengalaman membaca modern dalam satu platform.
-        </p>
-
-        <div class="mt-8 flex gap-4">
-            <a href="{{ route('buku') }}" class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
-                Jelajahi Buku
-            </a>
-            <a href="{{ route('login') }}" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100">
-                Masuk
-            </a>
-        </div>
+    {{-- Mobile overlay --}}
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden" onclick="toggleSidebar()">
     </div>
 
-    <div class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-2xl h-80 flex items-center justify-center text-6xl font-bold text-blue-600">
-        LIB
-    </div>
-</section>
+    {{-- Mobile menu toggle --}}
+    <button onclick="toggleSidebar()"
+        class="fixed top-3 left-3 z-50 lg:hidden bg-white border border-gray-200 rounded-lg p-2 shadow-sm">
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            viewBox="0 0 24 24">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+    </button>
 
-<!-- STATISTIK -->
-<section class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4 gap-6">
-    <div class="bg-white p-6 rounded-xl shadow text-center">
-        <h3 class="text-2xl font-bold text-gray-900">{{ $totalBuku }}</h3>
-        <p class="text-gray-500 text-sm">Total Buku</p>
-    </div>
+    <div class="flex min-h-screen ">
 
-    <div class="bg-white p-6 rounded-xl shadow text-center">
-        <h3 class="text-2xl font-bold text-gray-900">{{ $totalKategori }}</h3>
-        <p class="text-gray-500 text-sm">Kategori</p>
-    </div>
+        {{-- ===================== SIDEBAR ===================== --}}
+        <aside id="sidebar"
+            class="fixed top-0 left-0 h-full w-56 bg-white border-r border-gray-200 flex flex-col z-50
+                   -translate-x-full lg:translate-x-0 lg:static lg:z-auto transition-transform duration-300 ease-in-out">
 
-    <div class="bg-white p-6 rounded-xl shadow text-center">
-        <h3 class="text-2xl font-bold text-gray-900">{{ $totalUser }}</h3>
-        <p class="text-gray-500 text-sm">User</p>
-    </div>
-
-    <div class="bg-white p-6 rounded-xl shadow text-center">
-        <h3 class="text-2xl font-bold text-gray-900">{{ $totalPeminjaman }}</h3>
-        <p class="text-gray-500 text-sm">Peminjaman</p>
-    </div>
-</section>
-
-<!-- BUKU TERBARU -->
-<section class="max-w-7xl mx-auto px-6 py-12">
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Buku Terbaru</h2>
-        <a href="{{ route('buku') }}" class="text-blue-600 text-sm">Lihat semua</a>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-6">
-        @foreach($buku as $item)
-            <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-5">
-                <div class="h-40 bg-gray-100 rounded-lg mb-4"></div>
-                <h3 class="font-semibold text-lg text-gray-800">{{ $item->judul }}</h3>
-                <p class="text-gray-500 text-sm mt-1">{{ $item->penulis }}</p>
+            {{-- Brand --}}
+            <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800 leading-tight">Peter</p>
+                    <p class="text-xs text-gray-400">Admin panel</p>
+                </div>
             </div>
-        @endforeach
-    </div>
-</section>
 
-@endsection
+            {{-- Nav --}}
+            <nav class="flex-1 overflow-y-auto px-2 py-3 space-y-0.5">
+
+                <p class="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">Main</p>
+
+                <a href="{{ route('admin.dashboard') }}"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
+   {{ request()->routeIs('admin.dashboard') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    Dashboard
+                </a>
+
+                <a href="{{ route('admin.peminjaman') }}"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
+   {{ request()->routeIs('admin.peminjaman') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                    </svg>
+                    Peminjaman
+                </a>
+
+
+
+                <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="9 11 12 14 22 4" />
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                    </svg>
+                    Borrowing
+                </a>
+
+
+
+
+
+
+
+
+
+
+                <a href="#"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </a>
+            </nav>
+
+            {{-- User footer --}}
+            <div class="px-3 py-3 mt-[230px] border-t border-gray-100 flex items-center gap-2.5">
+                <div
+                    class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                    AD
+                </div>
+                <div>
+                    <p class="text-sm font-medium text-gray-800 leading-tight">Admin User</p>
+                    <p class="text-xs text-gray-400">Super admin</p>
+                </div>
+            </div>
+        </aside>
+
+        {{-- ===================== MAIN CONTENT ===================== --}}
+        @yield('content')
+
+
+
+        {{-- Chart.js via CDN --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+        <script>
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('sidebar-overlay');
+                sidebar.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            }
+
+        </script>
+        @vite('resources/js/app.js')
+</body>
+
+</html>
