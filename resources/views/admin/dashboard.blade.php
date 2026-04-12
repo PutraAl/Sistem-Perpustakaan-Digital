@@ -7,7 +7,7 @@
                 <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
                     <div>
                         <h1 class="text-lg font-semibold text-gray-800">Dashboard</h1>
-                        <p class="text-sm text-gray-500">Welcome back, Peter — here's what's happening today</p>
+                        <p class="text-sm text-gray-500">Hi, Peter — selamat datang di website Sistem Perpustakaan Digital</p>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-xs text-gray-500 bg-white border border-gray-200 rounded-lg px-3 py-1.5">
@@ -89,7 +89,7 @@
                     {{-- Bar chart --}}
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
                         <p class="text-sm font-semibold text-gray-800">Peminjaman Buku Bulanan</p>
-                        <p class="text-xs text-gray-400 mb-3">Books borrowed per month — 2026</p>
+                        <p class="text-xs text-gray-400 mb-3">History peminjaman — 2026</p>
                         <div class="flex flex-wrap gap-3 mb-3">
                             <span class="flex items-center gap-1.5 text-xs text-gray-500">
                                 <span class="w-2.5 h-2.5 rounded-sm bg-blue-600 inline-block"></span>Current month
@@ -105,8 +105,7 @@
 
                     {{-- Doughnut chart --}}
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
-                        <p class="text-sm font-semibold text-gray-800">Collection by genre</p>
-                        <p class="text-xs text-gray-400 mb-3">Distribution across book categories</p>
+                        <p class="text-sm font-semibold text-gray-800">Berdasarkan Genre</p>
                         <div class="flex flex-wrap gap-x-3 gap-y-1.5 mb-3">
                             <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#2563eb"></span>Fiction 30%</span>
                             <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#16a34a"></span>Science 17%</span>

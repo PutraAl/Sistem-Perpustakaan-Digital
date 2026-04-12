@@ -11,9 +11,9 @@ class BukuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index_admin()
     {
-        return view('buku');
+        return view('admin.buku');
     }
 
     /**
