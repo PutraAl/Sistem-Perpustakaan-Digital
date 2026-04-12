@@ -144,7 +144,7 @@
     </div>
 @endsection
 
-@section('modal_title', 'Detail Peminjaman')
+@section('title', 'Peminjaman')
 
 @section('modal_content')
 <form>

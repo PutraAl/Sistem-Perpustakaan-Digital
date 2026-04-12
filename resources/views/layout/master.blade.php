@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LibraryOS — Dashboard</title>
+    <title>@yield('title', 'Dashboard')</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -76,8 +76,8 @@
                     Peminjaman
                 </a>
 
-                <a href="#"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <a href="{{ route('admin.user') }}"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('admin.user') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }} transition-colors">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -85,7 +85,7 @@
                         <path d="M23 21v-2a4 4 0 00-3-3.87" />
                         <path d="M16 3.13a4 4 0 010 7.75" />
                     </svg>
-                    Members
+                    User
                 </a>
 
                 <a href="#"
@@ -98,7 +98,7 @@
                     Borrowing
                 </a>
 
-                <p class="px-2 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">Library</p>
+                <p class="px-2 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">Buku</p>
 
                 <a href="#"
                     class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
