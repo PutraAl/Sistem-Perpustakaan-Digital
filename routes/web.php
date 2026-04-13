@@ -12,9 +12,8 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::get('/login', function () {
-    return view('index');
+    return view('login'); 
 })->name('login');
-
 Route::prefix('admin')->group(function () {
 
     Route::get('/dashboard', function () {
