@@ -70,12 +70,14 @@
       <p class="px-5  indent-8">Sistem perpustakaan digital adalah sebuah sistem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorem, saepe nam id, in voluptas consectetur, veniam iure placeat illum autem vel! Quisquam ullam quos earum consectetur asperiores minima totam quod ducimus soluta quae ex deserunt eveniet odit expedita aliquam, enim, ab iure molestiae eius at modi. Ad eos nesciunt adipisci?</p>
       
     </div>
-    <div class="link-start text-center mt-5  ">
+   <div class="link-start text-center mt-5">
 
-      <a href="" class="bg-blue-400 text-white py-2 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1">
-        
+    <a href="/login"
+       class="inline-block bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition">
         Start From Here
-      </a>
+    </a>
+
+</div>
     </div>
   </div>
 </div>
