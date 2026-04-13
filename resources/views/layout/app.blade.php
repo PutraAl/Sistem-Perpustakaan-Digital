@@ -25,14 +25,12 @@
         </svg>
     </button>
 
-    <div class="flex min-h-screen ">
+    <div class="flex min-h-screen  ">
 
-        {{-- ===================== SIDEBAR ===================== --}}
         <aside id="sidebar"
             class="fixed top-0 left-0 h-full w-56 bg-white border-r border-gray-200 flex flex-col z-50
                    -translate-x-full lg:translate-x-0 lg:static lg:z-auto transition-transform duration-300 ease-in-out">
 
-            {{-- Brand --}}
             <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
                 <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
@@ -42,8 +40,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-800 leading-tight">Peter</p>
-                    <p class="text-xs text-gray-400">Admin panel</p>
+                    <p class="text-sm font-semibold text-gray-800 leading-tight">Hi, Peter</p>
                 </div>
             </div>
 
@@ -52,9 +49,9 @@
 
                 <p class="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">Main</p>
 
-                <a href="{{ route('admin.dashboard') }}"
+                <a href="{{ route('user.buku') }}"
                     class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-   {{ request()->routeIs('admin.dashboard') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+   {{ request()->routeIs('user.buku') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <rect x="3" y="3" width="7" height="7" />
@@ -62,12 +59,12 @@
                         <rect x="14" y="14" width="7" height="7" />
                         <rect x="3" y="14" width="7" height="7" />
                     </svg>
-                    Dashboard
+                    Buku
                 </a>
 
-                <a href="{{ route('admin.peminjaman') }}"
+                <a href="{{ route('user.riwayat') }}"
                     class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-   {{ request()->routeIs('admin.peminjaman') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
+   {{ request()->routeIs('user.riwayat') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                         <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
@@ -78,15 +75,7 @@
 
 
 
-                <a href="#"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="9 11 12 14 22 4" />
-                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                    </svg>
-                    Borrowing
-                </a>
+              
 
 
 
@@ -108,18 +97,20 @@
                     Logout
                 </a>
             </nav>
+            <a href="{{ route('user.profil') }}">
 
-            {{-- User footer --}}
-            <div class="px-3 py-3 mt-[230px] border-t border-gray-100 flex items-center gap-2.5">
+            <div class="px-3 py-3 mt-[300px] border-t {{ request()->routeIs('user.profil') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }} flex items-center gap-2.5">
                 <div
                     class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
                     AD
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-800 leading-tight">Admin User</p>
-                    <p class="text-xs text-gray-400">Super admin</p>
+                    <p class="text-sm font-medium  leading-tight">Peter</p>
+                    <p class="text-xs ">Anggota</p>
                 </div>
             </div>
+            </a>
+
         </aside>
 
         {{-- ===================== MAIN CONTENT ===================== --}}
@@ -127,7 +118,6 @@
 
 
 
-        {{-- Chart.js via CDN --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
         <script>
             function toggleSidebar() {

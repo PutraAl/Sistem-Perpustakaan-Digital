@@ -35,25 +35,31 @@ Route::prefix('admin')->group(function () {
     })->name('admin.kategori');
 });
 
-Route::prefix('user')->group(function () {
+// Route::prefix('user')->group(function () {
 
-    Route::get('/', function () {
-        return view('user.dashboard');
-    })->name('user.dashboard');
 
-    Route::get('/buku', function () {
-        return view('user.buku');
-    })->name('user.buku');
+// });
+Route::get('/user', function () {
+    return view('user.dashboard');
+})->name('user.dashboard');
 
-    Route::get('/riwayat', function () {
-        return view('user.riwayatpeminjaman');
-    })->name('user.riwayat');
+Route::get('/buku', function () {
+    return view('user.buku');
+})->name('user.buku');
 
-    Route::get('/profil', function () {
-        return view('user.profil');
-    })->name('user.profil');
-});
+Route::get('/riwayat', function () {
+    return view('user.riwayatpeminjaman');
+})->name('user.riwayat');
 
-Route::get('/buku', [BukuController::class, 'index'])->name('buku');
+Route::get('/profil', function () {
+    return view('user.profil');
+})->name('user.profil');
 
-Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+Route::get('/detail', function() {
+    return view('user.detail');
+})->name('user.detail');
+
+
+
+// Route::get('/buku', [BukuController::class, 'index'])->name('buku');
+// Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
