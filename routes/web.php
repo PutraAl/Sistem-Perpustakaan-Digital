@@ -12,11 +12,12 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::get('/login', function () {
-    return view('login'); 
+    return view('login');
 })->name('login');
+
 Route::prefix('admin')->group(function () {
 
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
@@ -34,10 +35,7 @@ Route::prefix('admin')->group(function () {
     })->name('admin.kategori');
 });
 
-// Route::prefix('user')->group(function () {
 
-
-// });
 Route::get('/user', function () {
     return view('user.dashboard');
 })->name('user.dashboard');
@@ -54,7 +52,7 @@ Route::get('/profil', function () {
     return view('user.profil');
 })->name('user.profil');
 
-Route::get('/detail', function() {
+Route::get('/detail', function () {
     return view('user.detail');
 })->name('user.detail');
 
