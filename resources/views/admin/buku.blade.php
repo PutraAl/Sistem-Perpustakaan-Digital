@@ -1,12 +1,18 @@
-@extends('layout.app')
+@extends('layout.master')
+@section('title', 'Buku')
 
 @section('content')
     <div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4">
-        <div class="flex items-center justify-center mb-4">
+        <div class="flex items-center justify-between mb-4">
             <div>
-                <p class="text-md font-semibold text-gray-800">Selamat datang di Perpustakaan Digital</p>
+                <p class="text-sm font-semibold text-gray-800">Halaman Buku</p>
             </div>
-           
+            <div>
+                <button 
+                    class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition">
+                    Tambah Buku
+                </button>
+            </div>
 
         </div>
         <form method="GET" action="" class="w-full bg-white p-3 mb-4 md:p-4 rounded-lg border border-gray-200">
@@ -15,7 +21,7 @@
 
                 <div class="md:col-span-4">
                     <div
-                        class="flex items-center bg-gray-50 border border-gray-300 rounded-md px-2 py-1.5 md:px-3 md:py-2 focus-within:ring-1 md:focus-within:ring-2 focus-within:ring-blue-400 ">
+                        class="flex items-center bg-gray-50 border border-gray-300 rounded-md px-2 py-1.5 md:px-3 md:py-2 focus-within:ring-1 md:focus-within:ring-2 focus-within:ring-blue-400">
 
                         <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400 mr-2" fill="none" stroke="currentColor"
                             stroke-width="2" viewBox="0 0 24 24">
@@ -58,7 +64,7 @@
                   
                     <div class="flex items-center justify-center mt-3 mb-2">
 
-                        <a href="{{ route('user.detail') }}" class="text-center bg-blue-400 text-white py-1 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1" href="">Detail</a>
+                        <a class="text-center bg-blue-400 text-white py-1 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1" href="">Detail</a>
                     </div>
                 </div>
             </div>
@@ -134,4 +140,8 @@
         </div>
 
     </div>
+
+
+
+
 @endsection

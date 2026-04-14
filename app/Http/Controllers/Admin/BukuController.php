@@ -1,25 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Buku;
-use App\Http\Requests\StoreBukuRequest;
-use App\Http\Requests\UpdateBukuRequest;
+use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index_admin()
-    {
-        return view('admin.buku');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index()
     {
         //
     }
@@ -27,7 +19,7 @@ class BukuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreBukuRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -41,17 +33,9 @@ class BukuController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Buku $buku)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBukuRequest $request, Buku $buku)
+    public function update(Request $request, Buku $buku)
     {
         //
     }

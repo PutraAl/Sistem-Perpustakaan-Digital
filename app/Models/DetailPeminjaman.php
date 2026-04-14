@@ -13,8 +13,8 @@ class DetailPeminjaman extends Model
     protected $table = 'tb_detail_peminjaman';
     protected $primaryKey = 'id_detail_peminjaman';
      protected $fillable = [
-        'peminjaman_id',
-        'buku_id',
+        'id_peminjaman',
+        'id_buku',
         'jumlah',
         'status_item',
         'tanggal_kembali',

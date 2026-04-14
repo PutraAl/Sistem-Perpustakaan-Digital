@@ -67,6 +67,7 @@
 
       <img class="w-[250px] h-[250px]" src="{{ asset('img/logopolibatam.png') }}" alt="">
     </div>
+<<<<<<< HEAD
     <div class="col-span-12 md:col-span-6 order-2 md:order-1 text-wrap">
       <div class="deskripsi">
 
@@ -85,6 +86,16 @@
           Start From Here
         </a>
       </div>
+=======
+   <div class="link-start text-center mt-5">
+
+    <a href="/login"
+       class="inline-block bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition">
+        Start From Here
+    </a>
+
+</div>
+>>>>>>> fc3391e38e989e124db07ace8e4489f6a51c39e3
     </div>
   </div>
 
