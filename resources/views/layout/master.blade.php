@@ -9,30 +9,16 @@
 </head>
 
 <body class="bg-gray-100 font-sans">
+    @include('component.modaltambahbuku')
 
     @include('component.sidebaradmin')
 
-        {{-- ===================== MAIN CONTENT ===================== --}}
-        @yield('content')
+    {{-- ===================== MAIN CONTENT ===================== --}}
+    @yield('content')
 
-        <div id="modal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50 p-4">
-
-            <div class="bg-white w-full max-w-md rounded-lg shadow-lg p-4">
-
-                <!-- Header -->
-                <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-sm font-semibold text-gray-800">@yield('modal_title', 'Detail')</h2>
-                    <button onclick="closeModal()" class="text-gray-400">✕</button>
-                </div>
-
-                <!-- Content -->
-                <div>
-                    @yield('modal_content')
-                </div>
-
-            </div>
-        </div>
+   
     </div>
+    {{-- Modal Tambah Buku --}}
 
     {{-- Chart.js via CDN --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -107,5 +93,6 @@
 
     @vite('resources/js/app.js')
 </body>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
 
 </html>

@@ -2,7 +2,6 @@
     <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden" onclick="toggleSidebar()">
     </div>
 
-    {{-- Mobile menu toggle --}}
     <button onclick="toggleSidebar()"
         class="fixed top-3 left-3 z-50 lg:hidden bg-white border border-gray-200 rounded-lg p-2 shadow-sm">
         <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -138,7 +137,6 @@
                 </a>
             </nav>
 
-            {{-- User footer --}}
             <div class="px-3 py-3 border-t border-gray-100 flex items-center gap-2.5">
                 <div
                     class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">

@@ -67,7 +67,7 @@
 
       <img class="w-[250px] h-[250px]" src="{{ asset('img/logopolibatam.png') }}" alt="">
     </div>
-<<<<<<< HEAD
+
     <div class="col-span-12 md:col-span-6 order-2 md:order-1 text-wrap">
       <div class="deskripsi">
 
@@ -86,16 +86,7 @@
           Start From Here
         </a>
       </div>
-=======
-   <div class="link-start text-center mt-5">
 
-    <a href="/login"
-       class="inline-block bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition">
-        Start From Here
-    </a>
-
-</div>
->>>>>>> fc3391e38e989e124db07ace8e4489f6a51c39e3
     </div>
   </div>
 
@@ -148,8 +139,211 @@
   <hr class="hidden md:block">
 
   <div id="contact">
-    you can call us
+    <h1 class="text-center text-semibold text-4xl text-blue-500 my-3">US</h1>
+
+    <div class="grid grid-cols-12">
+      <div class="col-span-12 md:col-span-4">
+
+
+        <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+          <button id="dropdownButton" data-dropdown-toggle="dropdown"
+            class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none"
+            type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdown"
+            class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 block hidden">
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export
+                  Data</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
+              </li>
+            </ul>
+          </div>
+          <div class="flex flex-col items-center">
+            <img class="w-24 h-24 mb-6 rounded-full" src="{{ asset('img/logopolibatam.png') }}" alt="Bonnie image" />
+            <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">Putra Alamsyah</h5>
+            <span class="text-sm text-body">Team</span>
+            <div class="flex mt-4 md:mt-6 gap-4">
+              <button type="button"
+                class="inline-flex items-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                <svg class="w-4 h-4 me-1.5 -ms-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                Follow me
+              </button>
+              <button type="button"
+                class="inline-flex self-start w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Message
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+          <button id="dropdownButton" data-dropdown-toggle="dropdown"
+            class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none"
+            type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdown"
+            class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 block hidden">
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export
+                  Data</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
+              </li>
+            </ul>
+          </div>
+          <div class="flex flex-col items-center">
+            <img class="w-24 h-24 mb-6 rounded-full" src="{{ asset('img/logopolibatam.png') }}"
+              alt="Bonnie image" />
+            <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">Della Desriani</h5>
+            <span class="text-sm text-body">Leader</span>
+            <div class="flex mt-4 md:mt-6 gap-4">
+              <button type="button"
+                class="inline-flex items-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                <svg class="w-4 h-4 me-1.5 -ms-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                Follow me
+              </button>
+              <button type="button"
+                class="inline-flex self-start w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Message
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-span-12 md:col-span-4">
+
+
+        <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+          <button id="dropdownButton" data-dropdown-toggle="dropdown"
+            class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none"
+            type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
+            </svg>
+          </button>
+          <!-- Dropdown menu -->
+          <div id="dropdown"
+            class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 block hidden">
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export
+                  Data</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
+              </li>
+            </ul>
+          </div>
+          <div class="flex flex-col items-center">
+            <img class="w-24 h-24 mb-6 rounded-full" src="{{ asset('img/logopolibatam.png') }}"
+              alt="Bonnie image" />
+            <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">Muhammad Nurferli</h5>
+            <span class="text-sm text-body">Team  </span>
+            <div class="flex mt-4 md:mt-6 gap-4">
+              <button type="button"
+                class="inline-flex items-center text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                <svg class="w-4 h-4 me-1.5 -ms-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                  height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                Follow me
+              </button>
+              <button type="button"
+                class="inline-flex self-start w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Message
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
+  <hr class="hidden md:block">
+  
+  
+
+<footer class="bg-neutral-primary-soft rounded-base shadow-xs border border-default m-4">
+    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+                <img src="{{ asset('img/logopolibatam.png') }}" class="h-7" alt="Flowbite Logo" />
+                <span class="text-heading self-center text-2xl font-semibold whitespace-nowrap">Siperdig</span>
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-body sm:mb-0">
+              <li>
+                  <a href="#" class="hover:underline me-4 md:me-6">Home</a>
+              </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">About</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline me-4 md:me-6">Feature</a>
+                </li>
+                <li>
+                    <a href="#" class="hover:underline">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-default sm:mx-auto lg:my-8" />
+        <span class="block text-sm text-body sm:text-center">© 2026 <a href="" class="hover:underline">SistemPerpustakaanDigital</a>. All Rights Reserved.</span>
+    </div>
+</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+
 
   {{-- Vanilla JS toggle (no Flowbite dependency needed) --}}
   <script>
