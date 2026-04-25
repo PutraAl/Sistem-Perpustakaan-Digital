@@ -11,7 +11,7 @@
 <body class="bg-gray-100 font-sans">
 
    {{-- Sidebar User --}}
-@include('component.sidebaruser')
+@include('components.sidebaruser')
         {{-- ===================== MAIN CONTENT ===================== --}}
         @yield('content')
 

@@ -15,8 +15,8 @@
     <div class="flex min-h-screen">
 
         <aside id="sidebar"
-            class="fixed top-0 left-0 h-full w-56 bg-white border-r border-gray-200 flex flex-col z-50
-                   -translate-x-full lg:translate-x-0 lg:static lg:z-auto transition-transform duration-300 ease-in-out">
+            class="fixed top-0 left-0 h-screen w-56 bg-white border-r border-gray-200 flex flex-col z-50
+       -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
 
             <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
                 <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -137,14 +137,17 @@
                 </a>
             </nav>
 
-            <div class="px-3 py-3 border-t border-gray-100 flex items-center gap-2.5">
+            <a href="{{ route('admin.profil') }}">
+
+            <div class="px-3 py-3 border-t {{ request()->routeIs('admin.profil') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900' }} flex items-center gap-2.5 ">
                 <div
-                    class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">
+                    class="w-8 h-8 rounded-full  flex items-center justify-center bg-blue-600 text-white  text-xs font-semibold flex-shrink-0">
                     AD
                 </div>
                 <div>
-                    <p class="text-sm font-medium text-gray-800 leading-tight">Admin User</p>
-                    <p class="text-xs text-gray-400">Super admin</p>
+                    <p class="text-sm font-semibold   leading-tight">Admin User</p>
+                    <p class="text-xs  font-medium">Super admin</p>
                 </div>
             </div>
+            </a>
         </aside>

@@ -1,5 +1,6 @@
 @extends('layout.master')
 @section('title', 'Kategori')
+
 @section('content')
 
 <div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4">
@@ -8,10 +9,15 @@
                 <p class="text-sm font-semibold text-gray-800">Aktivitas Peminjaman</p>
                 <p class="text-xs text-gray-400">Semua member</p>
             </div>
-
+            <div>
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                    class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition"
+                    type="button">
+                    Tambah Kategori
+                </button>
+            </div>
         </div>
-        <form method="GET" action=""
-            class="w-full bg-white p-3 mb-4 md:p-4 rounded-lg border border-gray-200">
+        <form method="GET" action="" class="w-full bg-white p-3 mb-4 md:p-4 rounded-lg border border-gray-200">
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3">
 
@@ -36,7 +42,7 @@
                         <option value="dipinjam" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="dikembalikan" {{ request('role') == 'anggota' ? 'selected' : '' }}>Anggota
                         </option>
-                     
+
                     </select>
                 </div>
 
@@ -73,13 +79,13 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                         Tidak Ada NIM
+                            Tidak Ada NIM
                         </td>
-                        <td class="py-2.5"><span  onclick="openModal()"
-                            class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
+                        <td class="py-2.5"><span onclick="openModal()"
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
-                   
-                       
+
+
                     </tr>
                     <tr>
                         <td class="py-2.5 pr-4 text-gray-800 text-xs">2</td>
@@ -87,16 +93,16 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                         Tidak Ada NIM
+                            Tidak Ada NIM
                         </td>
-                        <td class="py-2.5"><span  onclick="openModal()"
-                            class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
+                        <td class="py-2.5"><span onclick="openModal()"
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
-                   
-                       
+
+
                     </tr>
-                 
-                 
+
+
                 </tbody>
             </table>
         </div>

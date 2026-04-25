@@ -33,6 +33,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/kategori', function () {
         return view('admin.kategori');
     })->name('admin.kategori');
+
+    Route::get('/profil', function() {
+        return view ('admin.profil');
+    })->name('admin.profil');
 });
 
 

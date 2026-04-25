@@ -7,7 +7,12 @@
                 <p class="text-sm font-semibold text-gray-800">Aktivitas Peminjaman</p>
                 <p class="text-xs text-gray-400">Semua member</p>
             </div>
-
+              <div>
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                    class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition" type="button">
+                    Tambah Peminjaman
+                </button>
+            </div>
         </div>
         <form method="GET" action="{{ route('admin.peminjaman') }}"
             class="w-full bg-white p-3 mb-4 md:p-4 rounded-lg border border-gray-200">
