@@ -10,24 +10,28 @@
 
 <body class="bg-gray-100 font-sans">
 
-   {{-- Sidebar User --}}
-@include('components.sidebaruser')
-        {{-- ===================== MAIN CONTENT ===================== --}}
-        @yield('content')
+    <div class="flex min-h-screen">
 
+        {{-- SIDEBAR --}}
+        @include('components.sidebaruser')
 
+        {{-- CONTENT --}}
+        <main class="flex-1 p-6">
+            @yield('content')
+        </main>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-        <script>
-            function toggleSidebar() {
-                const sidebar = document.getElementById('sidebar');
-                const overlay = document.getElementById('sidebar-overlay');
-                sidebar.classList.toggle('-translate-x-full');
-                overlay.classList.toggle('hidden');
-            }
+    </div>
 
-        </script>
-        @vite('resources/js/app.js')
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+
+    @vite('resources/js/app.js')
+
 </body>
-
 </html>
