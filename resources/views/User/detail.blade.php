@@ -23,7 +23,7 @@
             </h1>
         </div>
     </header>
-
+    
     <main class="max-w-5xl mx-auto px-4 py-10">
 
         <div class="grid md:grid-cols-2 gap-10 items-start">
