@@ -34,17 +34,6 @@
                             class="w-full bg-transparent text-xs md:text-sm focus:outline-none">
                     </div>
                 </div>
-                <div class="md:col-span-2">
-                    <select name="status"
-                        class="w-full border border-gray-300 rounded-md px-2 py-1.5 md:px-3 md:py-2 text-xs md:text-sm focus:ring-1 md:focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                        <option value="">Semua Role</option>
-                        <option value="dipinjam" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="dikembalikan" {{ request('role') == 'anggota' ? 'selected' : '' }}>Anggota
-                        </option>
-
-                    </select>
-                </div>
-
                 <!-- 🔘 Button -->
                 <div class="md:col-span-2">
                     <button type="submit"
@@ -69,17 +58,25 @@
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     @foreach ($data as $row)
-                        
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">{{ $loop->iteration }}</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">{{ $row->nama_kategori }}</td>
 
-                        <td class="py-2.5"><span onclick="openModal()"
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
-                        </td>
+                        <tr>
+                            <td class="py-2.5 pr-4 text-gray-800 text-xs">{{ $loop->iteration }}</td>
+                            <td class="py-2.5 pr-4 text-gray-500 text-xs">{{ $row->nama_kategori }}</td>
 
+                            <td class="py-2.5">
+                                <span data-modal-target="modal-kategori-{{ $row->id_kategori }}"
+                                    data-modal-toggle="modal-kategori-{{ $row->id_kategori }}"
+                                    class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white cursor-pointer">
+                                    Details
+                                </span>
+                            </td>
+                        </tr>
 
-                    </tr>
+                        <x-modal id="modal-kategori-{{ $row->id_kategori }}" title="Edit Kategori">
+                            <x-forms.form-kategori method="PUT" :action="route('update.kategori', $row->id_kategori)"
+                                :kategori="$row" />
+                        </x-modal>
+
                     @endforeach
 
 
@@ -93,4 +90,5 @@
     <x-modal id="modal-kategori" title="Tambah Kategori">
         <x-forms.form-kategori action="{{ route('tambah.kategori') }}" />
     </x-modal>
+
 @endsection

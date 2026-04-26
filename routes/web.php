@@ -32,9 +32,13 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/kategori', [KategoriController::class, 'index'])->name('admin.kategori');
     Route::post('/kategori', [KategoriController::class, 'create'])->name('tambah.kategori');
+    Route::post('/kategori/hapus', [KategoriController::class, 'destroy'])
+        ->name('delete.kategori');
+    Route::put('/kategori/{id}', [KategoriController::class, 'update'])
+        ->name('update.kategori');
 
-    Route::get('/profil', function() {
-        return view ('admin.profil');
+    Route::get('/profil', function () {
+        return view('admin.profil');
     })->name('admin.profil');
 });
 
