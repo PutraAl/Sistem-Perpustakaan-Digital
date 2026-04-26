@@ -90,7 +90,7 @@
           </span>
           <span class="flex items-center gap-2">
             <svg class="w-4 h-4 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
-            Gratis untuk Civitas
+            Gratis untuk Mahasiswa
           </span>
           <span class="flex items-center gap-2">
             <svg class="w-4 h-4 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd"/></svg>
@@ -176,20 +176,20 @@
           SiPerDig (Sistem Perpustakaan Digital) adalah platform pengelolaan perpustakaan berbasis web yang dikembangkan khusus untuk Politeknik Negeri Batam.
         </p>
         <p class="text-gray-500 leading-relaxed mb-6 font-light">
-          Sistem ini memungkinkan mahasiswa, dosen, dan staf untuk mencari, meminjam, dan mengembalikan buku secara digital — tanpa harus antre atau datang langsung ke perpustakaan fisik.
+          Sistem ini memungkinkan mahasiswa untuk mencari, melihat status kesediaan buku dan melihat riwayat peminjaman secara digital — tanpa harus antre atau datang langsung ke perpustakaan fisik.
         </p>
         <ul class="space-y-3 text-sm text-gray-700">
           <li class="flex items-center gap-3">
             <span class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0">
               <svg class="w-3 h-3 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
             </span>
-            Terintegrasi dengan data mahasiswa dan dosen Polibatam
+            Terintegrasi dengan data mahasiswa 
           </li>
           <li class="flex items-center gap-3">
             <span class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0">
               <svg class="w-3 h-3 text-sky-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
             </span>
-            Notifikasi otomatis ketika jatuh tempo pengembalian
+            Melihat jatuh tempo pengembalian
           </li>
           <li class="flex items-center gap-3">
             <span class="w-5 h-5 rounded-full bg-sky-100 flex items-center justify-center shrink-0">
@@ -261,7 +261,7 @@
             ['icon' => 'M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25',                                                                                                                                                                                                                                                                                                                                'style' => 'sky',   'title' => 'Manajemen Koleksi',   'desc' => 'Tambah, edit, dan kelola seluruh koleksi buku dengan mudah. Dilengkapi kategori, tag, dan pencarian cepat.'],
             ['icon' => 'M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z',                                                                                                                                                                                                                                                                                                                                                                                                              'style' => 'dark',  'title' => 'Manajemen Anggota',   'desc' => 'Kelola data mahasiswa dan dosen. Riwayat peminjaman tersimpan otomatis per pengguna.'],
             ['icon' => 'M7.5 7.5h-.75A2.25 2.25 0 004.5 9.75v7.5a2.25 2.25 0 002.25 2.25h7.5a2.25 2.25 0 002.25-2.25v-7.5a2.25 2.25 0 00-2.25-2.25h-.75m-6 3.75l3 3m0 0l3-3m-3 3V1.5m6 9h.75a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25h-7.5a2.25 2.25 0 01-2.25-2.25v-.75',                                                                                                                                                                                                                                                                                              'style' => 'white', 'title' => 'Peminjaman Digital',   'desc' => 'Proses peminjaman dan pengembalian buku secara online. Notifikasi otomatis saat jatuh tempo.'],
-            ['icon' => 'M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   'style' => 'sky',   'title' => 'Pencarian Cerdas',     'desc' => 'Temukan buku berdasarkan judul, pengarang, ISBN, atau kategori dengan filter yang canggih.'],
+            ['icon' => 'M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z',                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   'style' => 'sky',   'title' => 'Pencarian Cerdas',     'desc' => 'Temukan buku berdasarkan judul, pengarang, atau kategori dengan filter yang canggih.'],
             ['icon' => 'M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z',  'style' => 'dark',  'title' => 'Laporan & Statistik',  'desc' => 'Dashboard analitik untuk memantau aktivitas perpustakaan, buku terpopuler, dan tren peminjaman.'],
             ['icon' => 'M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z',                                                                                                                                                                                                                                                                                                                                               'style' => 'white', 'title' => 'Keamanan Berlapis',    'desc' => 'Data pengguna dilindungi enkripsi dan sistem autentikasi berlapis sesuai standar keamanan.'],
           ];
@@ -321,9 +321,9 @@
 
         @php
           $team = [
-            ['name' => 'Della Desriani',    'role' => 'Project Leader',     'bio' => 'Memimpin pengembangan sistem dan memastikan seluruh fitur berjalan sesuai kebutuhan pengguna.', 'initial' => 'D', 'style' => 'sky'],
-            ['name' => 'Putra Alamsyah',    'role' => 'Backend Developer',  'bio' => 'Bertanggung jawab atas pengembangan backend, API, dan integrasi sistem database perpustakaan.', 'initial' => 'P', 'style' => 'dark'],
-            ['name' => 'Muhammad Nurferli', 'role' => 'Frontend Developer', 'bio' => 'Mengembangkan antarmuka pengguna yang responsif dan pengalaman yang intuitif bagi seluruh civitas.', 'initial' => 'M', 'style' => 'sky'],
+            ['name' => 'Della Desriani',    'role' => 'Developer',     'bio' => 'Memimpin pengembangan sistem dan memastikan seluruh fitur berjalan sesuai kebutuhan pengguna.', 'initial' => 'D', 'style' => 'sky'],
+            ['name' => 'Putra Alamsyah',    'role' => 'Developer',  'bio' => 'Bertanggung jawab atas pengembangan backend, API, dan integrasi sistem database perpustakaan.', 'initial' => 'P', 'style' => 'dark'],
+            ['name' => 'Muhammad Nurferli', 'role' => 'Developer', 'bio' => 'Mengembangkan antarmuka pengguna yang responsif dan pengalaman yang intuitif bagi seluruh civitas.', 'initial' => 'M', 'style' => 'sky'],
           ];
         @endphp
 

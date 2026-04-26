@@ -3,14 +3,13 @@
 
 @section('content')
 
-<div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4">
+    <div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4 h-full">
         <div class="flex items-center justify-between mb-4">
             <div>
-                <p class="text-sm font-semibold text-gray-800">Aktivitas Peminjaman</p>
-                <p class="text-xs text-gray-400">Semua member</p>
+                <p class="text-sm font-semibold text-gray-800">Kelola Kategori</p>
             </div>
             <div>
-                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                <button data-modal-target="modal-kategori" data-modal-toggle="modal-kategori"
                     class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition"
                     type="button">
                     Tambah Kategori
@@ -64,43 +63,26 @@
                     <tr class="border-b border-gray-100">
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4">No</th>
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4">Nama</th>
-                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4 ">Email
-                        </th>
-                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4 ">Role
-                        </th>
-                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 hidden sm:table-cell">NIM</th>
+
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
+                    @foreach ($data as $row)
+                        
                     <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">1</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Peter P</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                            Tidak Ada NIM
-                        </td>
+                        <td class="py-2.5 pr-4 text-gray-800 text-xs">{{ $loop->iteration }}</td>
+                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">{{ $row->nama_kategori }}</td>
+
                         <td class="py-2.5"><span onclick="openModal()"
                                 class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
 
 
                     </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">2</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Peter P</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                            Tidak Ada NIM
-                        </td>
-                        <td class="py-2.5"><span onclick="openModal()"
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
-                        </td>
+                    @endforeach
 
 
-                    </tr>
 
 
                 </tbody>
@@ -108,4 +90,7 @@
         </div>
     </div>
 
+    <x-modal id="modal-kategori" title="Tambah Kategori">
+        <x-forms.form-kategori action="{{ route('tambah.kategori') }}" />
+    </x-modal>
 @endsection

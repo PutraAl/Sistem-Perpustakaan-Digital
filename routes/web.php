@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BukuController;
-use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\Admin\KategoriController;
 
 Route::get('/', function () {
     return view('index');
@@ -30,9 +30,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/buku', [BukuController::class, 'index_admin'])
         ->name('admin.buku');
 
-    Route::get('/kategori', function () {
-        return view('admin.kategori');
-    })->name('admin.kategori');
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('admin.kategori');
+    Route::post('/kategori', [KategoriController::class, 'create'])->name('tambah.kategori');
 
     Route::get('/profil', function() {
         return view ('admin.profil');
