@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4">
+<div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4 h-full">
         <div class="flex items-center justify-between mb-4">
             <div>
                 <p class="text-sm font-semibold text-gray-800">Aktivitas Peminjaman</p>
