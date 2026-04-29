@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title', 'Dashboard')</title>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
     @vite('resources/css/app.css')
 </head>
 
@@ -46,6 +47,7 @@
     {{-- Chart.js via CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
     <script>
         // Sidebar toggle
         function toggleSidebar() {
@@ -114,7 +116,9 @@
             modal.classList.remove('flex');
         }
     </script>
+   
 
+</script>
     @vite('resources/js/app.js')
 
 </body>

@@ -7,9 +7,10 @@
                 <p class="text-sm font-semibold text-gray-800">Aktivitas Peminjaman</p>
                 <p class="text-xs text-gray-400">Semua member</p>
             </div>
-              <div>
+            <div>
                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                    class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition" type="button">
+                    class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition"
+                    type="button">
                     Tambah Peminjaman
                 </button>
             </div>
@@ -74,9 +75,11 @@
                     <tr class="border-b border-gray-100">
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4">Judul Buku</th>
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4">Anggota</th>
-                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4 hidden sm:table-cell">Tanggal Pinjam
+                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4 hidden sm:table-cell">Tanggal
+                            Pinjam
                         </th>
-                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4 hidden sm:table-cell">Tanggal Tenggang
+                        <th class="text-left text-xs font-semibold text-gray-400 pb-2 pr-4 hidden sm:table-cell">Tanggal
+                            Tenggang
                         </th>
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2">Status</th>
                         <th class="text-left text-xs font-semibold text-gray-400 pb-2">Aksi</th>
@@ -89,13 +92,13 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 28</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 11</td>
                         <td class="py-2.5"><span
-                            class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Borrowed</span>
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Borrowed</span>
                         </td>
-                        <td class="py-2.5"><span  onclick="openModal()"
-                            class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
+                        <td class="py-2.5"><span onclick="openModal()"
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
-                   
-                       
+
+
                     </tr>
                     <tr>
                         <td class="py-2.5 pr-4 text-gray-800 text-xs">Clean Code</td>
@@ -142,39 +145,129 @@
                                 class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-50 text-red-700">Overdue</span>
                         </td>
                     </tr>
-                 
+
                 </tbody>
             </table>
         </div>
     </div>
 @endsection
 
+
+
+
+<x-modal id="crud-modal" title="Tambah Peminjaman">
+
+    <x-forms.form-peminjaman :action="route('tambah.peminjaman')" method="POST" :users="$users" :bukus="$bukus" />
+
+</x-modal>
+<script>
+    const bukusData = @json($bukus);
+</script>
+<script>
+    let instances = [];
+
+    function initSelect(el) {
+        let ts = new TomSelect(el, {
+            valueField: 'id_buku',
+            labelField: 'judul',
+            searchField: 'judul',
+            options: bukusData,
+            openOnFocus: true,
+
+            onChange: function () {
+                refreshAll(); // 🔥 penting
+            }
+        });
+
+        instances.push(ts);
+
+        // 🔥 ambil value awal (kalau ada default)
+        if (ts.getValue()) {
+            refreshAll();
+        }
+    }
+
+    function getSelectedValues() {
+        return instances
+            .map(i => String(i.getValue()))
+            .filter(v => v !== "");
+    }
+
+    function refreshAll() {
+        let selected = getSelectedValues();
+
+        instances.forEach(ts => {
+            let current = String(ts.getValue());
+
+            ts.clearOptions();
+
+            bukusData.forEach(buku => {
+                let id = String(buku.id_buku);
+
+                if (!selected.includes(id) || id === current) {
+                    ts.addOption({
+                        id_buku: id,
+                        judul: buku.judul
+                    });
+                }
+            });
+
+            ts.refreshOptions(false);
+        });
+    }
+
+    function tambahBuku() {
+        let wrapper = document.getElementById('bukuWrapper');
+
+        let div = document.createElement('div');
+        div.className = "flex gap-2 mb-2";
+
+        div.innerHTML = `
+        <select name="buku_id[]" class="bukuSelect flex-1 border px-2 py-2 rounded"></select>
+        <input type="number" name="jumlah[]" value="1" class="w-20 border px-2 py-2 rounded">
+        <button type="button" class="text-red-500">X</button>
+    `;
+
+        wrapper.appendChild(div);
+
+        let select = div.querySelector('select');
+        initSelect(select);
+
+        div.querySelector('button').onclick = function () {
+            let instance = instances.find(i => i.input === select);
+            if (instance) {
+                instance.destroy();
+                instances = instances.filter(i => i !== instance);
+            }
+
+            div.remove();
+            refreshAll();
+        };
+
+        refreshAll();
+    }
+
+    // INIT SAAT MODAL DIBUKA
+    document.addEventListener('DOMContentLoaded', () => {
+
+        instances = []; // reset dulu
+
+        document.querySelectorAll('.bukuSelect').forEach(el => {
+            initSelect(el);
+        });
+
+        refreshAll(); // 🔥 WAJIB
+    });
+    div.querySelector('button').onclick = function () {
+        let instance = instances.find(i => i.input === select);
+
+        if (instance) {
+            instance.destroy();
+            instances = instances.filter(i => i !== instance);
+        }
+
+        div.remove();
+        refreshAll(); // 🔥 penting
+    };
+</script>
 @section('title', 'Peminjaman')
-
-@section('modal_content')
-<form>
-
-  <div class="mb-2">
-    <label class="text-xs text-gray-500">Judul Buku</label>
-    <input type="text" class="w-full border px-3 py-2 text-xs rounded-md">
-  </div>
-
-  <div class="mb-2">
-    <label class="text-xs text-gray-500">Anggota</label>
-    <input type="text" class="w-full border px-3 py-2 text-xs rounded-md">
-  </div>
-
-  <div class="mb-3">
-    <label class="text-xs text-gray-500">Status</label>
-    <select class="w-full border px-3 py-2 text-xs rounded-md">
-      <option>Dipinjam</option>
-      <option>Dikembalikan</option>
-    </select>
-  </div>
-
-  <button class="bg-blue-500 text-white px-3 py-1.5 rounded text-xs">
-    Simpan
-  </button>
-
-</form>
-@endsection

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BukuController;
-use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\KategoriController;
 
 Route::get('/', function () {
@@ -36,6 +36,11 @@ Route::prefix('admin')->group(function () {
         ->name('delete.kategori');
     Route::put('/kategori/{id}', [KategoriController::class, 'update'])
         ->name('update.kategori');
+
+
+    Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman');
+    Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('tambah.peminjaman');
+    Route::post('/peminjaman/return/{id}', [PeminjamanController::class, 'returnBuku'])->name('admin.peminjaman.return');
 
     Route::get('/profil', function () {
         return view('admin.profil');

@@ -15,7 +15,7 @@
     <div class="flex min-h-screen">
 
      <aside id="sidebar"
-    class="fixed top-0 left-0 h-screen w-56 bg-white border-r border-gray-200 flex flex-col z-50
+    class="fixed top-0 left-0 h-screen w-56 bg-white border-r border-gray-200 flex flex-col z-40
     -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
             <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
                 <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
