@@ -52,9 +52,9 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
+                <img src="{{ asset('img/aaaa.jpeg') }}" class="w-full h-40 object-cover">
                 <div class="p-4">
-                    <h2 class="font-bold text-center">Sang Pembangkit Energi</h2>
+                    <h2 class="font-bold text-center">Rahasia dunia yang disembunyikan</h2>
                   
                     <div class="flex items-center justify-center mt-3 mb-2">
 
@@ -63,9 +63,9 @@
                 </div>
             </div>
             <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
+                <img src="{{ asset('img/aaaaa.jpeg') }}" class="w-full h-40 object-cover">
                 <div class="p-4">
-                    <h2 class="font-bold text-center">Sang Pembangkit Energi</h2>
+                    <h2 class="font-bold text-center">Science</h2>
                   
                     <div class="flex items-center justify-center mt-3 mb-2">
 
@@ -74,9 +74,9 @@
                 </div>
             </div>
             <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
+                <img src="{{ asset('img/aaa.jpg') }}" class="w-full h-40 object-cover">
                 <div class="p-4">
-                    <h2 class="font-bold text-center">Sang Pembangkit Energi</h2>
+                    <h2 class="font-bold text-center">Fiksi</h2>
                   
                     <div class="flex items-center justify-center mt-3 mb-2">
 
@@ -84,39 +84,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h2 class="font-bold text-center">Sang Pembangkit Energi</h2>
-                  
-                    <div class="flex items-center justify-center mt-3 mb-2">
-
-                        <a class="text-center bg-blue-400 text-white py-1 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1" href="">Detail</a>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h2 class="font-bold text-center">Sang Pembangkit Energi</h2>
-                  
-                    <div class="flex items-center justify-center mt-3 mb-2">
-
-                        <a class="text-center bg-blue-400 text-white py-1 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1" href="">Detail</a>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
-                <div class="p-4">
-                    <h2 class="font-bold text-center">Sang Pembangkit Energi</h2>
-                  
-                    <div class="flex items-center justify-center mt-3 mb-2">
-
-                        <a class="text-center bg-blue-400 text-white py-1 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1" href="">Detail</a>
-                    </div>
-                </div>
-            </div>
+          
             <div class="bg-white rounded-xl shadow overflow-hidden">
                 <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-40 object-cover">
                 <div class="p-4">

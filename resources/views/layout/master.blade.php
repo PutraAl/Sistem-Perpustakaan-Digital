@@ -87,7 +87,7 @@
         new Chart(document.getElementById('doughnutChart'), {
             type: 'doughnut',
             data: {
-                labels: ['Fiction', 'Science', 'History', 'Technology', 'Children', 'Art & Design'],
+                labels: ['Fiksi', 'Science', 'Sejarah', 'Teknologi', 'Anak-anak', 'Seni'],
                 datasets: [{
                     data: [3820, 2140, 1870, 2230, 1540, 880],
                     backgroundColor: ['#2563eb', '#16a34a', '#d97706', '#ea580c', '#7c3aed', '#db2777'],

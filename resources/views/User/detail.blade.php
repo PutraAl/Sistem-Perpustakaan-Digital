@@ -19,7 +19,7 @@
 
             <h1 class="absolute left-1/2 -translate-x-1/2 
                        text-sm md:text-base font-semibold tracking-wide">
-                Detail Buku
+                Rahasia dunia yang disembunyikan
             </h1>
         </div>
     </header>
@@ -29,30 +29,28 @@
         <div class="grid md:grid-cols-2 gap-10 items-start">
 
             <div class="w-full h-full">
-                <img src="{{ asset('img/logopolibatam.png') }}" class="w-full h-full object-cover rounded-xl">
+                <img src="{{ asset('img/aaaa.jpeg') }}" class="w-full h-full object-cover rounded-xl">
             </div>
 
             <div class="flex flex-col justify-between h-full">
 
                 <div>
                     <h2 class="text-2xl font-semibold leading-tight">
-                        Polibatam Penakluk
+                        Rahasia dunia yang disembunyikan
                     </h2>
 
                     <div class="mt-4 space-y-2 text-sm text-neutral-600">
-                        <p><span class="text-neutral-400">Penulis</span> — Peter P</p>
-                        <p><span class="text-neutral-400">Kategori</span> — Science</p>
+                        <p><span class="text-neutral-400">Penulis</span> — Unknown</p>
+                        <p><span class="text-neutral-400">Kategori</span> — Fiksi</p>
+                        <p><span class="text-neutral-400">Tahun terbit</span> — 2020</p>
+                        <p><span class="text-neutral-400">Penerbit</span> — Erlangga</p>
                     </div>
                     {{-- Garis pembatas --}}
 
                     <div class="border-t border-neutral-200 my-6 w-16"></div>
 
                     <p class="text-sm leading-relaxed text-neutral-600 max-w-md">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quae, molestias ut vero quo
-                        enim. Voluptas provident minus quidem obcaecati perspiciatis quisquam ullam unde officiis.
-                        Quaerat eius et maiores soluta libero maxime ratione voluptate quis! Soluta dolor tenetur
-                        reiciendis. Officia, earum nisi! Commodi facere harum doloribus aspernatur! Earum, atque
-                        possimus.nsequatur alias.
+                       Buku ini adalah semua sejarah dari dunia yang telah disembunyikan, dimana kita semua tidak tau awal mula dunia itu seperti apa. Namun di buku ini diceritkan rahasia-rahasianya, mulai dari awal bumi lahir termasuk nabi adam, rahasia kerajaan eropa, donald trump dan semacamnya. Bagi yang membaca buku ini akan terstimulasi seolah olah ia akan percaya dan kehilangan kepercayaan terhadap sebuah agama. Namun itu semua tergantung seberapa kuat iman orang yang membacanya
                     </p>
                 </div>
 
@@ -62,12 +60,12 @@
                                  ring-1 ring-green-200">
                         Tersedia 
                     </span> 
-                    | 
+                    {{-- | 
                     <span class="text-xs font-medium px-3 py-1.5 
                                  rounded-full bg-red-50 text-red-700 
                                  ring-1 ring-red-200">
                         Sedang Tidak Tersedia 
-                    </span>
+                    </span> --}}
 
 
 

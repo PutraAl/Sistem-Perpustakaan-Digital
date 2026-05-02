@@ -8,7 +8,7 @@
                 <p class="text-sm font-semibold text-gray-800">Data User </p>
             </div>
             <div>
-                <button data-modal-target="modal-buku" data-modal-toggle="modal-buku"
+                <button data-modal-target="modal-user" data-modal-toggle="modal-user"
                     class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition"
                     type="button">
                     Tambah User
@@ -79,52 +79,13 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
                             Tidak Ada NIM
                         </td>
-                        <td class="py-2.5"><span onclick="openModal()"
+                        <td class="py-2.5"><span data-modal-target="detail-user" data-modal-toggle="detail-user"
                                 class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
 
 
                     </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">2</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Peter P</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                            Tidak Ada NIM
-                        </td>
-                        <td class="py-2.5"><span onclick="openModal()"
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">3</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Peter P</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                            Tidak Ada NIM
-                        </td>
-                        <td class="py-2.5"><span onclick="openModal()"
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
-                        </td>
-
-
-                    </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">4</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Peter P</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                            Tidak Ada NIM
-                        </td>
-                        <td class="py-2.5"><span onclick="openModal()"
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
-                        </td>
-
-
-                    </tr>
+                   
 
 
                 </tbody>
@@ -132,5 +93,11 @@
         </div>
     </div>
 
+    <x-modal id="modal-user" title="Tambah User">
+        <x-forms.form-user />
+    </x-modal>
+    <x-modal id="detail-user" title="Detail User">
+        <x-forms.form-user :dummy="1" />
+    </x-modal>
 
 @endsection

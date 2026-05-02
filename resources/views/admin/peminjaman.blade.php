@@ -92,9 +92,9 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 28</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 11</td>
                         <td class="py-2.5"><span
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Borrowed</span>
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Dipinjam</span>
                         </td>
-                        <td class="py-2.5"><span onclick="openModal()"
+                        <td class="py-2.5"><span data-modal-target="detail-pinjam" data-modal-toggle="detail-pinjam"
                                 class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
 
@@ -106,16 +106,10 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 25</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 8</td>
                         <td class="py-2.5"><span
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-50 text-red-700">Overdue</span>
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-50 text-red-700">Terlambat</span>
                         </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">Dune</td>
-                        <td class="py-2.5 pr-4 text-gray-600 text-xs">Budi Santoso</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 30</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 13</td>
-                        <td class="py-2.5"><span
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Borrowed</span>
+                         <td class="py-2.5"><span data-modal-target="detail-pinjam2" data-modal-toggle="detail-pinjam2"
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
                     </tr>
                     <tr>
@@ -124,27 +118,13 @@
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 15</td>
                         <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 29</td>
                         <td class="py-2.5"><span
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-50 text-green-700">Returned</span>
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-50 text-green-700">Dikembalikan</span>
+                        </td>
+                         <td class="py-2.5"><span data-modal-target="detail-pinjam3" data-modal-toggle="detail-pinjam3"
+                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">Sapiens</td>
-                        <td class="py-2.5 pr-4 text-gray-600 text-xs">Reza Firmansyah</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 1</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 15</td>
-                        <td class="py-2.5"><span
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Borrowed</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">The Pragmatic Programmer</td>
-                        <td class="py-2.5 pr-4 text-gray-600 text-xs">Nadia Putri</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 20</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 3</td>
-                        <td class="py-2.5"><span
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-50 text-red-700">Overdue</span>
-                        </td>
-                    </tr>
+
 
                 </tbody>
             </table>
@@ -155,6 +135,21 @@
 
 
 
+<x-modal id="detail-pinjam" title="Detail Peminjaman">
+
+    <x-forms.form-peminjaman :peminjaman="1" />
+
+</x-modal>
+<x-modal id="detail-pinjam2" title="Detail Peminjaman">
+
+    <x-forms.form-peminjaman :peminjaman="2" />
+
+</x-modal>
+<x-modal id="detail-pinjam3" title="Detail Peminjaman">
+
+    <x-forms.form-peminjaman :peminjaman="3" />
+
+</x-modal>
 <x-modal id="crud-modal" title="Tambah Peminjaman">
 
     <x-forms.form-peminjaman :action="route('tambah.peminjaman')" method="POST" :users="$users" :bukus="$bukus" />
@@ -162,8 +157,7 @@
 </x-modal>
 <script>
     const bukusData = @json($bukus);
-</script>
-<script>
+
     let instances = [];
 
     function initSelect(el) {
@@ -171,20 +165,16 @@
             valueField: 'id_buku',
             labelField: 'judul',
             searchField: 'judul',
-            options: bukusData,
+            options: [],          // start empty — refreshAll() will fill it
             openOnFocus: true,
-
+            placeholder: 'Pilih buku...',
             onChange: function () {
-                refreshAll(); // 🔥 penting
+                refreshAll();
             }
         });
 
         instances.push(ts);
-
-        // 🔥 ambil value awal (kalau ada default)
-        if (ts.getValue()) {
-            refreshAll();
-        }
+        refreshAll();             // immediately filter options after adding
     }
 
     function getSelectedValues() {
@@ -204,13 +194,16 @@
             bukusData.forEach(buku => {
                 let id = String(buku.id_buku);
 
+                // Show option if: not selected by anyone, OR it's this instance's own current value
                 if (!selected.includes(id) || id === current) {
-                    ts.addOption({
-                        id_buku: id,
-                        judul: buku.judul
-                    });
+                    ts.addOption({ id_buku: id, judul: buku.judul });
                 }
             });
+
+            // Re-set the current value so it doesn't get wiped after clearOptions
+            if (current) {
+                ts.setValue(current, true); // silent = true, no onChange loop
+            }
 
             ts.refreshOptions(false);
         });
@@ -220,45 +213,45 @@
         let wrapper = document.getElementById('bukuWrapper');
 
         let div = document.createElement('div');
-        div.className = "flex gap-2 mb-2";
+        div.className = "buku-item border border-gray-100 rounded-lg p-3 space-y-2 bg-gray-50 relative";
 
         div.innerHTML = `
-        <select name="buku_id[]" class="bukuSelect flex-1 border px-2 py-2 rounded"></select>
-        <input type="number" name="jumlah[]" value="1" class="w-20 border px-2 py-2 rounded">
-        <button type="button" class="text-red-500">X</button>
+        <button type="button" onclick="removeBuku(this)"
+            class="absolute top-2 right-2 text-gray-300 hover:text-red-400 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Buku</label>
+            <select name="buku_id[]" class="bukuSelect w-full border border-gray-300 rounded-md px-3 py-2 text-xs"></select>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">Jumlah</label>
+                <input type="number" name="jumlah[]" value="1" min="1"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-xs focus:ring-2 focus:ring-blue-400 focus:outline-none">
+            </div>
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">Status Item</label>
+                <select name="status_item[]"
+                    class="w-full border border-gray-300 rounded-md px-3 py-2 text-xs focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                    <option value="dipinjam" selected>Dipinjam</option>
+                    <option value="dikembalikan">Dikembalikan</option>
+                    <option value="rusak">Rusak</option>
+                    <option value="hilang">Hilang</option>
+                </select>
+            </div>
+        </div>
     `;
 
         wrapper.appendChild(div);
-
-        let select = div.querySelector('select');
-        initSelect(select);
-
-        div.querySelector('button').onclick = function () {
-            let instance = instances.find(i => i.input === select);
-            if (instance) {
-                instance.destroy();
-                instances = instances.filter(i => i !== instance);
-            }
-
-            div.remove();
-            refreshAll();
-        };
-
-        refreshAll();
+        initSelect(div.querySelector('.bukuSelect')); // initSelect calls refreshAll internally
     }
 
-    // INIT SAAT MODAL DIBUKA
-    document.addEventListener('DOMContentLoaded', () => {
-
-        instances = []; // reset dulu
-
-        document.querySelectorAll('.bukuSelect').forEach(el => {
-            initSelect(el);
-        });
-
-        refreshAll(); // 🔥 WAJIB
-    });
-    div.querySelector('button').onclick = function () {
+    function removeBuku(btn) {
+        let div = btn.closest('.buku-item');
+        let select = div.querySelector('.bukuSelect');
         let instance = instances.find(i => i.input === select);
 
         if (instance) {
@@ -267,7 +260,12 @@
         }
 
         div.remove();
-        refreshAll(); // 🔥 penting
-    };
+        refreshAll(); // free up the removed book for other rows
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        instances = [];
+        document.querySelectorAll('.bukuSelect').forEach(el => initSelect(el));
+    });
 </script>
 @section('title', 'Peminjaman')

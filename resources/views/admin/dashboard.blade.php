@@ -39,7 +39,6 @@
                         </div>
                         <p class="text-xs text-gray-500 mb-1">Total Buku</p>
                         <p class="text-2xl font-semibold text-gray-800">12,480</p>
-                        <p class="text-xs text-green-600 mt-1">+111 added this month</p>
                     </div>
 
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
@@ -53,7 +52,6 @@
                         </div>
                         <p class="text-xs text-gray-500 mb-1">Total Anggota</p>
                         <p class="text-2xl font-semibold text-gray-800">3,214</p>
-                        <p class="text-xs text-green-600 mt-1">+56 this week</p>
                     </div>
 
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
@@ -66,7 +64,6 @@
                         </div>
                         <p class="text-xs text-gray-500 mb-1">Buku yang dipinjam</p>
                         <p class="text-2xl font-semibold text-gray-800">874</p>
-                        <p class="text-xs text-green-600 mt-1">+38 today</p>
                     </div>
 
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
@@ -79,7 +76,6 @@
                         </div>
                         <p class="text-xs text-gray-500 mb-1">Keterlambatan Pengembalian</p>
                         <p class="text-2xl font-semibold text-gray-800">42</p>
-                        <p class="text-xs text-red-500 mt-1">+7 since yesterday</p>
                     </div>
                 </div>
 
@@ -89,13 +85,13 @@
                     {{-- Bar chart --}}
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
                         <p class="text-sm font-semibold text-gray-800">Peminjaman Buku Bulanan</p>
-                        <p class="text-xs text-gray-400 mb-3">History peminjaman — 2026</p>
+                        <p class="text-xs text-gray-400 mb-3">Riwayat peminjaman — 2026</p>
                         <div class="flex flex-wrap gap-3 mb-3">
                             <span class="flex items-center gap-1.5 text-xs text-gray-500">
-                                <span class="w-2.5 h-2.5 rounded-sm bg-blue-600 inline-block"></span>Current month
+                                <span class="w-2.5 h-2.5 rounded-sm bg-blue-600 inline-block"></span>Bulan ini
                             </span>
                             <span class="flex items-center gap-1.5 text-xs text-gray-500">
-                                <span class="w-2.5 h-2.5 rounded-sm bg-blue-300 inline-block"></span>Previous months
+                                <span class="w-2.5 h-2.5 rounded-sm bg-blue-300 inline-block"></span>Bulan sebelumnya
                             </span>
                         </div>
                         <div class="relative w-full h-52">
@@ -107,12 +103,12 @@
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
                         <p class="text-sm font-semibold text-gray-800">Berdasarkan Genre</p>
                         <div class="flex flex-wrap gap-x-3 gap-y-1.5 mb-3">
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#2563eb"></span>Fiction 30%</span>
+                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#2563eb"></span>Fiksi 30%</span>
                             <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#16a34a"></span>Science 17%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#d97706"></span>History 15%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#ea580c"></span>Technology 18%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#7c3aed"></span>Children 12%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#db2777"></span>Art 7%</span>
+                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#d97706"></span>Sejarah 15%</span>
+                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#ea580c"></span>Teknologi 18%</span>
+                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#7c3aed"></span>Anak-anak 12%</span>
+                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#db2777"></span>Seni 7%</span>
                         </div>
                         <div class="relative w-full h-52">
                             <canvas id="doughnutChart"></canvas>
