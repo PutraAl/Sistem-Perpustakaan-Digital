@@ -26,8 +26,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold text-gray-800 leading-tight">Peter</p>
-                    <p class="text-xs text-gray-400">Admin panel</p>
+                    <p class="text-sm font-semibold text-gray-800 leading-tight">Hi, Putra</p>
                 </div>
             </div>
 
@@ -144,11 +143,11 @@
             <div class="px-3 py-3 border-t {{ request()->routeIs('admin.profil') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900' }} flex items-center gap-2.5 ">
                 <div
                     class="w-8 h-8 rounded-full  flex items-center justify-center bg-blue-600 text-white  text-xs font-semibold flex-shrink-0">
-                    AD
+                    P
                 </div>
                 <div>
-                    <p class="text-sm font-semibold   leading-tight">Admin User</p>
-                    <p class="text-xs  font-medium">Super admin</p>
+                    <p class="text-sm font-semibold   leading-tight">Putra</p>
+                    <p class="text-xs  font-medium">Admin</p>
                 </div>
             </div>
             </a>

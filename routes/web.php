@@ -40,7 +40,7 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman');
     Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('tambah.peminjaman');
-    Route::post('/peminjaman/return/{id}', [PeminjamanController::class, 'returnBuku'])->name('admin.peminjaman.return');
+    // Route::post('/peminjaman/return/{id}', [PeminjamanController::class, 'returnBuku'])->name('admin.peminjaman.return');
 
     Route::get('/profil', function () {
         return view('admin.profil');
@@ -67,6 +67,7 @@ Route::get('/profil', function () {
 Route::get('/detail', function () {
     return view('user.detail');
 })->name('user.detail');
+
 
 
 

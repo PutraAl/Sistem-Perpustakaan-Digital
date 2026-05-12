@@ -34,7 +34,7 @@
                         Nama Lengkap
                     </label>
                     <input type="text" name="name"
-                        value=""
+                        value="Peter"
                         class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 
                                text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black">
 
@@ -47,7 +47,7 @@
                         NIM
                     </label>
                     <input type="number" name="name"
-                        value=""
+                        value="3312511127"
                         class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 
                                text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black">
 
@@ -61,7 +61,7 @@
                         Email
                     </label>
                     <input type="email" name="email"
-                        value=""
+                        value="palamsyah120@gmail.com"
                         class="w-full px-4 py-2.5 rounded-lg border border-neutral-300 
                                text-sm focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black">
 

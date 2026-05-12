@@ -4,16 +4,16 @@
         1 => [
             'id_peminjaman' => 1,
             'user_id' => 1,
-            'anggota' => 'Arief Nugroho',
-            'tanggal_pinjam' => '2025-03-28',
-            'tanggal_jatuh_tempo' => '2025-04-11',
+            'anggota' => 'Peter',
+            'tanggal_pinjam' => '2026-05-20',
+            'tanggal_jatuh_tempo' => '2026-05-25',
             'tanggal_kembali' => null,
             'denda' => 0,
             'status' => 'dipinjam',
             'detail' => [
                 [
                     'id_buku' => 1,
-                    'judul' => 'The Great Gatsby',
+                    'judul' => 'Rahasia Dunia Yang Disembunyikan',
                     'jumlah' => 1,
                     'status_item' => 'dipinjam',
                     'denda_item' => 0,
@@ -78,7 +78,7 @@
 
     // ── DUMMY USERS & BUKU for Add mode dropdowns ─────────────────────────────
     $dummyUsers = $users ?? [
-        ['id' => 1, 'name' => 'Arief Nugroho'],
+        ['id' => 1, 'name' => 'Peter'],
         ['id' => 2, 'name' => 'Siti Rahayu'],
         ['id' => 3, 'name' => 'Budi Santoso'],
         ['id' => 4, 'name' => 'Dewi Kusuma'],

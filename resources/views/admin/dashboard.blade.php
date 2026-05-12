@@ -1,32 +1,34 @@
 @extends('layout.master')
 @section('content')
- <div class="flex-1 min-w-0 pt-14 lg:pt-0">
-            <div class="p-4 lg:p-6">
+    <div class="flex-1 min-w-0 pt-14 lg:pt-0">
+        <div class="p-4 lg:p-6">
 
-                {{-- Topbar --}}
-                <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-                    <div>
-                        <h1 class="text-lg font-semibold text-gray-800">Dashboard</h1>
-                        <p class="text-sm text-gray-500">Hi, Peter — selamat datang di website Sistem Perpustakaan Digital</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs text-gray-500 bg-white border border-gray-200 rounded-lg px-3 py-1.5">
-                            {{ now()->format('F j, Y') }}
-                        </span>
-                        {{-- <div class="relative">
-                            <button class="p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.8"
-                                    stroke-linecap="round" viewBox="0 0 24 24">
-                                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                                    <path d="M13.73 21a2 2 0 01-3.46 0" />
-                                </svg>
-                            </button>
-                            <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-                        </div> --}}
-                    </div>
+            {{-- Topbar --}}
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                <div>
+                    <h1 class="text-lg font-semibold text-gray-800">Dashboard</h1>
+                    <p class="text-sm text-gray-500">Hi, Peter — selamat datang di website Sistem Perpustakaan Digital</p>
                 </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-gray-500 bg-white border border-gray-200 rounded-lg px-3 py-1.5">
+                        {{ now()->format('F j, Y') }}
+                    </span>
+                    {{-- <div class="relative">
+                        <button class="p-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="round" viewBox="0 0 24 24">
+                                <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 01-3.46 0" />
+                            </svg>
+                        </button>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                    </div> --}}
+                </div>
+            </div>
 
-                {{-- Metric cards --}}
+            {{-- Metric cards --}}
+            <a href="{{ route('admin.buku') }}">
+
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
 
                     <div class="bg-white rounded-xl border border-gray-200 p-4">
@@ -40,85 +42,99 @@
                         <p class="text-xs text-gray-500 mb-1">Total Buku</p>
                         <p class="text-2xl font-semibold text-gray-800">12,480</p>
                     </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 p-4">
-                        <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" stroke-width="1.8"
-                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" />
-                            </svg>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-1">Total Anggota</p>
-                        <p class="text-2xl font-semibold text-gray-800">3,214</p>
+            </a>
+            <a href="{{ route('admin.user') }}">
+                <div class="bg-white rounded-xl border border-gray-200 p-4">
+                    <div class="w-8 h-8 bg-green-50 rounded-lg flex items-center justify-center mb-3">
+                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                            <path d="M16 3.13a4 4 0 010 7.75" />
+                        </svg>
                     </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 p-4">
-                        <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="1.8"
-                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                <polyline points="9 11 12 14 22 4" />
-                                <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                            </svg>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-1">Buku yang dipinjam</p>
-                        <p class="text-2xl font-semibold text-gray-800">874</p>
-                    </div>
-
-                    <div class="bg-white rounded-xl border border-gray-200 p-4">
-                        <div class="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center mb-3">
-                            <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="1.8"
-                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-                                <line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
-                            </svg>
-                        </div>
-                        <p class="text-xs text-gray-500 mb-1">Keterlambatan Pengembalian</p>
-                        <p class="text-2xl font-semibold text-gray-800">42</p>
-                    </div>
+                    <p class="text-xs text-gray-500 mb-1">Total Anggota</p>
+                    <p class="text-2xl font-semibold text-gray-800">3,214</p>
                 </div>
-
-                {{-- Charts row --}}
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
-
-                    {{-- Bar chart --}}
-                    <div class="bg-white rounded-xl border border-gray-200 p-4">
-                        <p class="text-sm font-semibold text-gray-800">Peminjaman Buku Bulanan</p>
-                        <p class="text-xs text-gray-400 mb-3">Riwayat peminjaman — 2026</p>
-                        <div class="flex flex-wrap gap-3 mb-3">
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500">
-                                <span class="w-2.5 h-2.5 rounded-sm bg-blue-600 inline-block"></span>Bulan ini
-                            </span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500">
-                                <span class="w-2.5 h-2.5 rounded-sm bg-blue-300 inline-block"></span>Bulan sebelumnya
-                            </span>
-                        </div>
-                        <div class="relative w-full h-52">
-                            <canvas id="barChart"></canvas>
-                        </div>
-                    </div>
-
-                    {{-- Doughnut chart --}}
-                    <div class="bg-white rounded-xl border border-gray-200 p-4">
-                        <p class="text-sm font-semibold text-gray-800">Berdasarkan Genre</p>
-                        <div class="flex flex-wrap gap-x-3 gap-y-1.5 mb-3">
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#2563eb"></span>Fiksi 30%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#16a34a"></span>Science 17%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#d97706"></span>Sejarah 15%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#ea580c"></span>Teknologi 18%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#7c3aed"></span>Anak-anak 12%</span>
-                            <span class="flex items-center gap-1.5 text-xs text-gray-500"><span class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#db2777"></span>Seni 7%</span>
-                        </div>
-                        <div class="relative w-full h-52">
-                            <canvas id="doughnutChart"></canvas>
-                        </div>
-                    </div>
+            </a>
+        <a href="{{ route('admin.peminjaman') }}">
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center mb-3">
+                    <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="9 11 12 14 22 4" />
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                    </svg>
                 </div>
-
-                {{-- Recent borrowing table --}}
-            
-
+                <p class="text-xs text-gray-500 mb-1">Buku yang dipinjam</p>
+                <p class="text-2xl font-semibold text-gray-800">874</p>
+            </div>
+            </a>
+            <a href="{{ route('admin.peminjaman') }}">
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <div class="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center mb-3">
+                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                        <line x1="12" y1="9" x2="12" y2="13" />
+                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                </div>
+                <p class="text-xs text-gray-500 mb-1">Keterlambatan Pengembalian</p>
+                <p class="text-2xl font-semibold text-gray-800">42</p>
             </div>
         </div>
-        @endsection
+            </a>
+
+        {{-- Charts row --}}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+
+            {{-- Bar chart --}}
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <p class="text-sm font-semibold text-gray-800">Peminjaman Buku Bulanan</p>
+                <p class="text-xs text-gray-400 mb-3">Riwayat peminjaman — 2026</p>
+                <div class="flex flex-wrap gap-3 mb-3">
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-blue-600 inline-block"></span>Bulan ini
+                    </span>
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500">
+                        <span class="w-2.5 h-2.5 rounded-sm bg-blue-300 inline-block"></span>Bulan sebelumnya
+                    </span>
+                </div>
+                <div class="relative w-full h-52">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            {{-- Doughnut chart --}}
+            <div class="bg-white rounded-xl border border-gray-200 p-4">
+                <p class="text-sm font-semibold text-gray-800">Berdasarkan Genre</p>
+                <div class="flex flex-wrap gap-x-3 gap-y-1.5 mb-3">
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500"><span
+                            class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#2563eb"></span>Fiksi 30%</span>
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500"><span
+                            class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#16a34a"></span>Science 17%</span>
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500"><span
+                            class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#d97706"></span>Sejarah 15%</span>
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500"><span
+                            class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#ea580c"></span>Teknologi
+                        18%</span>
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500"><span
+                            class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#7c3aed"></span>Anak-anak
+                        12%</span>
+                    <span class="flex items-center gap-1.5 text-xs text-gray-500"><span
+                            class="w-2.5 h-2.5 rounded-sm inline-block" style="background:#db2777"></span>Seni 7%</span>
+                </div>
+                <div class="relative w-full h-52">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        {{-- Recent borrowing table --}}
+
+
+    </div>
+    </div>
+@endsection

@@ -83,6 +83,7 @@
                     <option value="Novel" {{ ($buku->kategori ?? '') == 'Novel' ? 'selected' : '' }}>Novel</option>
                     <option value="Komik" {{ ($buku->kategori ?? '') == 'Komik' ? 'selected' : '' }}>Komik</option>
                     <option value="Edukasi" {{ ($buku->kategori ?? '') == 'Edukasi' ? 'selected' : '' }}>Edukasi</option>
+                    <option value="Edukasi" {{ ($buku->kategori ?? '') == 'Fiksi' ? 'selected' : '' }} >Fiksi</option>
                 </select>
             </div>
 

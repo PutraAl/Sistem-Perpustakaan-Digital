@@ -87,10 +87,10 @@
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">The Great Gatsby</td>
-                        <td class="py-2.5 pr-4 text-gray-600 text-xs">Arief Nugroho</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Mar 28</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">Apr 11</td>
+                        <td class="py-2.5 pr-4 text-gray-800 text-xs">Rahasia Dunia Yang Disenyumbinyikan</td>
+                        <td class="py-2.5 pr-4 text-gray-600 text-xs">Peter</td>
+                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">20 Mei 2026</td>
+                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">25 Mei 2026</td>
                         <td class="py-2.5"><span
                                 class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700">Dipinjam</span>
                         </td>
