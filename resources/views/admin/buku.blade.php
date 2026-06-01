@@ -56,22 +56,23 @@
             </div>
 
         </form>
-
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            @foreach ($buku as $data )
             <div class="bg-white rounded-xl shadow overflow-hidden">
                 <img src="{{ asset('img/aaaa.jpeg') }}" class="w-full h-40 object-cover">
                 <div class="p-4">
-                    <h2 class="font-bold text-center">Rahasia Dunia yang Disembunyikan</h2>
+                    <h2 class="font-bold text-center">{{ $data->judul }}</h2>
 
                     <div class="flex items-center justify-center mt-3 mb-2">
 
-                        <button data-modal-target="edit-buku-1" data-modal-toggle="edit-buku-1"
+                        <button data-modal-target="edit-buku-1" data-modal-toggle="edit-buku-{{ $data->id_buku }}"
                             class="text-center bg-blue-400 text-white py-1 px-4 rounded-md hover:text-blue-400 hover:bg-white hover:border-1 active:border-blue-400">
                             Details
                         </button>
                     </div>
                 </div>
             </div>
+            @endforeach
 
 
             <div class="bg-white rounded-xl shadow overflow-hidden">
@@ -119,10 +120,10 @@
     <x-modal id="modal-buku" title="Tambah Buku">
         <x-forms.form-buku />
     </x-modal>
-
-    <x-modal id="edit-buku-1" title="Edit Buku">
-       <x-forms.form-buku :dummy="1" />
-    </x-modal>
+{{-- 
+    <x-modal id="edit-buku-{{ $data->id_buku }}" title="Edit Buku">
+       <x-forms.form-buku :id="{{ $data->id_buku }}" />
+    </x-modal> --}}
 
 
 @endsection

@@ -2,12 +2,12 @@
     'action' => '#',
     'method' => 'POST',
     'buku' => null,
-    'dummy' => null
+    'id' => null
 ])
 
 @php
-    if ($dummy && !$buku) {
-        $buku = (object)[
+    if ($id && !$buku) {
+        $id = (object)[
             'id' => 1,
             'nama_buku' => 'Rahasia Dunia Yang Disembunyikan',
             'penulis' => 'Unknown',

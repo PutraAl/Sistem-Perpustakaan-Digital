@@ -2,19 +2,9 @@
     'action' => '#',
     'method' => 'POST',
     'user' => null,
-    'dummy' =>null
+    // 'dummy' =>null
 ])
-@php
-    if ($dummy && !$user) {
-        $user = (object) [
-            'nama' => 'Putra Parker',
-            'nim' => '3312511127',
-            'email' => 'palamsyah120@gmail.com',
-            'password' => '12345',
-            'role' => 'admin',
-        ];
-    }
-@endphp
+
 <form action="{{ $action }}" method="POST">
     @csrf
 
@@ -45,8 +35,15 @@
         <div class="col-span-2">
             <label class="block mb-2 text-sm font-medium">Password</label>
             <input type="password" name="password"
-                value="{{ old('password', $user->password ?? '') }}"
+                value="{{ old('password') }}"
                 class="w-full px-3 py-2.5 border rounded-base">
+        </div>
+        <div class="col-span-2">
+            <label class="block mb-2 text-sm font-medium">Alamat</label>
+            <textarea name="address" id="" class="w-full border rounded-base">
+                {{ old('address', $user->address ?? '') }}
+            </textarea>
+               
         </div>
        <div class="col-span-2">
     <label class="block mb-2 text-sm font-medium">Role</label>
@@ -61,13 +58,14 @@
         </option>
     </select>
 </div>
-
-        
-
-        
-
-       
+ 
     </div>
+
+    @if($user)
+    <input type="hidden" name="id" value="{{ $user->id }}">
+    @endif
+
+
 
     <div class="flex gap-3 border-t pt-4">
         <button type="submit" class="bg-brand text-white px-4 py-2 rounded-base">
@@ -75,6 +73,19 @@
         </button>
        
     </div>
+    
+
+</form>
+
+   @if($user)
+<form action="{{ route('hapus.user') }}" method="POST">
+    @csrf
+    <input type="hidden" value="{{ $user->id }}" name="id">
+   <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-base cursor-pointer">
+        Hapus
+    </button>
+</form>
+@endif
     {{-- @if($dummy) {
          <div class="flex gap-3 border-t pt-4">
         <button type="submit" class="bg-brand text-white px-4 py-2 rounded-base">
@@ -83,4 +94,3 @@
        
     </div>
     } --}}
-</form>

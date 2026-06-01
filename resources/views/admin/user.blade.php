@@ -2,6 +2,7 @@
 
 @section('title', 'User')
 @section('content')
+
     <div class="flex-1 min-w-0 pt-14 lg:pt-8 bg-white rounded-xl border border-gray-200 p-4">
         <div class="flex items-center justify-between mb-4 ">
             <div>
@@ -71,21 +72,27 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
-                    <tr>
-                        <td class="py-2.5 pr-4 text-gray-800 text-xs">1</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Peter P</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Palamsyah111@gmail.com</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs ">Admin</td>
-                        <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
-                            Tidak Ada NIM
-                        </td>
-                        <td class="py-2.5"><span data-modal-target="detail-user" data-modal-toggle="detail-user"
-                                class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
-                        </td>
+                    @foreach ($user as $data)
+
+                        <tr>
+                            <td class="py-2.5 pr-4 text-gray-800 text-xs">{{ $loop->iteration }}</td>
+                            <td class="py-2.5 pr-4 text-gray-500 text-xs ">{{ $data->nama }}</td>
+                            <td class="py-2.5 pr-4 text-gray-500 text-xs ">{{ $data->email }}</td>
+                            <td class="py-2.5 pr-4 text-gray-500 text-xs ">{{ $data->role }}</td>
+                            <td class="py-2.5 pr-4 text-gray-500 text-xs hidden sm:table-cell">
+                                {{ $data->nim != '' ? $data->nim : 'Tidak Ada NIM'  }}
+                            </td>
+                            <td class="py-2.5"><span data-modal-target="detail-user-{{ $data->nim }}" data-modal-toggle="detail-user-{{ $data->nim }}"
+                                    class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-400 text-white hover:cursor-pointer">Details</span>
+                            </td>
 
 
-                    </tr>
-                   
+                        </tr>
+                        <x-modal id="detail-user-{{ $data->nim }}" title="Detail User">
+                            <x-forms.form-user  :action="route('edit.user')" :user="$data" />
+                        </x-modal>
+                    @endforeach
+
 
 
                 </tbody>
@@ -94,10 +101,11 @@
     </div>
 
     <x-modal id="modal-user" title="Tambah User">
-        <x-forms.form-user />
+        <x-forms.form-user :action="route('tambah.user')" />
     </x-modal>
-    <x-modal id="detail-user" title="Detail User">
+
+    {{-- <x-modal id="detail-user" title="Detail User">
         <x-forms.form-user :dummy="1" />
-    </x-modal>
+    </x-modal> --}}
 
 @endsection

@@ -12,14 +12,12 @@ return new class extends Migration
             $table->id(); 
 
             $table->string('nim')->nullable(); 
-            $table->string('name');
+            $table->string('nama');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->text('address')->nullable(); 
-
             $table->enum('role', ['admin', 'anggota'])->default('anggota');
-
             $table->rememberToken();
             $table->timestamps();
         });
