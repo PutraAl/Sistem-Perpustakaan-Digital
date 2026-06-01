@@ -137,7 +137,7 @@
           <div class="w-2 h-14 rounded-full bg-sky-400 shrink-0"></div>
           <div>
             <p class="text-gray-800 font-medium text-sm">Pemrograman Web Modern</p>
-            <p class="text-gray-400 text-xs mt-1">Teknik Informatika · 2024</p>
+            <p class="text-gray-400 text-xs mt-1">Sandhika Galih · 2024</p>
           </div>
           <span
             class="ms-auto text-xs bg-sky-50 text-sky-600 border border-sky-200 px-2 py-1 rounded-md font-medium">Tersedia</span>
@@ -146,7 +146,7 @@
           <div class="w-2 h-14 rounded-full bg-white shrink-0"></div>
           <div>
             <p class="text-white font-medium text-sm">Sistem Basis Data Lanjut</p>
-            <p class="text-sky-200 text-xs mt-1">Manajemen Informatika · 2023</p>
+            <p class="text-sky-200 text-xs mt-1">James Winn · 2023</p>
           </div>
           <span
             class="ms-auto text-xs bg-white/20 text-white border border-white/30 px-2 py-1 rounded-md font-medium">Tersedia</span>
@@ -156,7 +156,7 @@
           <div class="w-2 h-14 rounded-full bg-gray-400 shrink-0"></div>
           <div>
             <p class="text-gray-800 font-medium text-sm">Jaringan Komputer & Keamanan</p>
-            <p class="text-gray-400 text-xs mt-1">Teknik Elektro · 2024</p>
+            <p class="text-gray-400 text-xs mt-1">Dea Afrizal · 2024</p>
           </div>
           <span
             class="ms-auto text-xs bg-gray-100 text-gray-600 border border-gray-200 px-2 py-1 rounded-md font-medium">Dipinjam</span>
@@ -166,7 +166,7 @@
           <div class="w-2 h-14 rounded-full bg-sky-300 shrink-0"></div>
           <div>
             <p class="text-gray-800 font-medium text-sm">Kalkulus & Matematika Diskrit</p>
-            <p class="text-gray-400 text-xs mt-1">Matematika · 2023</p>
+            <p class="text-gray-400 text-xs mt-1">Web Programming Unpas · 2023</p>
           </div>
           <span
             class="ms-auto text-xs bg-sky-50 text-sky-600 border border-sky-200 px-2 py-1 rounded-md font-medium">Tersedia</span>

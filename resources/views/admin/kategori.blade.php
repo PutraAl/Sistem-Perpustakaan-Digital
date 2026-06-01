@@ -73,7 +73,7 @@
                         </tr>
 
                         <x-modal id="modal-kategori-{{ $row->id_kategori }}" title="Edit Kategori">
-                            <x-forms.form-kategori method="PUT" :action="route('update.kategori', $row->id_kategori)"
+                            <x-forms.form-kategori  :action="route('update.kategori')"
                                 :kategori="$row" />
                         </x-modal>
 

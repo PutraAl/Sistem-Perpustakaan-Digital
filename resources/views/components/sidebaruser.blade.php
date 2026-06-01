@@ -74,7 +74,7 @@
 
 
 
-                <a href="#"
+                <a href="{{ route('landing') }}" onclick="return confirm('Apakah anda yakin ingin keluar?')"
                     class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
                         stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">

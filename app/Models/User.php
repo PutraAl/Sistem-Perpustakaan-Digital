@@ -17,12 +17,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nim',
-        'name',
+        'nama',
         'email',
         'password',
         'address',
         'role',
     ];
+    // protected $table = 'users';
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -55,9 +57,7 @@ class User extends Authenticatable
         return $this->hasMany(Peminjaman::class, 'user_id');
     }
 
-    // =========================
-    // HELPER ROLE (optional 🔥)
-    // =========================
+
     public function isAdmin()
     {
         return $this->role === 'admin';
