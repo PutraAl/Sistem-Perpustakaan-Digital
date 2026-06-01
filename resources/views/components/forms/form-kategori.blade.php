@@ -21,12 +21,16 @@
         </div>
 
     </div>
+    @if($kategori) 
+    <input type="hidden" name="id_kategori" value="{{ $kategori->id_kategori }}">
+    @endif
 
     <div class="flex gap-3 border-t pt-4">
         <button type="submit" class="bg-brand text-white px-4 py-2 rounded-base">
             {{ $kategori ? 'Update' : 'Tambah' }}
         </button>
 </form>
+
 
      @if($kategori)
 <form action="{{ route('delete.kategori') }}" method="POST">

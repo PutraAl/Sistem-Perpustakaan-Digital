@@ -38,7 +38,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/kategori', [KategoriController::class, 'create'])->name('tambah.kategori');
     Route::post('/kategori/hapus', [KategoriController::class, 'destroy'])
         ->name('delete.kategori');
-    Route::put('/kategori/{id}', [KategoriController::class, 'update'])
+    Route::post('/kategori/update', [KategoriController::class, 'update'])
         ->name('update.kategori');
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman');
     Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('tambah.peminjaman');
