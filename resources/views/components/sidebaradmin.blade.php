@@ -15,140 +15,262 @@
     <div class="flex min-h-screen">
 
      <aside id="sidebar"
-    class="fixed top-0 left-0 h-screen w-56 bg-white border-r border-gray-200 flex flex-col z-40
-    -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
-            <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-100">
-                <div class="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-                    </svg>
-                </div>
-                <div>
-                    <p class="text-sm font-semibold text-gray-800 leading-tight">Hi, Putra</p>
-                </div>
-            </div>
+    <aside id="sidebar"
+    class="fixed top-0 left-0 h-screen w-72
+    bg-gradient-to-b from-white via-slate-50 to-slate-100
+    border-r border-slate-200 flex flex-col z-40
+    -translate-x-full lg:translate-x-0
+    transition-transform duration-300 ease-in-out">
 
-            <nav class="flex-1 overflow-y-auto px-2 py-3 space-y-0.5">
+<!-- SIDEBAR -->
 
-                <p class="px-2 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">Main</p>
+<aside id="sidebar"
+class="fixed top-0 left-0 h-screen w-72
+bg-gradient-to-b from-white via-slate-50 to-slate-100
+border-r border-slate-200
+flex flex-col
+z-40
+-translate-x-full lg:translate-x-0
+transition-all duration-300 ease-in-out">
 
-                <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-   {{ request()->routeIs('admin.dashboard') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="7" height="7" />
-                        <rect x="14" y="3" width="7" height="7" />
-                        <rect x="14" y="14" width="7" height="7" />
-                        <rect x="3" y="14" width="7" height="7" />
-                    </svg>
-                    Dashboard
-                </a>
+```
+<!-- LOGO -->
+<div class="px-5 py-5 border-b border-slate-200">
 
-                <a href="{{ route('admin.peminjaman') }}"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors
-   {{ request()->routeIs('admin.peminjaman') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-                    </svg>
-                    Peminjaman
-                </a>
+    <div class="flex items-center gap-3">
 
-                <a href="{{ route('admin.user') }}"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('admin.user') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }} transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                        <circle cx="9" cy="7" r="4" />
-                        <path d="M23 21v-2a4 4 0 00-3-3.87" />
-                        <path d="M16 3.13a4 4 0 010 7.75" />
-                    </svg>
-                    User
-                </a>
+        <div
+            class="w-12 h-12 rounded-2xl
+            bg-gradient-to-br from-blue-600 to-cyan-500
+            flex items-center justify-center
+            shadow-lg shadow-blue-200">
 
-                {{-- <a href="#"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <polyline points="9 11 12 14 22 4" />
-                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-                    </svg>
-                    Borrowing
-                </a> --}}
+            <svg class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24">
 
-                <p class="px-2 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">Buku</p>
+                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
 
-                <a href="{{ route('admin.buku') }}"
-    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('admin.buku') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}  transition-colors">
-    
-    <!-- ICON BUKU -->
-    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-    </svg>
+            </svg>
 
-    Buku
-</a>
+        </div>
 
-                <a href="{{ route('admin.kategori') }}"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium {{ request()->routeIs('admin.kategori') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' }}  transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <line x1="8" y1="6" x2="21" y2="6" />
-                        <line x1="8" y1="12" x2="21" y2="12" />
-                        <line x1="8" y1="18" x2="21" y2="18" />
-                        <line x1="3" y1="6" x2="3.01" y2="6" />
-                        <line x1="3" y1="12" x2="3.01" y2="12" />
-                        <line x1="3" y1="18" x2="3.01" y2="18" />
-                    </svg>
-                    Kategori
-                </a>
+        <div>
 
-                {{-- <a href="#"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-                        <line x1="12" y1="9" x2="12" y2="13" />
-                        <line x1="12" y1="17" x2="12.01" y2="17" />
-                    </svg>
-                    Overdue alerts
-                    <span
-                        class="ml-auto bg-red-100 text-red-700 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">42</span>
-                </a> --}}
+            <h2 class="font-bold text-slate-800 text-lg">
+                LibraryHub
+            </h2>
 
-                <p class="px-2 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-gray-400">System</p>
+            <p class="text-xs text-slate-500">
+                Digital Library System
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- STATUS CARD -->
+<div class="px-4 pt-4">
+
+    <div
+        class="rounded-2xl
+        bg-white
+        border border-slate-200
+        p-4
+        shadow-sm">
+
+        <p class="text-xs text-slate-500">
+            System Status
+        </p>
+
+        <h3 class="text-lg font-bold text-slate-800 mt-1">
+            Online
+        </h3>
+
+        <div class="flex items-center gap-2 mt-2">
+
+            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+
+            <span class="text-xs text-slate-500">
+                Running Normally
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MENU -->
+<nav class="flex-1 overflow-y-auto px-3 py-4">
+
+    <p class="px-3 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+        Overview
+    </p>
+
+    <!-- Dashboard -->
+    <a href="{{ route('admin.dashboard') }}"
+    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+    {{ request()->routeIs('admin.dashboard')
+        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+
+        Dashboard
+    </a>
+
+    <!-- Peminjaman -->
+    <a href="{{ route('admin.peminjaman') }}"
+    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+    {{ request()->routeIs('admin.peminjaman')
+        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+
+        Circulation
+    </a>
+
+    <!-- User -->
+    <a href="{{ route('admin.user') }}"
+    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+    {{ request()->routeIs('admin.user')
+        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+
+        Members
+    </a>
+
+    <p class="px-3 mt-5 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+        Library
+    </p>
+
+    <!-- Buku -->
+    <a href="{{ route('admin.buku') }}"
+    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+    {{ request()->routeIs('admin.buku')
+        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+
+        Collection
+    </a>
+
+    <!-- Kategori -->
+    <a href="{{ route('admin.kategori') }}"
+    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+    {{ request()->routeIs('admin.kategori')
+        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+
+        Categories
+    </a>
+
+    <p class="px-3 mt-5 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+        Account
+    </p>
+
+    <!-- Logout -->
+    <a href="#"
+    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium
+    text-red-500 hover:bg-red-50 transition-all duration-300">
+
+        Logout
+
+    </a>
+
+</nav>
+
+<!-- PROFILE -->
+<div class="p-4 border-t border-slate-200 bg-white">
+
+    <a href="{{ route('admin.profil') }}"
+    class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition">
+
+        <div
+            class="w-11 h-11 rounded-2xl
+            bg-gradient-to-br from-blue-600 to-cyan-500
+            flex items-center justify-center
+            text-white font-bold
+            shadow-lg shadow-blue-200">
+
+            P
+
+        </div>
+
+        <div class="flex-1">
+
+            <p class="text-sm font-semibold text-slate-800">
+                Putra
+            </p>
+
+            <p class="text-xs text-slate-500">
+                Library Administrator
+            </p>
+
+        </div>
+
+        <svg class="w-4 h-4 text-slate-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24">
+
+            <path d="M9 18l6-6-6-6"/>
+
+        </svg>
+
+    </a>
+
+</div>
+```
 
 
 
-                <a href="#"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
-                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-                        <polyline points="16 17 21 12 16 7" />
-                        <line x1="21" y1="12" x2="9" y2="12" />
-                    </svg>
-                    Logout
-                </a>
-            </nav>
 
-            <a href="{{ route('admin.profil') }}">
+        <svg class="w-4 h-4 text-slate-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24">
 
-            <div class="px-3 py-3 border-t {{ request()->routeIs('admin.profil') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900' }} flex items-center gap-2.5 ">
-                <div
-                    class="w-8 h-8 rounded-full  flex items-center justify-center bg-blue-600 text-white  text-xs font-semibold flex-shrink-0">
-                    P
-                </div>
-                <div>
-                    <p class="text-sm font-semibold   leading-tight">Putra</p>
-                    <p class="text-xs  font-medium">Admin</p>
-                </div>
-            </div>
-            </a>
+            <path d="M9 18l6-6-6-6"/>
+
+        </svg>
+
+    </a>
+
+</div>
         </aside>
+
+        <div class="p-4 border-t border-slate-200 bg-white">
+
+    <a href="{{ route('admin.profil') }}"
+        class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition">
+
+        <div
+            class="w-10 h-10 rounded-full
+            bg-gradient-to-br from-blue-600 to-cyan-500
+            flex items-center justify-center
+            text-white font-semibold">
+
+            P
+
+        </div>
+
+        <div class="flex-1">
+
+            <p class="text-sm font-semibold text-slate-800">
+                Putra
+            </p>
+
+            <p class="text-xs text-slate-500">
+                Library Administrator
+            </p>
+
+        </div>
+
+    </a>
+
+</div>

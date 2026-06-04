@@ -20,20 +20,36 @@
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-3">
 
-                <div class="md:col-span-4">
-                    <div
-                        class="flex items-center bg-gray-50 border border-gray-300 rounded-md px-2 py-1.5 md:px-3 md:py-2 focus-within:ring-1 md:focus-within:ring-2 focus-within:ring-blue-400">
+               <div class="md:col-span-4">
+    <div
+        class="relative overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 
-                        <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400 mr-2" fill="none" stroke="currentColor"
-                            stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="8" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
+        <div
+            class="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-blue-500 to-cyan-400">
+        </div>
 
-                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari..."
-                            class="w-full bg-transparent text-xs md:text-sm focus:outline-none">
-                    </div>
-                </div>
+        <svg
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24">
+
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+
+        </svg>
+
+        <input
+            type="text"
+            name="search"
+            value="{{ request('search') }}"
+            placeholder="Cari judul buku atau nama anggota..."
+            class="w-full pl-11 pr-4 py-3 bg-transparent text-sm
+                   focus:outline-none focus:ring-2 focus:ring-blue-400">
+    </div>
+</div>
+
                 <!-- 🔘 Button -->
                 <div class="md:col-span-2">
                     <button type="submit"

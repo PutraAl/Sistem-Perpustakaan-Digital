@@ -63,4 +63,6 @@ class DetailPeminjamanController extends Controller
     {
         //
     }
+
+    
 }
