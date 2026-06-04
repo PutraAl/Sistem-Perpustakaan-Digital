@@ -40,7 +40,7 @@
                             </svg>
                         </div>
                         <p class="text-xs text-gray-500 mb-1">Total Buku</p>
-                        <p class="text-2xl font-semibold text-gray-800">12,480</p>
+                        <p class="text-2xl font-semibold text-gray-800">{{ $buku->count() }}</p>
                     </div>
             </a>
             <a href="{{ route('admin.user') }}">
@@ -55,7 +55,7 @@
                         </svg>
                     </div>
                     <p class="text-xs text-gray-500 mb-1">Total Anggota</p>
-                    <p class="text-2xl font-semibold text-gray-800">3,214</p>
+                    <p class="text-2xl font-semibold text-gray-800">{{ $user->count() }}</p>
                 </div>
             </a>
         <a href="{{ route('admin.peminjaman') }}">

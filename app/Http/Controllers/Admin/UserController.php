@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\Buku;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,6 +13,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function dashboard() {
+        $user = User::all()->where('role', 'anggota');
+        $buku = Buku::all();
+        return view('admin.dashboard', compact('user', 'buku'));
+    }
     public function index()
     {
         $user = User::all();

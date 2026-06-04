@@ -15,7 +15,7 @@ class Buku extends Model
     protected $table = 'tb_buku';
     protected $primaryKey = 'id_buku';
 
-   protected $fillable = [
+    protected $fillable = [
         'kategori_id',
         'judul',
         'foto',
@@ -27,7 +27,7 @@ class Buku extends Model
     ];
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class);
+        return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 
     public function detailPeminjaman()

@@ -10,13 +10,13 @@
 
 <body class="bg-gray-100 font-sans">
 
-    <div class="">
+     <div class="">
 
-        {{-- SIDEBAR --}}
+        {{-- Sidebar --}}
         @include('components.sidebaruser')
 
-        {{-- CONTENT --}}
-         <main class="flex-1 ml-0  w-full max-w-full p-4">
+        {{-- Main Content --}}
+        <main class="flex-1 ml-0 lg:ml-56 w-full max-w-full p-4">
             @yield('content')
         </main>
 
