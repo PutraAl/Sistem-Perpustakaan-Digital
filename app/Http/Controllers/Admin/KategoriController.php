@@ -60,22 +60,35 @@ class KategoriController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKategoriRequest $request, Kategori $kategori)
+    public function update(Request $request)
     {
-        //
+        $kategori = Kategori::find($request->id_kategori);
+
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255',
+        ]);
+
+        $data = [
+            'nama_kategori' => $request->nama_kategori
+        ];
+
+        $kategori->update($data);
+        
+        return redirect()->route('admin.kategori')
+            ->with('success', 'Kategori berhasil diedit');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-  public function destroy(Request $request)
-{
-    $id= $request->id_kategori;
-    $kategori = Kategori::findOrFail($id);
+    public function destroy(Request $request)
+    {
+        $id = $request->id_kategori;
+        $kategori = Kategori::findOrFail($id);
 
-    $kategori->delete();
+        $kategori->delete();
 
-    return redirect()->route('admin.kategori')
-        ->with('success', 'Kategori berhasil dihapus');
-}
+        return redirect()->route('admin.kategori')
+            ->with('success', 'Kategori berhasil dihapus');
+    }
 }

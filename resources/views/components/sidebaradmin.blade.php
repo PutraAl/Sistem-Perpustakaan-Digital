@@ -40,6 +40,25 @@
 
             <div class="flex items-center gap-3">
 
+<<<<<<< HEAD
+=======
+
+                <a href="{{ route('landing') }}" onclick="return confirm('Apakah anda yakin ingin keluar?')"
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Logout
+                </a>
+            </nav>
+
+            <a href="{{ route('admin.profil') }}">
+
+            <div class="px-3 py-3 border-t {{ request()->routeIs('admin.profil') ? 'bg-blue-500 text-white' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-900' }} flex items-center gap-2.5 ">
+>>>>>>> 5fb8c51e1eef68950ebd3106c1b9dec4715a858c
                 <div
                     class="w-12 h-12 rounded-2xl
                     bg-gradient-to-br from-blue-600 to-cyan-500

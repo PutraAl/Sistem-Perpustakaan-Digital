@@ -6,22 +6,24 @@ use App\Models\Buku;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 
-class BukuController extends Controller
+class BukuControllers extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index_admin()
+    public function index()
     {
-        return view('admin.buku');
+        $buku = Buku::all();
+        return view('user.buku', compact('buku'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function detail($id)
     {
-        //
+        $data = Buku::findorFail($id);
+        return view ('user.detail', compact('data'));
     }
 
     /**
