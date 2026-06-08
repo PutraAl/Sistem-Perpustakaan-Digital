@@ -1,276 +1,223 @@
-  {{-- Mobile overlay --}}
-    <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden" onclick="toggleSidebar()">
-    </div>
+{{-- Mobile overlay --}}
+<div id="sidebar-overlay"
+    class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"
+    onclick="toggleSidebar()">
+</div>
 
-    <button onclick="toggleSidebar()"
-        class="fixed top-3 left-3 z-50 lg:hidden bg-white border border-gray-200 rounded-lg p-2 shadow-sm">
-        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            viewBox="0 0 24 24">
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-    </button>
+{{-- Mobile button --}}
+<button onclick="toggleSidebar()"
+    class="fixed top-3 left-3 z-50 lg:hidden bg-white border border-gray-200 rounded-lg p-2 shadow-sm">
 
-    <div class="flex min-h-screen">
+    <svg class="w-5 h-5 text-gray-600"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        viewBox="0 0 24 24">
 
-     <aside id="sidebar"
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+
+    </svg>
+
+</button>
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
     <aside id="sidebar"
-    class="fixed top-0 left-0 h-screen w-72
-    bg-gradient-to-b from-white via-slate-50 to-slate-100
-    border-r border-slate-200 flex flex-col z-40
-    -translate-x-full lg:translate-x-0
-    transition-transform duration-300 ease-in-out">
+        class="fixed top-0 left-0 h-screen w-72
+        bg-gradient-to-b from-white via-slate-50 to-slate-100
+        border-r border-slate-200
+        flex flex-col
+        z-40
+        -translate-x-full lg:translate-x-0
+        transition-all duration-300 ease-in-out">
 
-<!-- SIDEBAR -->
+        <!-- LOGO -->
+        <div class="px-5 py-5 border-b border-slate-200">
 
-<aside id="sidebar"
-class="fixed top-0 left-0 h-screen w-72
-bg-gradient-to-b from-white via-slate-50 to-slate-100
-border-r border-slate-200
-flex flex-col
-z-40
--translate-x-full lg:translate-x-0
-transition-all duration-300 ease-in-out">
+            <div class="flex items-center gap-3">
 
-```
-<!-- LOGO -->
-<div class="px-5 py-5 border-b border-slate-200">
+                <div
+                    class="w-12 h-12 rounded-2xl
+                    bg-gradient-to-br from-blue-600 to-cyan-500
+                    flex items-center justify-center
+                    shadow-lg shadow-blue-200">
 
-    <div class="flex items-center gap-3">
+                    <svg class="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        viewBox="0 0 24 24">
 
-        <div
-            class="w-12 h-12 rounded-2xl
-            bg-gradient-to-br from-blue-600 to-cyan-500
-            flex items-center justify-center
-            shadow-lg shadow-blue-200">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
 
-            <svg class="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24">
+                    </svg>
 
-                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                </div>
 
-            </svg>
+                <div>
+
+                    <h2 class="font-bold text-slate-800 text-lg">
+                        LibraryHub
+                    </h2>
+
+                    <p class="text-xs text-slate-500">
+                        Digital Library System
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <div>
+        <!-- STATUS CARD -->
+        <div class="px-4 pt-4">
 
-            <h2 class="font-bold text-slate-800 text-lg">
-                LibraryHub
-            </h2>
+            <div
+                class="rounded-2xl
+                bg-white
+                border border-slate-200
+                p-4
+                shadow-sm">
 
-            <p class="text-xs text-slate-500">
-                Digital Library System
+                <p class="text-xs text-slate-500">
+                    System Status
+                </p>
+
+                <h3 class="text-lg font-bold text-slate-800 mt-1">
+                    Online
+                </h3>
+
+                <div class="flex items-center gap-2 mt-2">
+
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+
+                    <span class="text-xs text-slate-500">
+                        Running Normally
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MENU -->
+        <nav class="flex-1 overflow-y-auto px-3 py-4">
+
+            <p class="px-3 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+                Overview
             </p>
 
-        </div>
+            <a href="{{ route('admin.dashboard') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+                {{ request()->routeIs('admin.dashboard')
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+                    : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+                Dashboard
+            </a>
 
-    </div>
+            <a href="{{ route('admin.peminjaman') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+                {{ request()->routeIs('admin.peminjaman')
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+                    : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+                Circulation
+            </a>
 
-</div>
+            <a href="{{ route('admin.user') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+                {{ request()->routeIs('admin.user')
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+                    : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+                Members
+            </a>
 
-<!-- STATUS CARD -->
-<div class="px-4 pt-4">
-
-    <div
-        class="rounded-2xl
-        bg-white
-        border border-slate-200
-        p-4
-        shadow-sm">
-
-        <p class="text-xs text-slate-500">
-            System Status
-        </p>
-
-        <h3 class="text-lg font-bold text-slate-800 mt-1">
-            Online
-        </h3>
-
-        <div class="flex items-center gap-2 mt-2">
-
-            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-
-            <span class="text-xs text-slate-500">
-                Running Normally
-            </span>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- MENU -->
-<nav class="flex-1 overflow-y-auto px-3 py-4">
-
-    <p class="px-3 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
-        Overview
-    </p>
-
-    <!-- Dashboard -->
-    <a href="{{ route('admin.dashboard') }}"
-    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
-    {{ request()->routeIs('admin.dashboard')
-        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
-        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
-
-        Dashboard
-    </a>
-
-    <!-- Peminjaman -->
-    <a href="{{ route('admin.peminjaman') }}"
-    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
-    {{ request()->routeIs('admin.peminjaman')
-        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
-        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
-
-        Circulation
-    </a>
-
-    <!-- User -->
-    <a href="{{ route('admin.user') }}"
-    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
-    {{ request()->routeIs('admin.user')
-        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
-        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
-
-        Members
-    </a>
-
-    <p class="px-3 mt-5 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
-        Library
-    </p>
-
-    <!-- Buku -->
-    <a href="{{ route('admin.buku') }}"
-    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
-    {{ request()->routeIs('admin.buku')
-        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
-        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
-
-        Collection
-    </a>
-
-    <!-- Kategori -->
-    <a href="{{ route('admin.kategori') }}"
-    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
-    {{ request()->routeIs('admin.kategori')
-        ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
-        : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
-
-        Categories
-    </a>
-
-    <p class="px-3 mt-5 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
-        Account
-    </p>
-
-    <!-- Logout -->
-    <a href="#"
-    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium
-    text-red-500 hover:bg-red-50 transition-all duration-300">
-
-        Logout
-
-    </a>
-
-</nav>
-
-<!-- PROFILE -->
-<div class="p-4 border-t border-slate-200 bg-white">
-
-    <a href="{{ route('admin.profil') }}"
-    class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition">
-
-        <div
-            class="w-11 h-11 rounded-2xl
-            bg-gradient-to-br from-blue-600 to-cyan-500
-            flex items-center justify-center
-            text-white font-bold
-            shadow-lg shadow-blue-200">
-
-            P
-
-        </div>
-
-        <div class="flex-1">
-
-            <p class="text-sm font-semibold text-slate-800">
-                Putra
+            <p class="px-3 mt-5 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+                Library
             </p>
 
-            <p class="text-xs text-slate-500">
-                Library Administrator
+            <a href="{{ route('admin.buku') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+                {{ request()->routeIs('admin.buku')
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+                    : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+                Collection
+            </a>
+
+            <a href="{{ route('admin.kategori') }}"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium mb-1 transition-all duration-300
+                {{ request()->routeIs('admin.kategori')
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-200'
+                    : 'text-slate-600 hover:bg-blue-50 hover:text-blue-700 hover:translate-x-1' }}">
+                Categories
+            </a>
+
+            <p class="px-3 mt-5 mb-2 text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+                Account
             </p>
 
-        </div>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium
+                text-red-500 hover:bg-red-50 transition-all duration-300">
+                Logout
+            </a>
 
-        <svg class="w-4 h-4 text-slate-400"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24">
+        </nav>
 
-            <path d="M9 18l6-6-6-6"/>
-
-        </svg>
-
-    </a>
-
-</div>
-```
-
-
-
-
-        <svg class="w-4 h-4 text-slate-400"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24">
-
-            <path d="M9 18l6-6-6-6"/>
-
-        </svg>
-
-    </a>
-
-</div>
-        </aside>
-
+        <!-- PROFILE -->
         <div class="p-4 border-t border-slate-200 bg-white">
 
-    <a href="{{ route('admin.profil') }}"
-        class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition">
+            <a href="{{ route('admin.profil') }}"
+                class="flex items-center gap-3 p-3 rounded-2xl hover:bg-slate-50 transition">
 
-        <div
-            class="w-10 h-10 rounded-full
-            bg-gradient-to-br from-blue-600 to-cyan-500
-            flex items-center justify-center
-            text-white font-semibold">
+                <div
+                    class="w-11 h-11 rounded-2xl
+                    bg-gradient-to-br from-blue-600 to-cyan-500
+                    flex items-center justify-center
+                    text-white font-bold
+                    shadow-lg shadow-blue-200">
 
-            P
+                    P
+
+                </div>
+
+                <div class="flex-1">
+
+                    <p class="text-sm font-semibold text-slate-800">
+                        Putra
+                    </p>
+
+                    <p class="text-xs text-slate-500">
+                        Library Administrator
+                    </p>
+
+                </div>
+
+                <svg class="w-4 h-4 text-slate-400"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24">
+
+                    <path d="M9 18l6-6-6-6" />
+
+                </svg>
+
+            </a>
 
         </div>
 
-        <div class="flex-1">
+    </aside>
 
-            <p class="text-sm font-semibold text-slate-800">
-                Putra
-            </p>
-
-            <p class="text-xs text-slate-500">
-                Library Administrator
-            </p>
-
-        </div>
-
-    </a>
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 lg:ml-72">
+        @yield('content')
+    </main>
 
 </div>
