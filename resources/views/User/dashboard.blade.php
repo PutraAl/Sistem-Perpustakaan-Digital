@@ -1,54 +1,145 @@
 @extends('layout.app')
 
 @section('content')
-<div class="p-6">
 
-    {{-- TITLE --}}
-    <h1 class="text-2xl font-bold text-gray-800 mb-2">Dashboard Anggota</h1>
-    <p class="text-gray-500 mb-6">Selamat datang, Admin 👋</p>
+<div class="space-y-6">
 
-    {{-- CARD MENU --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+```
+<!-- Hero -->
+<div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-lg">
+    <h1 class="text-3xl font-bold">
+        Halo, {{ auth()->user()->name }} 👋
+    </h1>
 
-        {{-- CARD BUKU --}}
-        <a href="/buku"
-            class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition border border-gray-100 flex items-center gap-4">
+    <p class="mt-2 text-blue-100">
+        Selamat datang di Sistem Perpustakaan Digital.
+        Temukan buku favoritmu dan kelola peminjaman dengan mudah.
+    </p>
 
-            {{-- ICON --}}
-            <div class="bg-blue-100 text-blue-600 p-3 rounded-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
-                </svg>
-            </div>
+    <a href="/buku"
+        class="inline-block mt-5 bg-white text-blue-600 px-5 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
+        Cari Buku
+    </a>
+</div>
 
-            <div>
-                <h2 class="font-semibold text-gray-800">Daftar Buku</h2>
-                <p class="text-sm text-gray-500">Lihat dan cari buku yang tersedia</p>
-            </div>
-        </a>
+<!-- Statistik -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        {{-- CARD RIWAYAT --}}
-        <a href="{{ route('user.riwayat') }}"
-            class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition border border-gray-100 flex items-center gap-4">
-
-            {{-- ICON --}}
-            <div class="bg-green-100 text-green-600 p-3 rounded-lg">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <path d="M12 8v4l3 3"/>
-                    <circle cx="12" cy="12" r="10"/>
-                </svg>
-            </div>
-
-            <div>
-                <h2 class="font-semibold text-gray-800">Riwayat Peminjaman</h2>
-                <p class="text-sm text-gray-500">Lihat buku yang pernah dipinjam</p>
-            </div>
-        </a>
-
+    <div class="bg-white rounded-2xl shadow-sm p-6 border">
+        <div class="text-4xl">📚</div>
+        <h3 class="text-gray-500 mt-3">Total Buku</h3>
+        <p class="text-3xl font-bold text-blue-600">
+            {{ $totalBuku ?? 0 }}
+        </p>
     </div>
+
+    <div class="bg-white rounded-2xl shadow-sm p-6 border">
+        <div class="text-4xl">📖</div>
+        <h3 class="text-gray-500 mt-3">Sedang Dipinjam</h3>
+        <p class="text-3xl font-bold text-yellow-500">
+            {{ $dipinjam ?? 0 }}
+        </p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm p-6 border">
+        <div class="text-4xl">📝</div>
+        <h3 class="text-gray-500 mt-3">Riwayat Peminjaman</h3>
+        <p class="text-3xl font-bold text-green-600">
+            {{ $riwayat ?? 0 }}
+        </p>
+    </div>
+
+</div>
+
+<!-- Menu -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <a href="/buku"
+        class="bg-white rounded-2xl shadow-sm border p-6 hover:shadow-lg hover:-translate-y-1 transition">
+
+        <div class="flex items-center gap-4">
+            <div class="bg-blue-100 p-4 rounded-xl text-3xl">
+                📚
+            </div>
+
+            <div>
+                <h2 class="font-semibold text-lg">
+                    Daftar Buku
+                </h2>
+
+                <p class="text-gray-500 text-sm">
+                    Cari dan lihat buku yang tersedia
+                </p>
+            </div>
+        </div>
+
+    </a>
+
+    <a href="{{ route('user.riwayat') }}"
+        class="bg-white rounded-2xl shadow-sm border p-6 hover:shadow-lg hover:-translate-y-1 transition">
+
+        <div class="flex items-center gap-4">
+            <div class="bg-green-100 p-4 rounded-xl text-3xl">
+                📖
+            </div>
+
+            <div>
+                <h2 class="font-semibold text-lg">
+                    Riwayat Peminjaman
+                </h2>
+
+                <p class="text-gray-500 text-sm">
+                    Lihat semua riwayat peminjaman
+                </p>
+            </div>
+        </div>
+
+    </a>
+
+</div>
+
+<!-- Informasi -->
+<div class="bg-white rounded-2xl shadow-sm border">
+
+    <div class="border-b px-6 py-4">
+        <h2 class="font-semibold text-lg text-gray-800">
+            Informasi Perpustakaan
+        </h2>
+    </div>
+
+    <div class="p-6">
+        <div class="grid md:grid-cols-2 gap-4">
+
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="font-semibold mb-3">
+                    📚 Aturan Peminjaman
+                </h3>
+
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li>• Maksimal 3 buku dipinjam</li>
+                    <li>• Masa pinjam 7 hari</li>
+                    <li>• Dapat diperpanjang sebelum jatuh tempo</li>
+                    <li>• Keterlambatan dikenakan denda</li>
+                </ul>
+            </div>
+
+            <div class="bg-gray-50 rounded-xl p-4">
+                <h3 class="font-semibold mb-3">
+                    ⏰ Jam Operasional
+                </h3>
+
+                <ul class="space-y-2 text-gray-600 text-sm">
+                    <li>Senin - Jumat : 08.00 - 17.00</li>
+                    <li>Sabtu : 08.00 - 12.00</li>
+                    <li>Minggu : Tutup</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+```
 
 </div>
 @endsection

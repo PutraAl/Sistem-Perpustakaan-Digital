@@ -25,7 +25,7 @@
                     </div> --}}
                 </div>
             </div>
-
+                                                                    
             {{-- Metric cards --}}
             <a href="{{ route('admin.buku') }}">
 
@@ -137,4 +137,4 @@
 
     </div>
     </div>
-@endsection
+@endsection 
