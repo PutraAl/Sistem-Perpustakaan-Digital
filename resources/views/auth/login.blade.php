@@ -38,6 +38,7 @@
       padding: 24px;
     }
 
+    /* ── Card ── */
     .card {
       background: #FFFFFF !important;
       border-radius: 20px;
@@ -64,6 +65,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── Header ── */
     .card-header { text-align: center; margin-bottom: 28px; }
 
     .logo-mark {
@@ -92,6 +94,70 @@
 
     .subtitle { font-size: 13px; color: var(--text-muted); }
 
+    /* ── Alert ── */
+    .alert-error,
+    .alert-success {
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13.5px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .alert-error {
+      background: #FEE8E8;
+      color: #C0392B;
+      border: 1px solid #F5C6C6;
+    }
+
+    .alert-success {
+      background: #E6F9F0;
+      color: #0D6E42;
+      border: 1px solid #A8E6C8;
+      animation: slideUp 0.35s cubic-bezier(.22,1,.36,1) both,
+                 fadeOut 0.45s ease 3.8s forwards;
+    }
+
+    .alert-success .alert-icon,
+    .alert-error  .alert-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .alert-success .alert-icon svg { stroke: #0D6E42; }
+    .alert-error  .alert-icon svg  { stroke: #C0392B; }
+
+    .alert-icon svg {
+      width: 17px; height: 17px;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Tombol dismiss (×) */
+    .alert-dismiss {
+      margin-left: auto;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 4px;
+      line-height: 1;
+      font-size: 16px;
+      color: inherit;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+    .alert-dismiss:hover { opacity: 1; }
+
+    @keyframes fadeOut {
+      to { opacity: 0; max-height: 0; padding: 0; margin: 0; border: none; overflow: hidden; }
+    }
+
+    /* ── Form ── */
     .form-group { margin-bottom: 14px; }
 
     label {
@@ -141,6 +207,7 @@
 
     .input-wrapper:focus-within .input-icon { color: var(--blue-primary); }
 
+    /* Eye toggle */
     .eye-toggle {
       position: absolute; right: 14px; top: 50%;
       transform: translateY(-50%);
@@ -155,6 +222,7 @@
       stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
     }
 
+    /* ── Forgot link ── */
     .row-options {
       display: flex; align-items: center;
       justify-content: space-between;
@@ -196,18 +264,7 @@
     }
     .forgot-link:hover { text-decoration: underline; }
 
-    /* Alert error dari Laravel */
-    .alert-error {
-      background: #FEE8E8;
-      color: #C0392B;
-      border: 1px solid #F5C6C6;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-size: 13.5px;
-      margin-bottom: 16px;
-      text-align: center;
-    }
-
+    /* ── Button ── */
     .btn-login {
       width: 100%; padding: 13.5px;
       background: linear-gradient(135deg, #3B6EF8 0%, #5585FF 100%);
@@ -226,6 +283,7 @@
 
     .btn-login:active { transform: translateY(0); }
 
+    /* ── Divider & register ── */
     .divider {
       display: flex; align-items: center;
       gap: 12px; margin: 24px 0;
@@ -254,17 +312,47 @@
       <p class="subtitle">Masuk ke akun Anda untuk melanjutkan</p>
     </div>
 
-    {{-- Tampilkan error validasi dari Laravel --}}
-    @if ($errors->any())
-      <div class="alert-error">
-        {{ $errors->first() }}
+    {{-- ── Notifikasi berhasil login ── --}}
+    @if (session('success'))
+      <div class="alert-success" id="alertSuccess">
+        <span class="alert-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </span>
+        {{ session('success') }}
+        <button class="alert-dismiss" onclick="dismissAlert('alertSuccess')" type="button" aria-label="Tutup">&#x2715;</button>
       </div>
     @endif
 
-    {{-- Tampilkan pesan session error  --}}
+    {{-- ── Error validasi ── --}}
+    @if ($errors->any())
+      <div class="alert-error" id="alertError">
+        <span class="alert-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </span>
+        {{ $errors->first() }}
+        <button class="alert-dismiss" onclick="dismissAlert('alertError')" type="button" aria-label="Tutup">&#x2715;</button>
+      </div>
+    @endif
+
+    {{-- ── Error session ── --}}
     @if (session('error'))
-      <div class="alert-error">
+      <div class="alert-error" id="alertSessionError">
+        <span class="alert-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </span>
         {{ session('error') }}
+        <button class="alert-dismiss" onclick="dismissAlert('alertSessionError')" type="button" aria-label="Tutup">&#x2715;</button>
       </div>
     @endif
 
@@ -308,22 +396,13 @@
         </div>
       </div>
 
-      <div class="row-options">
-        <label class="checkbox-label">
-          <input type="checkbox" name="remember" id="rememberMe" {{ old('remember') ? 'checked' : '' }}/>
-          Ingat saya
-        </label>
-        @if (Route::has('password.request'))
-          <a href="{{ route('password.request') }}" class="forgot-link">Lupa password?</a>
-        @endif
-      </div>
-
       <button type="submit" class="btn-login">Login</button>
     </form>
 
   </div>
 
   <script>
+    // Toggle show/hide password
     function togglePassword() {
       const input = document.getElementById('password');
       const icon  = document.getElementById('eyeIcon');
@@ -336,6 +415,27 @@
         : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
            <circle cx="12" cy="12" r="3"/>`;
     }
+
+    // Dismiss alert manual
+    function dismissAlert(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.transition = 'opacity 0.3s ease, max-height 0.4s ease, padding 0.3s ease, margin 0.3s ease';
+      el.style.opacity    = '0';
+      el.style.maxHeight  = '0';
+      el.style.padding    = '0';
+      el.style.margin     = '0';
+      el.style.border     = 'none';
+      el.style.overflow   = 'hidden';
+    }
+
+    // Auto-dismiss notifikasi sukses setelah 4 detik
+    window.addEventListener('DOMContentLoaded', function () {
+      const el = document.getElementById('alertSuccess');
+      if (el) {
+        setTimeout(function () { dismissAlert('alertSuccess'); }, 4000);
+      }
+    });
   </script>
 
 </body>

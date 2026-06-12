@@ -32,9 +32,8 @@
       <h2 style="font-size:13.5px;font-weight:600;color:#111827;margin:0;">Informasi Akun</h2>
     </div>
 
-    <form action="" method="POST">
-      @csrf
-      @method('PUT')
+   <form action="{{ route('user.profil.update') }}" method="POST">
+    @csrf
 
       <div style="padding:24px;display:flex;flex-direction:column;gap:18px;">
 
@@ -43,7 +42,7 @@
           <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">
             Nama Lengkap
           </label>
-          <input type="text" name="name" value="{{ auth()->user()->name ?? 'Peter' }}"
+          <input type="text" name="name" value="{{ auth()->user()->name }}"
             style="
               width:100%;padding:10px 14px;
               border:1px solid #E5E7EB;border-radius:9px;

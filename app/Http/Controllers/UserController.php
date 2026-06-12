@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-       return view('admin.user');
+        return view('admin.user');
     }
 
     /**
@@ -31,6 +31,31 @@ class UserController extends Controller
     {
         //
     }
+
+    /**
+     * Update profil user yang sedang login.
+     */
+   public function updateProfil(Request $request)
+{
+    $request->validate([
+        'name' => 'required|max:255',
+        'email' => 'required|email',
+    ]);
+
+    $user = auth()->user();
+
+    $user->name = $request->name;
+    $user->nim = $request->nim;
+    $user->email = $request->email;
+
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
+
+    return back()->with('success', 'Profil berhasil diperbarui');
+}
 
     /**
      * Update the specified resource in storage.
