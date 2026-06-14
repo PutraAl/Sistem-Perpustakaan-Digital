@@ -4,11 +4,10 @@
 
 <div class="space-y-6">
 
-```
-<!-- Hero -->
+
 <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-lg">
     <h1 class="text-3xl font-bold">
-        Halo, {{ auth()->user()->name }} 👋
+        Halo, Peter 👋
     </h1>
 
     <p class="mt-2 text-blue-100">
@@ -139,7 +138,7 @@
     </div>
 
 </div>
-```
+
 
 </div>
 @endsection

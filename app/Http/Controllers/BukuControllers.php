@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Kategori;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 
@@ -11,11 +12,16 @@ class BukuControllers extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $buku = Buku::all();
-        return view('user.buku', compact('buku'));
-    }
+public function index()
+{
+    $buku = Buku::all();
+    $kategori = Kategori::all();
+
+    return view(
+        'user.buku',
+        compact('buku', 'kategori')
+    );
+}
 
     /**
      * Show the form for creating a new resource.

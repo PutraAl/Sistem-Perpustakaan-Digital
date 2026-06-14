@@ -37,44 +37,34 @@
         -translate-x-full lg:translate-x-0
         transition-all duration-300">
 
-        {{-- HEADER --}}
 <div class="px-5 py-4 border-b border-slate-700">
-            <div class="flex items-center gap-4">
 
-                <div
-                    class="w-9 h-9 rounded-xl
-                    bg-blue-600
-                    flex items-center justify-center
-                    shadow-lg">
+    <a href="{{ route('admin.dashboard') }}"
+        class="flex items-center gap-3 group">
 
-                    <svg class="w-5 h-5 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        viewBox="0 0 24 24">
+        <div class="bg-white rounded-xl p-1.5 shadow-md">
 
-                        <path d="M22 10L12 5 2 10l10 5 10-5z"/>
-                        <path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/>
-
-                    </svg>
-
-                </div>
-
-                <div>
-
-                    <h2 class="text-lg font-bold">
-                        LibraryHub
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        Digital Library System
-                    </p>
-
-                </div>
-
-            </div>
+            <img src="{{ asset('img/logopolibatam.png') }}"
+                alt="Logo Polibatam"
+                class="h-8 w-auto">
 
         </div>
+
+        <div>
+
+            <h2 class="text-lg font-bold text-white tracking-wide">
+                SiPerDig
+            </h2>
+
+            <p class="text-[11px] text-slate-400">
+                Digital Library Management
+            </p>
+
+        </div>
+
+    </a>
+
+</div>
 
         {{-- WELCOME CARD --}}
         <div class="p-2">
@@ -214,8 +204,10 @@ shadow-lg shadow-blue-500/20"
     <span>Kategori</span>
 
 </a>
+</nav>
 
-            {{-- QUICK ACCESS --}}
+
+            <!-- {{-- QUICK ACCESS --}}
             <div class="mt-4">
 
                 <p class="text-[11px]
@@ -255,7 +247,7 @@ shadow-lg shadow-blue-500/20"
 
             </div>
 
-        </nav>
+        </nav> -->
 
         {{-- PROFILE --}}
         <div class="border-t border-slate-700 p-3">
