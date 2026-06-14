@@ -11,36 +11,42 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Dashboard Admin
      */
-    public function dashboard() {
-        $user = User::all()->where('role', 'anggota');
+    public function dashboard()
+    {
+        $user = User::where('role', 'anggota')->get();
         $buku = Buku::all();
+
         return view('admin.dashboard', compact('user', 'buku'));
     }
+
+    /**
+     * Daftar User
+     */
     public function index()
     {
         $user = User::all();
+
         return view('admin.user', compact('user'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Tambah User
      */
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
             'nim' => 'required|max:255',
             'email' => 'required|email',
             'password' => 'required|max:55',
             'role' => 'required',
             'address' => 'required|max:255'
         ]);
-        // dd($request->all());
 
         User::create([
-            'nama' => $request->nama,
+            'name' => $request->nama,
             'nim' => $request->nim,
             'address' => $request->address,
             'email' => $request->email,
@@ -48,15 +54,13 @@ class UserController extends Controller
             'role' => $request->role,
         ]);
 
-
-
         return redirect()
             ->route('admin.user')
             ->with('success', 'User berhasil ditambahkan');
     }
 
     /**
-     * Display the specified resource.
+     * Detail User
      */
     public function show(string $id)
     {
@@ -64,13 +68,14 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update User (Admin)
      */
     public function update(Request $request, User $user)
     {
         $user = User::find($request->id);
+
         $request->validate([
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
             'nim' => 'required|max:255',
             'email' => 'required|email',
             'role' => 'required',
@@ -78,16 +83,16 @@ class UserController extends Controller
         ]);
 
         $data = [
-            'nama' => $request->nama,
+            'name' => $request->name,
             'nim' => $request->nim,
             'email' => $request->email,
             'role' => $request->role,
+            'address' => $request->address,
         ];
 
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
-
 
         $user->update($data);
 
@@ -96,17 +101,44 @@ class UserController extends Controller
             ->with('success', 'User berhasil diupdate');
     }
 
+    /**
+     * Update Profil User Login
+     */
+    public function updateProfil(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+        ]);
+
+        $user = auth()->user();
+
+        $user->name = $request->name;
+        $user->nim = $request->nim;
+        $user->address = $request->address;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profil berhasil diperbarui');
+    }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus User
      */
     public function destroy(Request $request)
     {
         $id = $request->id;
+
         $user = User::findOrFail($id);
         $user->delete();
+
         return redirect()
             ->route('admin.user')
-            ->with('success', 'User berhasil diupdate');
+            ->with('success', 'User berhasil dihapus');
     }
 }

@@ -206,8 +206,125 @@
   ABOUT
   ============================== --}}
   <section id="about" class="py-20 px-4 max-w-screen-xl mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <div>
+@foreach ($buku as $data)
+
+<div class="group">
+
+    <div class="
+        bg-white
+        rounded-3xl
+        overflow-hidden
+        border border-slate-200
+        hover:border-cyan-400
+        hover:shadow-xl
+        transition-all duration-300
+        hover:-translate-y-1">
+
+        {{-- Cover --}}
+        <div class="relative overflow-hidden">
+
+            <img
+                src="{{ asset('img/aaaa.jpeg') }}"
+                class="w-full h-72 object-cover
+                group-hover:scale-105
+                transition duration-500">
+
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent">
+            </div>
+
+            {{-- Status --}}
+            <div class="absolute top-3 right-3">
+
+                <span class="
+                    px-3 py-1
+                    rounded-full
+                    text-xs font-semibold
+                    bg-green-500 text-white">
+
+                    Tersedia
+
+                </span>
+
+            </div>
+
+        </div>
+
+        {{-- Info --}}
+        <div class="p-4">
+
+            <div class="mb-2">
+
+                <span class="
+                    inline-flex
+                    px-3 py-1
+                    rounded-full
+                    bg-cyan-50
+                    text-cyan-600
+                    text-xs
+                    font-semibold">
+
+                    {{ $data->kategori->nama_kategori ?? 'Kategori' }}
+
+                </span>
+
+            </div>
+
+            <h2 class="
+                font-bold
+                text-slate-800
+                text-sm
+                leading-5
+                h-10
+                overflow-hidden">
+
+                {{ $data->judul }}
+
+            </h2>
+
+            <p class="text-xs text-slate-500 mt-2">
+                Penulis : {{ $data->penulis ?? '-' }}
+            </p>
+
+            <p class="text-xs text-slate-500">
+                ISBN : {{ $data->isbn ?? '-' }}
+            </p>
+
+            <div class="flex items-center justify-between mt-4">
+
+                <div class="text-xs text-slate-400">
+                    ID #{{ $data->id_buku }}
+                </div>
+
+                <button
+                    data-modal-target="edit-buku-{{ $data->id_buku }}"
+                    data-modal-toggle="edit-buku-{{ $data->id_buku }}"
+                    class="
+                    px-4 py-2
+                    rounded-xl
+                    bg-gradient-to-r
+                    from-blue-500
+                    to-cyan-500
+                    text-white
+                    text-xs
+                    font-semibold
+                    hover:shadow-lg">
+
+                    Detail
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@endforeach
+
+
+<div>
         <span class="inline-block text-xs font-semibold tracking-widest uppercase text-sky-500 mb-4">Tentang Kami</span>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-6">Apa itu SiPerDig?</h2>
         <p class="text-gray-500 leading-relaxed mb-4 font-light">

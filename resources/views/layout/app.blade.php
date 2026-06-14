@@ -16,7 +16,7 @@
         @include('components.sidebaruser')
 
         {{-- Main Content --}}
-        <main class="flex-1 ml-0 lg:ml-56 w-full max-w-full p-4">
+       <main class="ml-56 p-4">
             @yield('content')
         </main>
 

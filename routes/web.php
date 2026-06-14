@@ -74,6 +74,9 @@ Route::get('/profil', function () {
 Route::get('/detail/{id_buku}',[BukuControllers::class, 'detail']
 )->name('user.detail');
 
+Route::post('/profil/update', [UserController::class, 'updateProfil'])
+    ->name('user.profil.update');
+
 
 
 
