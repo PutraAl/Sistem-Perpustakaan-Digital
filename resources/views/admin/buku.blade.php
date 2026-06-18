@@ -338,4 +338,4 @@
     </x-modal> --}}
 
 
-@endsection 
+@endsection

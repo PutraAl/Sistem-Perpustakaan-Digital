@@ -9,6 +9,7 @@ use App\Http\Controllers\BukuControllers;
 use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('index');

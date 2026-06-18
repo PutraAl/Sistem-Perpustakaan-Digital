@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use App\Models\Buku;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\Models\Buku;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -37,26 +38,26 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'nim' => 'required|max:255',
-            'email' => 'required|email',
-            'password' => 'required|max:55',
-            'role' => 'required',
-            'address' => 'required|max:255'
+            'nama'     => 'required|max:255', 
+            'nim'      => 'required|max:255|unique:users,nim',
+            'email'    => 'required|email|unique:users,email', 
+            'password' => 'required|min:3|max:55',
+            'role'     => 'required',
+            'address'  => 'required|max:255'
         ]);
 
         User::create([
-            'name' => $request->nama,
-            'nim' => $request->nim,
-            'address' => $request->address,
-            'email' => $request->email,
+            'nama'     => $request->nama, 
+            'nim'      => $request->nim,
+            'address'  => $request->address,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role'     => $request->role,
         ]);
 
         return redirect()
             ->route('admin.user')
-            ->with('success', 'User berhasil ditambahkan');
+            ->with('success', 'Data user berhasil ditambahkan!');
     }
 
     /**
@@ -70,23 +71,23 @@ class UserController extends Controller
     /**
      * Update User (Admin)
      */
-    public function update(Request $request, User $user)
+   public function update(Request $request)
     {
-        $user = User::find($request->id);
+        $user = User::findOrFail($request->id);
 
         $request->validate([
-            'name' => 'required|max:255',
-            'nim' => 'required|max:255',
-            'email' => 'required|email',
-            'role' => 'required',
+            'nama'    => 'required|max:255', 
+            'nim'     => 'required|max:255|unique:users,nim',
+            'email'   => ['required', 'email', Rule::unique('users')->ignore($user->id)],
+            'role'    => 'required',
             'address' => 'required|max:255'
         ]);
 
         $data = [
-            'name' => $request->name,
-            'nim' => $request->nim,
-            'email' => $request->email,
-            'role' => $request->role,
+            'nama'    => $request->nama, 
+            'nim'     => $request->nim,
+            'email'   => $request->email,
+            'role'    => $request->role,
             'address' => $request->address,
         ];
 
@@ -98,7 +99,7 @@ class UserController extends Controller
 
         return redirect()
             ->route('admin.user')
-            ->with('success', 'User berhasil diupdate');
+            ->with('success', 'Data user berhasil diperbarui!');
     }
 
     /**
@@ -130,15 +131,13 @@ class UserController extends Controller
     /**
      * Hapus User
      */
-    public function destroy(Request $request)
+   public function destroy(Request $request)
     {
-        $id = $request->id;
-
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($request->id);
         $user->delete();
 
         return redirect()
             ->route('admin.user')
-            ->with('success', 'User berhasil dihapus');
+            ->with('success', 'Data user berhasil dihapus!');
     }
 }
