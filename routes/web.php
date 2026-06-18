@@ -42,7 +42,13 @@ Route::prefix('admin')->group(function () {
     Route::post('/kategori/update', [KategoriController::class, 'update'])
         ->name('update.kategori');
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman');
-    Route::post('/peminjaman', [PeminjamanController::class, 'store'])->name('tambah.peminjaman');
+    Route::post('/admin/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'store'])
+    ->name('admin.peminjaman.store');
+
+// Jika ingin edit/update:
+Route::put('/admin/peminjaman/{id}', [App\Http\Controllers\Admin\PeminjamanController::class, 'update'])
+    ->name('admin.peminjaman.update');
+    
     // Route::post('/peminjaman/return/{id}', [PeminjamanController::class, 'returnBuku'])->name('admin.peminjaman.return');
 
     Route::get('/profil', function () {
@@ -67,6 +73,9 @@ Route::get('/profil', function () {
 
 Route::get('/detail/{id_buku}',[BukuControllers::class, 'detail']
 )->name('user.detail');
+
+Route::post('/profil/update', [UserController::class, 'updateProfil'])
+    ->name('user.profil.update');
 
 
 

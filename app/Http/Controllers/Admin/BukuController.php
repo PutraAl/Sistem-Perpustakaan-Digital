@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Buku;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class BukuController extends Controller
@@ -13,8 +14,16 @@ class BukuController extends Controller
      */
     public function index()
     {
-    $buku = Buku::all();
-    return view('admin.buku', compact('buku'));
+        $buku = Buku::all();
+        $kategori = Kategori::all();
+
+        return view(
+            'admin.buku',
+            compact(
+                'buku',
+                'kategori'
+            )
+        );
     }
 
     /**

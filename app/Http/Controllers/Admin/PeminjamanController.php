@@ -21,11 +21,46 @@ class PeminjamanController extends Controller
         $query = Peminjaman::with('user', 'detail.buku');
 
         // filter (punya kamu)
-        if ($request->search) {
-            $query->whereHas('user', function ($q) use ($request) {
-                $q->where('name', 'like', '%' . $request->search . '%');
-            });
-        }
+if ($request->search) {
+
+    $search = $request->search;
+
+    $query->where(function ($q) use ($search) {
+
+        $q->whereHas('user', function ($user) use ($search) {
+            $user->where('name', 'like', "%{$search}%");
+        })
+
+        ->orWhereHas('detail.buku', function ($buku) use ($search) {
+            $buku->where('judul', 'like', "%{$search}%");
+        });
+
+    });
+
+if ($request->start_date) {
+    $query->whereDate(
+        'tanggal_pinjam',
+        '>=',
+        $request->start_date
+    );
+}
+
+if ($request->end_date) {
+    $query->whereDate(
+        'tanggal_pinjam',
+        '<=',
+        $request->end_date
+    );
+}
+
+//filter status
+if ($request->status) {
+    $query->where(
+        'status',
+        $request->status
+    );
+}
+}
 
         $data = $query->latest()->get();
 
@@ -40,44 +75,39 @@ class PeminjamanController extends Controller
         ]);
     }
 
-    // =========================
-    // STORE
-    // =========================
-    public function store(Request $request)
-    {
-        DB::beginTransaction();
+ public function store(Request $request)
+{
+    DB::beginTransaction();
 
-        try {
-            $peminjaman = Peminjaman::create([
-                'user_id' => $request->user_id,
-                'tanggal_pinjam' => $request->tanggal_pinjam,
-                'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
-                'status' => 'dipinjam'
+    try {
+        $peminjaman = Peminjaman::create([
+            'user_id' => $request->user_id,
+            'tanggal_pinjam' => $request->tanggal_pinjam,
+            'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
+            'status' => 'dipinjam'
+        ]);
+
+        foreach ($request->buku_id as $i => $buku_id) {
+            DetailPeminjaman::create([
+                'peminjaman_id' => $peminjaman->id,
+                'buku_id' => $buku_id,
+                'jumlah' => $request->jumlah[$i],
+                'status' => $request->status_item[$i] ?? 'dipinjam', // default dipinjam
+                'denda' => 0
             ]);
 
-            foreach ($request->buku_id as $i => $buku_id) {
-
-                DetailPeminjaman::create([
-                    'peminjaman_id' => $peminjaman->id,
-                    'buku_id' => $buku_id,
-                    'jumlah' => $request->jumlah[$i],
-                    'status' => 'dipinjam',
-                    'denda' => 0
-                ]);
-
-                // 🔥 kurangi stok
-                Buku::where('id', $buku_id)
-                    ->decrement('stok', $request->jumlah[$i]);
-            }
-
-            DB::commit();
-
-            return back()->with('success', 'Peminjaman berhasil');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('error', $e->getMessage());
+            // kurangi stok
+            Buku::where('id', $buku_id)->decrement('stok', $request->jumlah[$i]);
         }
+
+        DB::commit();
+
+        return redirect()->route('admin.peminjaman')->with('success', 'Peminjaman berhasil ditambahkan');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', $e->getMessage())->withInput();
     }
+}
 
     // =========================
     // RETURN BUKU
@@ -131,4 +161,23 @@ class PeminjamanController extends Controller
             $peminjaman->update(['status' => 'dikembalikan']);
         }
     }
+
+    public function update(Request $request, $id)
+{
+    DB::beginTransaction();
+    try {
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->update([
+            'tanggal_pinjam' => $request->tanggal_pinjam,
+            'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
+            'status' => $request->status,
+        ]);
+
+        DB::commit();
+        return redirect()->route('admin.peminjaman')->with('success', 'Peminjaman berhasil diperbarui');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', $e->getMessage());
+    }
+}
 }

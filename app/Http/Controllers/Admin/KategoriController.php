@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreKategoriRequest;
 use App\Http\Requests\UpdateKategoriRequest;
 use App\Models\Kategori;
+use App\Models\Buku;
 use Illuminate\Http\Request;
 
 class KategoriController extends Controller
