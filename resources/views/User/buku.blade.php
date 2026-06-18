@@ -49,6 +49,7 @@
 
         </form>
 
+        @if($buku->count()>0)
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
             @foreach($buku as $data)
             <div class="bg-white rounded-xl shadow overflow-hidden">
@@ -62,9 +63,12 @@
                     </div>
                 </div>
             </div>
+          
             @endforeach
            
-
+  @else
+                            <p class="text-md font-semibold text-center text-gray-800">Tidak Ada Buku Yang Tersedia</p>
+             @endif
         </div>
 
     </div>
