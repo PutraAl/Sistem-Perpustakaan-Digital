@@ -10,8 +10,10 @@
             </div>
             <div>
                 <button data-modal-target="modal-user" data-modal-toggle="modal-user"
-                    class="w-full bg-blue-500 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-md text-xs md:text-sm hover:bg-blue-600 transition"
-                    type="button">
+                    class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-medium shadow-lg shadow-blue-200 hover:scale-105 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M12 5v14M5 12h14"/>
+        </svg>
                     Tambah User
                 </button>
             </div>

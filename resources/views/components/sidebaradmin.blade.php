@@ -1,4 +1,4 @@
-```blade
+
 {{-- MOBILE OVERLAY --}}
 <div id="sidebar-overlay"
     class="fixed inset-0 bg-slate-900/50 z-40 hidden lg:hidden"
@@ -300,4 +300,3 @@ function toggleSidebar() {
     document.getElementById('sidebar-overlay').classList.toggle('hidden');
 }
 </script>
-```
