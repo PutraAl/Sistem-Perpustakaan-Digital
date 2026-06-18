@@ -4,95 +4,101 @@
 
 <div class="space-y-6">
 
-<<<<<<< HEAD
+    {{-- Header --}}
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+            <h1 style="font-size:22px;font-weight:700;color:#111827;margin:0 0 4px;">
+                Dashboard
+            </h1>
 
-<div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-white shadow-lg">
-    <h1 class="text-3xl font-bold">
-        Halo, Peter 👋
-    </h1>
-
-    <p class="mt-2 text-blue-100">
-        Selamat datang di Sistem Perpustakaan Digital.
-        Temukan buku favoritmu dan kelola peminjaman dengan mudah.
-    </p>
-
-    <a href="/buku"
-        class="inline-block mt-5 bg-white text-blue-600 px-5 py-2 rounded-lg font-semibold hover:bg-gray-100 transition">
-        Cari Buku
-    </a>
-</div>
-
-<!-- Statistik -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-    <div class="bg-white rounded-2xl shadow-sm p-6 border">
-        <div class="text-4xl">📚</div>
-        <h3 class="text-gray-500 mt-3">Total Buku</h3>
-        <p class="text-3xl font-bold text-blue-600">
-            {{ $totalBuku ?? 0 }}
-        </p>
-=======
-  {{-- Header --}}
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-    <div>
-      <h1 style="font-size:22px;font-weight:700;color:#111827;margin:0 0 4px;">Dashboard</h1>
-      <p style="font-size:14px;color:#9CA3AF;margin:0;">
-        Hi, {{ auth()->user()->name }} — selamat datang di website Sistem Perpustakaan Digital
-      </p>
->>>>>>> a80018431c6bf8e65c0d08648c3611a8239c18ff
-    </div>
-    <div style="font-size:13px;color:#9CA3AF;padding-top:4px;">
-      {{ now()->translatedFormat('d F Y') }}
-    </div>
-  </div>
-
-  {{-- Statistik --}}
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-    <div style="background:white;border-radius:12px;padding:22px 24px;border:1px solid #E5E7EB;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <span style="font-size:13px;color:#6B7280;font-weight:500;">Total Buku</span>
-        <div style="width:34px;height:34px;border-radius:8px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;">
-          <svg width="17" height="17" fill="none" stroke="#2563EB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-          </svg>
+            <p style="font-size:14px;color:#9CA3AF;margin:0;">
+                Hi, {{ auth()->user()?->name ?? 'Pengguna' }}
+                — selamat datang di website Sistem Perpustakaan Digital
+            </p>
         </div>
-      </div>
-      <p style="font-size:28px;font-weight:700;color:#111827;margin:0 0 4px;">{{ $totalBuku ?? 0 }}</p>
-      <p style="font-size:12px;color:#9CA3AF;margin:0;">Koleksi tersedia</p>
-    </div>
 
-    <div style="background:white;border-radius:12px;padding:22px 24px;border:1px solid #E5E7EB;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <span style="font-size:13px;color:#6B7280;font-weight:500;">Sedang Dipinjam</span>
-        <div style="width:34px;height:34px;border-radius:8px;background:#FFFBEB;display:flex;align-items:center;justify-content:center;">
-          <svg width="17" height="17" fill="none" stroke="#D97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
+        <div style="font-size:13px;color:#9CA3AF;padding-top:4px;">
+            {{ now()->translatedFormat('d F Y') }}
         </div>
-      </div>
-      <p style="font-size:28px;font-weight:700;color:#111827;margin:0 0 4px;">{{ $dipinjam ?? 0 }}</p>
-      <p style="font-size:12px;color:#9CA3AF;margin:0;">Buku aktif dipinjam</p>
     </div>
 
-<<<<<<< HEAD
-</div>
+    {{-- Statistik --}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-=======
-    <div style="background:white;border-radius:12px;padding:22px 24px;border:1px solid #E5E7EB;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <span style="font-size:13px;color:#6B7280;font-weight:500;">Riwayat Peminjaman</span>
-        <div style="width:34px;height:34px;border-radius:8px;background:#F0FDF4;display:flex;align-items:center;justify-content:center;">
-          <svg width="17" height="17" fill="none" stroke="#16A34A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-          </svg>
+        {{-- Total Buku --}}
+        <div style="background:white;border-radius:12px;padding:22px 24px;border:1px solid #E5E7EB;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <span style="font-size:13px;color:#6B7280;font-weight:500;">Total Buku</span>
+
+                <div style="width:34px;height:34px;border-radius:8px;background:#EFF6FF;display:flex;align-items:center;justify-content:center;">
+                    <svg width="17" height="17" fill="none" stroke="#2563EB" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <p style="font-size:28px;font-weight:700;color:#111827;margin:0 0 4px;">
+                {{ $totalBuku ?? 0 }}
+            </p>
+
+            <p style="font-size:12px;color:#9CA3AF;margin:0;">
+                Koleksi tersedia
+            </p>
         </div>
-      </div>
-      <p style="font-size:28px;font-weight:700;color:#111827;margin:0 0 4px;">{{ $riwayat ?? 0 }}</p>
-      <p style="font-size:12px;color:#9CA3AF;margin:0;">Total transaksi</p>
-    </div>
 
-  </div>
+        {{-- Sedang Dipinjam --}}
+        <div style="background:white;border-radius:12px;padding:22px 24px;border:1px solid #E5E7EB;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <span style="font-size:13px;color:#6B7280;font-weight:500;">
+                    Sedang Dipinjam
+                </span>
+
+                <div style="width:34px;height:34px;border-radius:8px;background:#FFFBEB;display:flex;align-items:center;justify-content:center;">
+                    <svg width="17" height="17" fill="none" stroke="#D97706" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <p style="font-size:28px;font-weight:700;color:#111827;margin:0 0 4px;">
+                {{ $dipinjam ?? 0 }}
+            </p>
+
+            <p style="font-size:12px;color:#9CA3AF;margin:0;">
+                Buku aktif dipinjam
+            </p>
+        </div>
+
+        {{-- Riwayat --}}
+        <div style="background:white;border-radius:12px;padding:22px 24px;border:1px solid #E5E7EB;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                <span style="font-size:13px;color:#6B7280;font-weight:500;">
+                    Riwayat Peminjaman
+                </span>
+
+                <div style="width:34px;height:34px;border-radius:8px;background:#F0FDF4;display:flex;align-items:center;justify-content:center;">
+                    <svg width="17" height="17" fill="none" stroke="#16A34A" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <polyline points="9 11 12 14 22 4"/>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                </div>
+            </div>
+
+            <p style="font-size:28px;font-weight:700;color:#111827;margin:0 0 4px;">
+                {{ $riwayat ?? 0 }}
+            </p>
+
+            <p style="font-size:12px;color:#9CA3AF;margin:0;">
+                Total transaksi
+            </p>
+        </div>
+
+    </div>
 
   {{-- Akses Cepat --}}
   <div style="background:white;border-radius:12px;border:1px solid #E5E7EB;overflow:hidden;">
@@ -206,7 +212,7 @@
     </div>
 
   </div>
->>>>>>> a80018431c6bf8e65c0d08648c3611a8239c18ff
+
 
 </div>
 

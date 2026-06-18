@@ -29,10 +29,24 @@ class BukuController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+  public function store(Request $request)
+{
+    Buku::create([
+        'id_kategori'  => $request->id_kategori,
+        'judul'        => $request->judul,
+        'penulis'      => $request->penulis,
+        'penerbit'     => $request->penerbit,
+        'tahun_terbit' => $request->tahun_terbit,
+        'stok'         => $request->stok,
+        'deskripsi'    => $request->deskripsi,
+        'foto'         => ''
+    ]);
+
+    return redirect()
+        ->route('admin.buku')
+        ->with('success', 'Buku berhasil ditambahkan');
+}
+    
 
     /**
      * Display the specified resource.

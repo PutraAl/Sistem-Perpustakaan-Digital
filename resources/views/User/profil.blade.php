@@ -42,7 +42,7 @@
           <label style="display:block;font-size:13px;font-weight:500;color:#374151;margin-bottom:6px;">
             Nama Lengkap
           </label>
-          <input type="text" name="name" value="{{ auth()->user()->name }}"
+         <input type="text" name="name" value="{{ auth()->user()?->nama ?? auth()->user()?->name ?? '' }}"
             style="
               width:100%;padding:10px 14px;
               border:1px solid #E5E7EB;border-radius:9px;

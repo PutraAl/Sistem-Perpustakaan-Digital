@@ -80,32 +80,42 @@ if ($request->status) {
     DB::beginTransaction();
 
     try {
+
         $peminjaman = Peminjaman::create([
             'user_id' => $request->user_id,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
-            'status' => 'dipinjam'
+            'status' => 'dipinjam',
+            'denda' => 0
         ]);
 
         foreach ($request->buku_id as $i => $buku_id) {
+
             DetailPeminjaman::create([
-                'peminjaman_id' => $peminjaman->id,
-                'buku_id' => $buku_id,
-                'jumlah' => $request->jumlah[$i],
-                'status' => $request->status_item[$i] ?? 'dipinjam', // default dipinjam
-                'denda' => 0
+                'id_peminjaman' => $peminjaman->id_peminjaman,
+                'id_buku'       => $buku_id,
+                'jumlah'        => $request->jumlah[$i],
+                'status_item'   => 'dipinjam',
+                'denda_item'    => 0
             ]);
 
-            // kurangi stok
-            Buku::where('id', $buku_id)->decrement('stok', $request->jumlah[$i]);
+            Buku::where('id_buku', $buku_id)
+                ->decrement('stok', $request->jumlah[$i]);
         }
 
         DB::commit();
 
-        return redirect()->route('admin.peminjaman')->with('success', 'Peminjaman berhasil ditambahkan');
+        return redirect()
+            ->route('admin.peminjaman')
+            ->with('success', 'Peminjaman berhasil ditambahkan');
+
     } catch (\Exception $e) {
+
         DB::rollBack();
-        return back()->with('error', $e->getMessage())->withInput();
+
+        return back()
+            ->with('error', $e->getMessage())
+            ->withInput();
     }
 }
 
@@ -132,8 +142,8 @@ if ($request->status) {
         ]);
 
         // 🔥 kembalikan stok
-        Buku::where('id', $detail->buku_id)
-            ->increment('stok', $detail->jumlah);
+       Buku::where('id_buku', $buku_id)
+    ->decrement('stok', $request->jumlah[$i]);
 
         // 🔥 update status peminjaman
         $this->updateStatus($detail->peminjaman);

@@ -35,7 +35,7 @@
 
             <div>
                 <p class="text-lg font-semibold">
-                    Hi, {{ auth()->user()->name }}
+                   Hi, {{ auth()->user()?->nama ?? auth()->user()?->name ?? 'Pengguna' }}
                 </p>
             </div>
         </div>
@@ -125,12 +125,12 @@
 
                 <div
                     class="w-10 h-10 rounded-full bg-white text-blue-700 flex items-center justify-center font-bold">
-                    {{ strtoupper(substr(auth()->user()->name,0,2)) }}
+                   {{ strtoupper(substr(auth()->user()?->nama ?? auth()->user()?->name ?? 'PG', 0, 2)) }}
                 </div>
 
                 <div>
                     <p class="text-sm font-semibold">
-                        {{ auth()->user()->name }}
+                       {{ auth()->user()?->nama ?? auth()->user()?->name ?? 'Pengguna' }}
                     </p>
                     <p class="text-xs text-blue-200">
                         Anggota

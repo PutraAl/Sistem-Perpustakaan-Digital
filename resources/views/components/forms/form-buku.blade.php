@@ -2,7 +2,8 @@
     'action' => '#',
     'method' => 'POST',
     'buku' => null,
-    'id' => null
+    'id' => null,
+    'kategori' => collect()
 ])
 
 @php
@@ -36,7 +37,7 @@
             <!-- Judul -->
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Judul Buku</label>
-                <input type="text" name="nama_buku"
+                <input type="text" name="judul"
                     value="{{ old('nama_buku', $buku->nama_buku ?? '') }}"
                     class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
@@ -61,7 +62,7 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">Tahun</label>
-                    <input type="number" name="tahun"
+                    <input type="number" name="tahun_terbit"
                         value="{{ old('tahun', $buku->tahun ?? '') }}"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
@@ -77,14 +78,18 @@
             <!-- Kategori -->
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Kategori</label>
-                <select name="kategori"
-                    class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Pilih kategori</option>
-                    <option value="Novel" {{ ($buku->kategori ?? '') == 'Novel' ? 'selected' : '' }}>Novel</option>
-                    <option value="Komik" {{ ($buku->kategori ?? '') == 'Komik' ? 'selected' : '' }}>Komik</option>
-                    <option value="Edukasi" {{ ($buku->kategori ?? '') == 'Edukasi' ? 'selected' : '' }}>Edukasi</option>
-                    <option value="Edukasi" {{ ($buku->kategori ?? '') == 'Fiksi' ? 'selected' : '' }} >Fiksi</option>
-                </select>
+               <select name="id_kategori"
+    class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+
+    <option value="">Pilih kategori</option>
+
+    @foreach($kategori as $item)
+        <option value="{{ $item->id_kategori }}">
+            {{ $item->nama_kategori }}
+        </option>
+    @endforeach
+
+</select>
             </div>
 
         </div>
@@ -115,7 +120,7 @@
                         </p>
                         <p class="text-xs text-gray-400">PNG, JPG (max 2MB)</p>
                     </div>
-                    <input type="file" name="gambar" class="hidden">
+                    <input type="file" name="foto" class="hidden">
                 </label>
             </div>
 

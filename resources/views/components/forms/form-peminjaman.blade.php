@@ -1,15 +1,16 @@
 @props(['peminjaman' => null, 'users' => [], 'bukus' => []])
 
 @php
-    $isEdit = $peminjaman !== null;
-    $action = $isEdit
-        ? route('admin.peminjaman.update', $peminjaman->id)
-        : route('admin.peminjaman.store');
-    $method = $isEdit ? 'PUT' : 'POST';
+    $isEdit = isset($peminjaman) && $peminjaman;
 @endphp
 
-<form action="{{ $action }}" method="POST" class="mt-4 space-y-3">
+<form method="POST"
+    action="{{ $isEdit 
+        ? route('admin.peminjaman.update', $peminjaman->id_peminjaman) 
+        : route('admin.peminjaman.store') }}">
+    
     @csrf
+
     @if($isEdit)
         @method('PUT')
     @endif

@@ -35,6 +35,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/buku', [BukuController::class, 'index'])
         ->name('admin.buku');
+        Route::post('/buku', [BukuController::class, 'store'])
+    ->name('admin.buku.store');
     Route::get('/kategori', [KategoriController::class, 'index'])->name('admin.kategori');
     Route::post('/kategori', [KategoriController::class, 'create'])->name('tambah.kategori');
     Route::post('/kategori/hapus', [KategoriController::class, 'destroy'])

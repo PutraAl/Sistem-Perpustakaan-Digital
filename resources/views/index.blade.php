@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SiPerDig — Sistem Perpustakaan Digital</title>
+  <title>SipDig — Sistem Perpustakaan Digital</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500&display=swap"
     rel="stylesheet">
@@ -206,7 +206,7 @@
   ABOUT
   ============================== --}}
   <section id="about" class="py-20 px-4 max-w-screen-xl mx-auto">
-@foreach ($buku as $data)
+@foreach (($buku ?? []) as $data)
 
 <div class="group">
 

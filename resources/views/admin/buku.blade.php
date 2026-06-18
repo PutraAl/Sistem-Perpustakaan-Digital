@@ -326,8 +326,12 @@
 
     </div>
     <x-modal id="modal-buku" title="Tambah Buku">
-        <x-forms.form-buku />
-    </x-modal>
+    <x-forms.form-buku
+    action="{{ route('admin.buku.store') }}"
+    :kategori="$kategori"
+/>
+
+</x-modal>
 {{-- 
     <x-modal id="edit-buku-{{ $data->id_buku }}" title="Edit Buku">
        <x-forms.form-buku :id="{{ $data->id_buku }}" />

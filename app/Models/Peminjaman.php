@@ -12,22 +12,26 @@ class Peminjaman extends Model
     protected $primaryKey = 'id_peminjaman';
     protected $table = 'tb_peminjaman';
 
-      protected $fillable = [
-        'anggota_id',
-        'tanggal_pinjam',
-        'tanggal_jatuh_tempo',
-        'tanggal_kembali',
-        'denda',
-        'status'
-    ];
+     protected $fillable = [
+    'user_id',
+    'tanggal_pinjam',
+    'tanggal_jatuh_tempo',
+    'tanggal_kembali',
+    'denda',
+    'status'
+];
 
-    public function anggota()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+   public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
 
-    public function detail()
-    {
-        return $this->hasMany(DetailPeminjaman::class);
-    }
+   public function detail()
+{
+    return $this->hasMany(
+        DetailPeminjaman::class,
+        'id_peminjaman',
+        'id_peminjaman'
+    );
+}
 }
