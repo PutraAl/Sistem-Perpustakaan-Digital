@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Buku;
-use App\Models\Kategori;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
+use App\Models\Buku;
+use App\Models\DetailPeminjaman;
+use App\Models\Kategori;
+use App\Models\Peminjaman;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class BukuControllers extends Controller
@@ -18,10 +21,7 @@ public function index()
     $buku = Buku::all();
     $kategori = Kategori::all();
 
-    return view(
-        'user.buku',
-        compact('buku', 'kategori')
-    );
+return view ('user.buku', compact('buku', 'kategori'));
 }
 
     /**
@@ -71,5 +71,35 @@ public function index()
     public function destroy(Buku $buku)
     {
         //
+    }
+  public function pinjam(Buku $buku)
+    {
+        if ($buku->stok < 1) {
+            return redirect()->back()->with('error', 'Maaf, stok buku ini sedang habis!');
+        }
+
+        DB::transaction(function () use ($buku) {
+            
+            $peminjaman = Peminjaman::create([
+                'user_id'             => Auth::id(),
+                'tanggal_pinjam'      => now()->toDateString(),
+                'tanggal_jatuh_tempo' => now()->addDays(7)->toDateString(), 
+                // STATUS DI BAWAH INI KITA GANTI:
+                'status'              => 'menunggu_konfirmasi' 
+            ]);
+
+            DetailPeminjaman::create([
+                'id_peminjaman' => $peminjaman->id_peminjaman,
+                'id_buku'       => $buku->id_buku,
+                'jumlah'        => 1,
+                // DETAILNYA JUGA MENUNGGU KONFIRMASI:
+                'status_item'   => 'dipinjam'
+            ]);
+
+            // Stok tetap dikurangi 1 sebagai tanda "Di-booking"
+            $buku->decrement('stok'); 
+        });
+
+        return redirect()->back()->with('success', 'Pengajuan pinjam berhasil! Silakan tunggu konfirmasi Admin.');
     }
 }

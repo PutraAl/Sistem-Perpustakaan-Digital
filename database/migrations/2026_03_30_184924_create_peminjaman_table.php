@@ -17,8 +17,13 @@ return new class extends Migration
             $table->date('tanggal_kembali')->nullable();
             $table->decimal('denda', 10, 2)->default(0);
 
-            $table->enum('status', ['dipinjam', 'dikembalikan', 'terlambat'])
-                ->default('dipinjam');
+            $table->enum('status', [
+                'menunggu_konfirmasi', // <-- Status baru
+                'dipinjam',
+                'dikembalikan',
+                'terlambat',
+                'ditolak'              // <-- Tambahkan 'ditolak' sekalian untuk fitur admin nanti
+            ])->default('menunggu_konfirmasi');
 
             $table->timestamps();
             // Foreiegn key ke tb user

@@ -2,25 +2,10 @@
     'action' => '#',
     'method' => 'POST',
     'buku' => null,
-    'id' => null,
-    'kategori' => collect()
+    'kategoris' => [] 
 ])
 
-@php
-    if ($id && !$buku) {
-        $id = (object)[
-            'id' => 1,
-            'nama_buku' => 'Rahasia Dunia Yang Disembunyikan',
-            'penulis' => 'Unknown',
-            'penerbit' => 'Erlangga',
-            'tahun' => 2020,
-            'kategori' => 'Fiksi',
-            'stok' => 12,
-            'deskripsi' => 'Buku ini adalah semua sejarah dari dunia yang telah disembunyikan, dimana kita semua tidak tau awal mula dunia itu seperti apa. Namun di buku ini diceritkan rahasia-rahasianya, mulai dari awal bumi lahir termasuk nabi adam, rahasia kerajaan eropa, donald trump dan semacamnya. Bagi yang membaca buku ini akan terstimulasi seolah olah ia akan percaya dan kehilangan kepercayaan terhadap sebuah agama. Namun itu semua tergantung seberapa kuat iman orang yang membacanya',
-            'gambar' => null
-        ];
-    }
-@endphp
+
 
 <form action="{{ $action }}" method="POST" enctype="multipart/form-data">
     @csrf
@@ -38,7 +23,7 @@
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Judul Buku</label>
                 <input type="text" name="judul"
-                    value="{{ old('nama_buku', $buku->nama_buku ?? '') }}"
+                    value="{{ old('nama_buku', $buku->judul?? '') }}"
                     class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
@@ -50,6 +35,9 @@
                     class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
 
+            @if($buku)
+            <input type="hidden" name="id_buku" value="{{ $buku->id_buku }}">
+        @endif
             <!-- Penerbit -->
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Penerbit</label>
@@ -63,7 +51,7 @@
                 <div>
                     <label class="block mb-1 text-sm font-medium text-gray-700">Tahun</label>
                     <input type="number" name="tahun_terbit"
-                        value="{{ old('tahun', $buku->tahun ?? '') }}"
+                        value="{{ old('tahun', $buku->tahun_terbit ?? '') }}"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 </div>
 
@@ -78,14 +66,13 @@
             <!-- Kategori -->
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Kategori</label>
-               <select name="id_kategori"
-    class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500">
+               <select name="id_kategori" required>
+    <option value="" disabled>Pilih Kategori</option>
 
-    <option value="">Pilih kategori</option>
-
-    @foreach($kategori as $item)
-        <option value="{{ $item->id_kategori }}">
-            {{ $item->nama_kategori }}
+    {{-- Looping data dari database --}}
+    @foreach($kategoris as $kat)
+        <option value="{{ $kat->id_kategori }}">
+            {{ $kat->nama_kategori }}
         </option>
     @endforeach
 
@@ -127,8 +114,11 @@
         </div>
     </div>
 
-    <!-- BUTTON -->
-    <div class="flex justify-end gap-3 pt-4 border-t">
+    <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+
+    
+
+    <div class="flex gap-3 order-2">
         <button type="button" data-modal-hide="modal-buku"
             class="px-4 py-2 text-sm border rounded-lg hover:bg-gray-100">
             Batal
@@ -140,3 +130,19 @@
         </button>
     </div>
 </form>
+@if($buku)
+    <div class="order-1">
+        <form action="{{ route('buku.delete') }}" method="POST"
+            onsubmit="return confirm('Yakin ingin menghapus buku ini?');">
+            @csrf
+            <input type="hidden" value="{{ $buku->id_buku }}" name="id_buku">
+
+            <button type="submit"
+                class="px-4 py-2.5 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition-all duration-200 flex items-center gap-2">
+                Hapus Buku
+            </button>
+        </form>
+    </div>
+    @endif
+
+</div>

@@ -29,7 +29,7 @@
         <div class="grid md:grid-cols-2 gap-10 items-start">
 
             <div class="w-full h-full">
-                <img src="{{ asset('img/aaaa.jpeg') }}" class="w-full h-full object-cover rounded-xl">
+                 <img src="{{ asset('img/' . $data->foto) }}" class="w-full h-full object-cover rounded-xl">
             </div>
 
             <div class="flex flex-col justify-between h-full">
@@ -56,6 +56,12 @@
 
                 <div class="flex items-center justify-end mt-10">
                     @if($data->stok>0) 
+                    <button class="text-xs mx-3 font-medium px-3 py-1.5 
+                                 rounded-full bg-green-50 text-green-700 
+                                 ring-1 ring-green-200">
+                        Pinjam sekarang 
+                    </button> 
+
                     <span class="text-xs font-medium px-3 py-1.5 
                                  rounded-full bg-green-50 text-green-700 
                                  ring-1 ring-green-200">

@@ -16,18 +16,19 @@ class Buku extends Model
     protected $primaryKey = 'id_buku';
 
     protected $fillable = [
-    'id_kategori',
-    'judul',
-    'foto',
-    'penulis',
-    'penerbit',
-    'tahun_terbit',
-    'stok',
-    'deskripsi'
-];
-    public function kategori()
+        'kategori_id',
+        'judul',
+        'foto',
+        'penulis',
+        'penerbit',
+        'tahun_terbit',
+        'stok',
+        'deskripsi',
+        'id_kategori'
+    ];
+   public function kategori()
     {
-        return $this->belongsTo(Kategori::class, 'id_kategori');
+        return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
 
     public function detailPeminjaman()
