@@ -71,11 +71,12 @@ public static function perbaruiDendaOtomatis()
             $p->save();
 
             // Ubah status item di tabel anak jadi 'terlambat'
-            DetailPeminjaman::where('id_peminjaman', $p->id_peminjaman)
-                ->where('status_item', 'dipinjam')
-                ->update(['status_item' => 'terlambat']);
+          DetailPeminjaman::where('id_peminjaman', $p->id_peminjaman)
+    ->where('status_item', 'dipinjam')
+    ->update([
+        'denda_item' => $p->denda
+    ]);
         }
-
         // 2. Perbarui nominal denda bagi yang statusnya sudah 'terlambat' (Argo berjalan tiap hari)
         $sedangTerlambat = self::where('status', 'terlambat')
             ->whereNull('tanggal_kembali')
