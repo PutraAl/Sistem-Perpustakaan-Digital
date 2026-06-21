@@ -15,68 +15,45 @@ use Illuminate\Support\Facades\DB;
 
 class PeminjamanController extends Controller
 {
-    // =========================
-    // LIST
-    // =========================
-    public function index(Request $request)
 
-    {
-        Peminjaman::perbaruiDendaOtomatis();
+  public function index(Request $request)
+{
+    Peminjaman::perbaruiDendaOtomatis();
 
-        $query = Peminjaman::with('user', 'detail.buku');
+    $query = Peminjaman::with('user', 'detail.buku');
 
-        // filter (punya kamu)
-        if ($request->search) {
-
-            $search = $request->search;
-
-            $query->where(function ($q) use ($search) {
-
-                $q->whereHas('user', function ($user) use ($search) {
-                    $user->where('name', 'like', "%{$search}%");
-                })
-
-                    ->orWhereHas('detail.buku', function ($buku) use ($search) {
-                        $buku->where('judul', 'like', "%{$search}%");
-                    });
-            });
-
-            if ($request->start_date) {
-                $query->whereDate(
-                    'tanggal_pinjam',
-                    '>=',
-                    $request->start_date
-                );
-            }
-
-            if ($request->end_date) {
-                $query->whereDate(
-                    'tanggal_pinjam',
-                    '<=',
-                    $request->end_date
-                );
-            }
-
-            //filter status
-            if ($request->status) {
-                $query->where(
-                    'status',
-                    $request->status
-                );
-            }
-        }
-
-        $data = $query->latest()->get();
-
-        $users = User::all();
-        $bukus = Buku::all();
-
-        return view('admin.peminjaman', [
-            'data' => $data,
-            'users' => $users,
-            'bukus' => $bukus
-        ]);
+    // Filter Pencarian (Search)
+    if ($request->filled('search')) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->whereHas('user', fn($user) => $user->where('nama', 'like', "%{$search}%"))
+              ->orWhereHas('detail.buku', fn($buku) => $buku->where('judul', 'like', "%{$search}%"));
+        });
     }
+
+    // Filter Tanggal Mulai (Di luar if search!)
+    if ($request->filled('start_date')) {
+        $query->whereDate('tanggal_pinjam', '>=', $request->start_date);
+    }
+
+    // Filter Tanggal Akhir (Di luar if search!)
+    if ($request->filled('end_date')) {
+        $query->whereDate('tanggal_pinjam', '<=', $request->end_date);
+    }
+
+    // Filter Status (Di luar if search!)
+    if ($request->filled('status')) {
+        $query->where('status', $request->status);
+    }
+
+    // Gunakan paginate(15) dan withQueryString() agar filter tetap aktif saat pindah halaman
+    $data = $query->latest()->paginate(15)->withQueryString();
+
+    $users = User::all();
+    $bukus = Buku::all();
+
+    return view('admin.peminjaman', compact('data', 'users', 'bukus'));
+}
 
     public function store(Request $request)
     {
