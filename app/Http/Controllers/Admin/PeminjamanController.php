@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Mail\BukuSiapDiambilMail;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use App\Models\Peminjaman;
 use App\Models\DetailPeminjaman;
@@ -118,9 +119,15 @@ class PeminjamanController extends Controller
 
             DB::commit();
 
+          // 🚀 KIRIM EMAIL OTOMATIS (Karena diinput langsung oleh admin, status langsung 'dipinjam' dan siap ambil)
+            $peminjamanTerbaru = Peminjaman::with('user', 'detail.buku')->find($peminjaman->id_peminjaman);
+            if ($peminjamanTerbaru->user && $peminjamanTerbaru->user->email) {
+                Mail::to($peminjamanTerbaru->user->email)->queue(new BukuSiapDiambilMail($peminjamanTerbaru));
+            }
+
             return redirect()
                 ->route('admin.peminjaman')
-                ->with('success', 'Peminjaman berhasil ditambahkan');
+                ->with('success', 'Peminjaman berhasil ditambahkan dan email notifikasi terkirim!');
         } catch (\Exception $e) {
 
             DB::rollBack();
@@ -163,9 +170,7 @@ class PeminjamanController extends Controller
         return back()->with('success', 'Buku dikembalikan');
     }
 
-    // =========================
-    // UPDATE STATUS GLOBAL
-    // =========================
+   
     private function updateStatus($peminjaman)
     {
         $detail = $peminjaman->detail;
@@ -189,78 +194,69 @@ class PeminjamanController extends Controller
         DB::beginTransaction();
 
         try {
-            $peminjaman = Peminjaman::with('detail')->findOrFail($id);
+            $peminjaman = Peminjaman::with('user', 'detail.buku')->findOrFail($id);
 
+            // 🕵️ Tangkap status sebelum di-save vs status baru dari dropdown
+            $statusLama = $peminjaman->getOriginal('status'); 
             $statusBaru = $request->status;
             $hariIni    = Carbon::today()->toDateString();
 
-            // 1. Tangkap tanggal yang mungkin di-edit oleh Admin dari UI
             $peminjaman->tanggal_pinjam      = $request->tanggal_pinjam;
             $peminjaman->tanggal_jatuh_tempo = $request->tanggal_jatuh_tempo;
             $peminjaman->status              = $statusBaru;
 
             // ─────────────────────────────────────────────────────────────────
-            // SKENARIO A: STATUS DIUBAH JADI "DIKEMBALIKAN"
+            // 1. SKENARIO DIKEMBALIKAN
             // ─────────────────────────────────────────────────────────────────
-            if ($statusBaru === 'dikembalikan' && $peminjaman->getOriginal('status') !== 'dikembalikan') {
-
+            if ($statusBaru === 'dikembalikan' && $statusLama !== 'dikembalikan') {
                 $peminjaman->tanggal_kembali = $hariIni;
-                // HITUNG DENDA MENGGUNAKAN FUNGSI SAKTIMU!
-                $peminjaman->denda = $peminjaman->hitungDenda();
+                $peminjaman->denda           = $peminjaman->hitungDenda();
 
                 DetailPeminjaman::where('id_peminjaman', $peminjaman->id_peminjaman)
-                    ->update([
-                        'status_item'     => 'dikembalikan',
-                        'tanggal_kembali' => $hariIni
-                    ]);
+                    ->update(['status_item' => 'dikembalikan', 'tanggal_kembali' => $hariIni]);
 
-                // Kembalikan buku ke rak
                 foreach ($peminjaman->detail as $item) {
                     Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
                 }
             }
-
             // ─────────────────────────────────────────────────────────────────
-            // SKENARIO B: STATUS DIBATALKAN / DITOLAK
+            // 2. SKENARIO DIBATALKAN / DITOLAK
             // ─────────────────────────────────────────────────────────────────
-            elseif (in_array($statusBaru, ['dibatalkan', 'ditolak']) && !in_array($peminjaman->getOriginal('status'), ['dibatalkan', 'ditolak'])) {
-
+            elseif (in_array($statusBaru, ['dibatalkan', 'ditolak']) && !in_array($statusLama, ['dibatalkan', 'ditolak'])) {
                 $peminjaman->tanggal_kembali = $hariIni;
                 $peminjaman->denda           = 0;
 
                 DetailPeminjaman::where('id_peminjaman', $peminjaman->id_peminjaman)
-                    ->update([
-                        'status_item'     => 'dikembalikan',
-                        'tanggal_kembali' => $hariIni
-                    ]);
+                    ->update(['status_item' => 'dikembalikan', 'tanggal_kembali' => $hariIni]);
 
-                // Kembalikan buku ke rak
                 foreach ($peminjaman->detail as $item) {
                     Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
                 }
             }
             // ─────────────────────────────────────────────────────────────────
-            // SKENARIO C: ADMIN HANYA EDIT TANGGAL SAAT SEDANG "DIPINJAM"
+            // 🚀 3. SKENARIO BUKU BARU SAJA RESMI DI-ACC (KIRIM EMAIL!)
             // ─────────────────────────────────────────────────────────────────
-            else {
-                if (in_array($statusBaru, ['dipinjam', 'terlambat'])) {
-                    // Cek jika jatuh tempo baru ternyata sudah lewat hari ini
-                    if (Carbon::today()->startOfDay()->gt(Carbon::parse($request->tanggal_jatuh_tempo)->startOfDay())) {
-                        $peminjaman->status = 'terlambat';
-                        $peminjaman->denda  = $peminjaman->hitungDenda();
-                    } else {
-                        // Jika dimaafkan / diperpanjang oleh admin
-                        $peminjaman->status = 'dipinjam';
-                        $peminjaman->denda  = 0;
-                    }
+            elseif ($statusLama === 'menunggu_konfirmasi' && $statusBaru === 'dipinjam') {
+                
+                // Reset argo pinjam dimulai HARI INI (saat di-ACC)
+                $peminjaman->tanggal_pinjam      = now()->toDateString();
+                $peminjaman->tanggal_jatuh_tempo = now()->addDays(7)->toDateString();
+
+                DetailPeminjaman::where('id_peminjaman', $peminjaman->id_peminjaman)
+                    ->update(['status_item' => 'dipinjam']);
+
+                // 🔥 TEMBAK EMAILNYA! (Pakai ->send() dulu agar kalau gagal langsung tampil error di layar)
+                if ($peminjaman->user && $peminjaman->user->email) {
+                    Mail::to($peminjaman->user->email)->send(new BukuSiapDiambilMail($peminjaman));
                 }
             }
 
-            // Simpan perubahan ke database
+            // Eksekusi simpan ke MySQL
             $peminjaman->save();
 
             DB::commit();
-            return redirect()->route('admin.peminjaman')->with('success', 'Berhasil diperbarui secara otomatis!');
+            return redirect()->route('admin.peminjaman')->with('success', 'Data dan Status berhasil diperbarui! Email otomatis terkirim.');
+
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Gagal memproses: ' . $e->getMessage());
@@ -268,25 +264,27 @@ class PeminjamanController extends Controller
     }
 
     // 1. FUNGSI JIKA ADMIN MENG-ACC PINJAMAN
-    public function konfirmasi($id)
+  public function konfirmasi($id)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman = Peminjaman::with('user', 'detail.buku')->findOrFail($id);
 
         DB::transaction(function () use ($peminjaman) {
-            // A. Ubah status Master jadi 'dipinjam'
-            // Argo 7 hari baru mulai dihitung HARI INI (saat di-ACC admin), bukan saat user klik kemarin!
             $peminjaman->update([
                 'status'              => 'dipinjam',
                 'tanggal_pinjam'      => now()->toDateString(),
                 'tanggal_jatuh_tempo' => now()->addDays(7)->toDateString(),
             ]);
 
-            // B. Ubah status semua item di dalamnya jadi 'dipinjam'
             DetailPeminjaman::where('id_peminjaman', $peminjaman->id_peminjaman)
                 ->update(['status_item' => 'dipinjam']);
         });
 
-        return redirect()->back()->with('success', 'Peminjaman berhasil dikonfirmasi! Buku resmi dipinjamkan.');
+        // 🚀 KIRIM EMAIL OTOMATIS (Menggunakan Queue agar cepat)
+        if ($peminjaman->user && $peminjaman->user->email) {
+            Mail::to($peminjaman->user->email)->queue(new BukuSiapDiambilMail($peminjaman));
+        }
+
+        return redirect()->back()->with('success', 'Peminjaman berhasil dikonfirmasi! Email notifikasi telah dikirim ke user.');
     }
 
 
