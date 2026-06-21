@@ -294,6 +294,41 @@ class PeminjamanController extends Controller
             $peminjaman->save();
         }
     }
+public function exportExcel()
+{
+    $data = Peminjaman::with('user')->get();
+
+    $filename = "laporan_peminjaman_" . now()->format('Ymd_His') . ".xls";
+
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=\"$filename\"");
+
+    echo "
+    <table border='1'>
+        <tr style='font-weight:bold; background:#D9EAF7;'>
+            <th>ID</th>
+            <th>Nama User</th>
+            <th>Tanggal Pinjam</th>
+            <th>Jatuh Tempo</th>
+            <th>Status</th>
+            <th>Denda</th>
+        </tr>";
+
+    foreach ($data as $row) {
+        echo "
+        <tr>
+            <td>{$row->id_peminjaman}</td>
+            <td>".($row->user->nama ?? '-')."</td>
+            <td>{$row->tanggal_pinjam}</td>
+            <td>{$row->tanggal_jatuh_tempo}</td>
+            <td>{$row->status}</td>
+            <td>{$row->denda}</td>
+        </tr>";
+    }
+
+    echo "</table>";
+    exit;
+    }
 
     public function destroy($id)
     {

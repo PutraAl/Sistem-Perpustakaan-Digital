@@ -13,12 +13,29 @@
                 Kelola aktivitas peminjaman buku anggota perpustakaan
             </p>
         </div>
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-medium shadow-lg shadow-blue-200 hover:scale-105 transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                <path d="M12 5v14M5 12h14" />
+       <div class="flex items-center gap-2">
+    
+    <a href="{{ route('admin.peminjaman.export.excel') }}"
+        class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-green-500 text-white text-sm font-medium shadow-lg hover:bg-green-600 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12h14"/>
+        </svg>
+        Export Excel
+    </a>
+
+
+    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-medium shadow-lg shadow-blue-200 hover:scale-105 transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path d="M12 5v14M5 12h14" />
+        </svg>
+        Tambah Peminjaman
+    </button>
+
+</div>
+              
             </svg>
-            Tambah Peminjaman
+            
         </button>
     </div>
 
@@ -408,5 +425,17 @@
         instances = [];
         document.querySelectorAll('.bukuSelect').forEach(el => initSelect(el));
     });
+
+   
+</script>
+<script>
+     public function exportExcel()
+{
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Export Excel berhasil'
+    ]);
+}
+
 </script>
 @endsection

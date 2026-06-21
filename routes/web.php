@@ -55,6 +55,13 @@ Route::prefix('admin')->group(function () {
     Route::post('/kategori/update', [KategoriController::class, 'update'])
         ->name('update.kategori');
     Route::get('/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman');
+
+    Route::get('/peminjaman/export/excel', [PeminjamanController::class, 'exportExcel'])
+    ->name('admin.peminjaman.export.excel');
+
+Route::get('/peminjaman/export/pdf', [PeminjamanController::class, 'exportPdf'])
+    ->name('admin.peminjaman.export.pdf');
+    Route::post('/admin/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'store']);
     Route::post('/admin/peminjaman', [PeminjamanController::class, 'store'])
         ->name('admin.peminjaman.store');
 
