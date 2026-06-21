@@ -66,16 +66,15 @@
             <!-- Kategori -->
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Kategori</label>
-               <select name="id_kategori" required>
-    <option value="" disabled>Pilih Kategori</option>
+        <select name="id_kategori" class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
+    <option value="" disabled selected>Pilih Kategori</option>
 
-    {{-- Looping data dari database --}}
     @foreach($kategoris as $kat)
-        <option value="{{ $kat->id_kategori }}">
+        <option value="{{ $kat->id_kategori }}" 
+            {{ (isset($buku) && $buku->id_kategori == $kat->id_kategori) ? 'selected' : '' }}>
             {{ $kat->nama_kategori }}
         </option>
     @endforeach
-
 </select>
             </div>
 

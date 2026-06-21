@@ -95,13 +95,13 @@
                                     @elseif(request('status') == 'ditolak') border-slate-300 bg-slate-50 text-slate-700
                                     @endif">
                                 <option value="">Semua Status</option>
-                                <option value="menunggu_konfirmasi" @selected(request('status') == 'menunggu_konfirmasi')>⏳
+                                <option value="menunggu_konfirmasi" @selected(request('status') == 'menunggu_konfirmasi')>
                                     Menunggu Konfirmasi</option>
-                                <option value="dipinjam" @selected(request('status') == 'dipinjam')>📖 Dipinjam</option>
-                                <option value="dikembalikan" @selected(request('status') == 'dikembalikan')>✅ Dikembalikan
+                                <option value="dipinjam" @selected(request('status') == 'dipinjam')> Dipinjam</option>
+                                <option value="dikembalikan" @selected(request('status') == 'dikembalikan')> Dikembalikan
                                 </option>
-                                <option value="terlambat" @selected(request('status') == 'terlambat')>⚠️ Terlambat</option>
-                                <option value="ditolak" @selected(request('status') == 'ditolak')>❌ Dibatalkan / Ditolak
+                                <option value="terlambat" @selected(request('status') == 'terlambat')>Terlambat</option>
+                                <option value="ditolak" @selected(request('status') == 'ditolak')>Dibatalkan / Ditolak
                                 </option>
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -273,6 +273,9 @@
             </table>
         </div>
     </div>
+    <div class="mt-6">
+    {{ $data->links() }}
+</div>
 
     @foreach($data as $peminjaman)
         <x-modal id="detail-pinjam-{{ $peminjaman->id_peminjaman }}"

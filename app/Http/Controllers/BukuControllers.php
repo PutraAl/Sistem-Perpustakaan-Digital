@@ -10,18 +10,36 @@ use App\Models\Peminjaman;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Http\Request;
 
 class BukuControllers extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-public function index()
+public function index(Request $request)
 {
-    $buku = Buku::all();
+    // 1. Ambil semua kategori untuk dropdown
     $kategori = Kategori::all();
 
-return view ('user.buku', compact('buku', 'kategori'));
+    // 2. Mulai buat query buku
+    $query = Buku::with('kategori')->orderBy('id_buku', 'desc');
+
+    // --- FITUR PENCARIAN ---
+    if ($request->filled('search')) {
+        $query->where('judul', 'like', '%' . $request->search . '%');
+    }
+
+    // --- FITUR FILTER KATEGORI ---
+    if ($request->filled('status')) { // Sesuaikan nama field 'status' dengan name di view user kamu
+        $query->where('id_kategori', $request->status);
+    }
+
+    // 3. Paginasi 15 data per halaman
+    // Jangan lupa ->withQueryString() agar filter tidak hilang saat pindah halaman
+    $buku = $query->paginate(15)->withQueryString();
+
+    return view('user.buku', compact('buku', 'kategori'));
 }
 
     /**
