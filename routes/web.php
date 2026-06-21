@@ -61,7 +61,7 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/peminjaman/export/pdf', [PeminjamanController::class, 'exportPdf'])
     ->name('admin.peminjaman.export.pdf');
-    Route::post('/admin/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'store'])
+    Route::post('/admin/peminjaman', [App\Http\Controllers\Admin\PeminjamanController::class, 'store']);
     Route::post('/admin/peminjaman', [PeminjamanController::class, 'store'])
         ->name('admin.peminjaman.store');
 
