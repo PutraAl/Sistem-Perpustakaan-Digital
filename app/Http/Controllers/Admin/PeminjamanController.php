@@ -322,4 +322,22 @@ class PeminjamanController extends Controller
             $peminjaman->save();
         }
     }
+
+    public function destroy($id)
+{
+    $peminjaman = Peminjaman::with('detail')->findOrFail($id);
+
+    DB::transaction(function () use ($peminjaman) {
+        // Kembalikan stok buku sebelum menghapus data
+        foreach ($peminjaman->detail as $item) {
+            Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
+        }
+        
+        // Hapus detail dan header
+        $peminjaman->detail()->delete();
+        $peminjaman->delete();
+    });
+
+    return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil dihapus.');
+}
 }

@@ -59,13 +59,13 @@
                                         @if($pinjam->status === 'menunggu_konfirmasi')
                                             <span class="px-2.5 py-1 text-[11px] font-medium bg-amber-100 text-amber-800 rounded-full">Menunggu Konfirmasi</span>
                                         @elseif($pinjam->status === 'dipinjam')
-                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-blue-100 text-blue-700 rounded-full">📖 Dipinjam</span>
+                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-blue-100 text-blue-700 rounded-full">Dipinjam</span>
                                         @elseif($pinjam->status === 'dikembalikan')
-                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-green-100 text-green-700 rounded-full">✅ Dikembalikan</span>
+                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-green-100 text-green-700 rounded-full"> Dikembalikan</span>
                                         @elseif($pinjam->status === 'terlambat')
-                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-red-100 text-red-700 rounded-full">⚠️ Terlambat</span>
+                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-red-100 text-red-700 rounded-full"> Terlambat</span>
                                         @elseif($pinjam->status === 'ditolak')
-                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-gray-100 text-gray-600 rounded-full">❌ Ditolak</span>
+                                            <span class="px-2.5 py-1 text-[11px] font-medium bg-gray-100 text-gray-600 rounded-full">Ditolak</span>
                                         @endif
                                     </td>
 
