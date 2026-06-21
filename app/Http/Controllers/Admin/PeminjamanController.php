@@ -18,7 +18,10 @@ class PeminjamanController extends Controller
     // LIST
     // =========================
     public function index(Request $request)
+
     {
+        Peminjaman::perbaruiDendaOtomatis();
+
         $query = Peminjaman::with('user', 'detail.buku');
 
         // filter (punya kamu)
@@ -64,7 +67,6 @@ class PeminjamanController extends Controller
 
         $data = $query->latest()->get();
 
-        // ✅ TAMBAH INI
         $users = User::all();
         $bukus = Buku::all();
 
@@ -80,7 +82,18 @@ class PeminjamanController extends Controller
         DB::beginTransaction();
 
         try {
+            // 🔒 LAPIS 1: CEK STOK DI SERVER SEBELUM MENYIMPAN DATA
+            foreach ($request->buku_id as $i => $buku_id) {
+                $buku = Buku::find($buku_id);
+                $diminta = (int) $request->jumlah[$i];
 
+                if ($buku->stok < 1) {
+                    throw new \Exception("Gagal: Buku '{$buku->judul}' sudah habis (Stok 0).");
+                }
+                if ($diminta > $buku->stok) {
+                    throw new \Exception("Gagal: Stok '{$buku->judul}' sisa {$buku->stok}, tidak bisa meminjam sebanyak {$diminta}.");
+                }
+            }
             $peminjaman = Peminjaman::create([
                 'user_id' => $request->user_id,
                 'tanggal_pinjam' => $request->tanggal_pinjam,
@@ -176,75 +189,78 @@ class PeminjamanController extends Controller
         DB::beginTransaction();
 
         try {
-            // Ambil data peminjaman beserta seluruh item detailnya
             $peminjaman = Peminjaman::with('detail')->findOrFail($id);
 
             $statusBaru = $request->status;
             $hariIni    = Carbon::today()->toDateString();
-            $jatuhTempo = Carbon::parse($request->tanggal_jatuh_tempo);
 
-            // Data bawaan yang pasti diupdate
-            $dataUpdate = [
-                'tanggal_pinjam'      => $request->tanggal_pinjam,
-                'tanggal_jatuh_tempo' => $request->tanggal_jatuh_tempo,
-                'status'              => $statusBaru,
-            ];
+            // 1. Tangkap tanggal yang mungkin di-edit oleh Admin dari UI
+            $peminjaman->tanggal_pinjam      = $request->tanggal_pinjam;
+            $peminjaman->tanggal_jatuh_tempo = $request->tanggal_jatuh_tempo;
+            $peminjaman->status              = $statusBaru;
 
             // ─────────────────────────────────────────────────────────────────
             // SKENARIO A: STATUS DIUBAH JADI "DIKEMBALIKAN"
-            // (Pastikan status sebelumnya belum dikembalikan, agar stok tidak nambah 2x)
             // ─────────────────────────────────────────────────────────────────
-            if ($statusBaru === 'dikembalikan' && $peminjaman->status !== 'dikembalikan') {
+            if ($statusBaru === 'dikembalikan' && $peminjaman->getOriginal('status') !== 'dikembalikan') {
 
-                $dataUpdate['tanggal_kembali'] = $hariIni;
+                $peminjaman->tanggal_kembali = $hariIni;
+                // HITUNG DENDA MENGGUNAKAN FUNGSI SAKTIMU!
+                $peminjaman->denda = $peminjaman->hitungDenda();
 
-                // 1. Hitung Denda Otomatis (Tarif: Rp 1.000 / hari telat)
-                $denda = 0;
-                if (Carbon::today()->gt($jatuhTempo)) {
-                    $selisihHari = Carbon::today()->diffInDays($jatuhTempo);
-                    $denda = $selisihHari * 1000;
-                }
-                $dataUpdate['denda'] = $denda;
-
-                // 2. Ubah status seluruh item di tabel anak jadi 'dikembalikan'
                 DetailPeminjaman::where('id_peminjaman', $peminjaman->id_peminjaman)
                     ->update([
                         'status_item'     => 'dikembalikan',
                         'tanggal_kembali' => $hariIni
                     ]);
 
-                // 3. Kembalikan buku ke rak (+stok)
+                // Kembalikan buku ke rak
                 foreach ($peminjaman->detail as $item) {
                     Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
                 }
             }
 
             // ─────────────────────────────────────────────────────────────────
-            // SKENARIO B: STATUS DIUBAH JADI "DIBATALKAN" / "DITOLAK"
+            // SKENARIO B: STATUS DIBATALKAN / DITOLAK
             // ─────────────────────────────────────────────────────────────────
-            elseif (in_array($statusBaru, ['dibatalkan', 'ditolak']) && !in_array($peminjaman->status, ['dibatalkan', 'ditolak'])) {
+            elseif (in_array($statusBaru, ['dibatalkan', 'ditolak']) && !in_array($peminjaman->getOriginal('status'), ['dibatalkan', 'ditolak'])) {
 
-                $dataUpdate['tanggal_kembali'] = $hariIni;
-                $dataUpdate['denda']           = 0; // Batal pinjam tidak boleh didenda
+                $peminjaman->tanggal_kembali = $hariIni;
+                $peminjaman->denda           = 0;
 
-                // Item dianggap kembali ke perpustakaan
                 DetailPeminjaman::where('id_peminjaman', $peminjaman->id_peminjaman)
                     ->update([
                         'status_item'     => 'dikembalikan',
                         'tanggal_kembali' => $hariIni
                     ]);
 
-                // Kembalikan buku ke rak (+stok)
+                // Kembalikan buku ke rak
                 foreach ($peminjaman->detail as $item) {
                     Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
                 }
             }
+            // ─────────────────────────────────────────────────────────────────
+            // SKENARIO C: ADMIN HANYA EDIT TANGGAL SAAT SEDANG "DIPINJAM"
+            // ─────────────────────────────────────────────────────────────────
+            else {
+                if (in_array($statusBaru, ['dipinjam', 'terlambat'])) {
+                    // Cek jika jatuh tempo baru ternyata sudah lewat hari ini
+                    if (Carbon::today()->startOfDay()->gt(Carbon::parse($request->tanggal_jatuh_tempo)->startOfDay())) {
+                        $peminjaman->status = 'terlambat';
+                        $peminjaman->denda  = $peminjaman->hitungDenda();
+                    } else {
+                        // Jika dimaafkan / diperpanjang oleh admin
+                        $peminjaman->status = 'dipinjam';
+                        $peminjaman->denda  = 0;
+                    }
+                }
+            }
 
-            // Eksekusi simpan ke MySQL
-            $peminjaman->update($dataUpdate);
+            // Simpan perubahan ke database
+            $peminjaman->save();
 
             DB::commit();
-            return redirect()->route('admin.peminjaman')->with('success', 'Status berhasil diperbarui! Denda & stok telah disesuaikan otomatis.');
+            return redirect()->route('admin.peminjaman')->with('success', 'Berhasil diperbarui secara otomatis!');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Gagal memproses: ' . $e->getMessage());

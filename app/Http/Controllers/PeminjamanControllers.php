@@ -15,7 +15,9 @@ class PeminjamanControllers extends Controller
 {
     // Mengambil riwayat peminjaman khusus untuk user yang sedang login
     // Beserta data user, detail pinjaman, dan buku di dalam detailnya
-    $peminjamans = Peminjaman::with(['user', 'detail.buku'])
+Peminjaman::perbaruiDendaOtomatis();
+
+        $peminjamans = Peminjaman::with(['user', 'detail.buku'])
         ->where('user_id', Auth::id())
         ->orderBy('id_peminjaman', 'desc')
         ->get();

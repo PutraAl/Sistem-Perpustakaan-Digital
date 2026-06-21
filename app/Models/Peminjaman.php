@@ -36,8 +36,9 @@ class Peminjaman extends Model
         'id_peminjaman'
     );
 }
- const TARIF_DENDA_PER_HARI = 3000;
- public function hitungHariTerlambat(): int
+    const TARIF_DENDA_PER_HARI = 3000;
+
+    public function hitungHariTerlambat(): int
     {
         $jatuhTempo = Carbon::parse($this->tanggal_jatuh_tempo)->startOfDay();
         $acuan = $this->tanggal_kembali
@@ -55,18 +56,37 @@ class Peminjaman extends Model
     {
         return $this->hitungHariTerlambat() * self::TARIF_DENDA_PER_HARI;
     }
-
-    /** Bisa dipanggil langsung di Blade: $peminjaman->denda_berjalan */
-    public function getDendaBerjalanAttribute()
+public static function perbaruiDendaOtomatis()
     {
-        return $this->hitungDenda();
-    }
+        $hariIni = Carbon::today();
 
-    /** $peminjaman->is_terlambat -> true/false */
-    public function getIsTerlambatAttribute()
-    {
-        return !in_array($this->status, ['dikembalikan', 'ditolak', 'dibatalkan'])
-            && $this->hitungHariTerlambat() > 0;
-    }
+        // 1. Tangkap buku yang kemarin 'dipinjam', tapi hari ini sudah lewat batas
+        $lewatBatas = self::where('status', 'dipinjam')
+            ->whereDate('tanggal_jatuh_tempo', '<', $hariIni->toDateString())
+            ->get();
 
+        foreach ($lewatBatas as $p) {
+            $p->status = 'terlambat';
+            $p->denda  = $p->hitungDenda(); // Memanggil rumus buatanmu sendiri!
+            $p->save();
+
+            // Ubah status item di tabel anak jadi 'terlambat'
+            DetailPeminjaman::where('id_peminjaman', $p->id_peminjaman)
+                ->where('status_item', 'dipinjam')
+                ->update(['status_item' => 'terlambat']);
+        }
+
+        // 2. Perbarui nominal denda bagi yang statusnya sudah 'terlambat' (Argo berjalan tiap hari)
+        $sedangTerlambat = self::where('status', 'terlambat')
+            ->whereNull('tanggal_kembali')
+            ->get();
+
+        foreach ($sedangTerlambat as $p) {
+            $dendaRealtime = $p->hitungDenda();
+            if ($p->denda !== $dendaRealtime) {
+                $p->denda = $dendaRealtime;
+                $p->save();
+            }
+        }
+    }
 }

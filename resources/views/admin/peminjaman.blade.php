@@ -230,9 +230,9 @@
                                 @endif
                             </td>
                             <td class="py-3 pr-4 text-xs">
-                                @if($peminjaman->denda_berjalan > 0)
+                                @if($peminjaman->denda > 0)
                                     <span class="font-semibold text-red-600">Rp
-                                        {{ number_format($peminjaman->denda_berjalan, 0, ',', '.') }}</span>
+                                        {{ number_format($peminjaman->denda, 0, ',', '.') }}</span>
                                 @else
                                     <span class="text-gray-400">-</span>
                                 @endif
@@ -269,113 +269,141 @@
     </x-modal>
 
     <script>
-        const bukusData = @json($bukus);
+    const bukusData = @json($bukus);
+    let instances = [];
 
-        let instances = [];
+    function initSelect(el) {
+        let ts = new TomSelect(el, {
+            valueField: 'id_buku',
+            labelField: 'judul',
+            searchField: 'judul',
+            options: [],
+            openOnFocus: true,
+            placeholder: 'Pilih buku...',
+            
+            // 🎨 TAMPILAN BARU: Menampilkan sisa stok di dalam dropdown
+            render: {
+                option: function(data, escape) {
+                    let isHabis = data.stok <= 0;
+                    let badge = isHabis 
+                        ? '<span class="bg-red-100 text-red-700 text-[10px] font-bold px-1.5 py-0.5 rounded ml-2">HABIS</span>'
+                        : `<span class="bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded ml-2">Stok: ${data.stok}</span>`;
 
-        function initSelect(el) {
-            let ts = new TomSelect(el, {
-                valueField: 'id_buku',
-                labelField: 'judul',
-                searchField: 'judul',
-                options: [],
-                openOnFocus: true,
-                placeholder: 'Pilih buku...',
-                onChange: function () {
-                    refreshAll();
+                    return `<div class="flex justify-between items-center py-1 ${isHabis ? 'opacity-40' : ''}">
+                                <span class="text-xs font-medium">${escape(data.judul)}</span>
+                                ${badge}
+                            </div>`;
+                },
+                item: function(data, escape) {
+                    return `<div class="text-xs">${escape(data.judul)} <span class="text-blue-600 font-bold ml-1">(Stok: ${data.stok})</span></div>`;
                 }
-            });
+            },
 
-            instances.push(ts);
-            refreshAll();
-        }
+            onChange: function (value) {
+                refreshAll();
 
-        function getSelectedValues() {
-            return instances
-                .map(i => String(i.getValue()))
-                .filter(v => v !== "");
-        }
+                // ⚡ LOGIKA PENGUNCIAN: Cari input 'jumlah' di sebelah buku ini, lalu pasang batas Max
+                let terpilih = bukusData.find(b => String(b.id_buku) === String(value));
+                let row = el.closest('.buku-item');
+                let inputQty = row ? row.querySelector('.input-jumlah') : null;
 
-        function refreshAll() {
-            let selected = getSelectedValues();
-
-            instances.forEach(ts => {
-                let current = String(ts.getValue());
-
-                ts.clearOptions();
-
-                bukusData.forEach(buku => {
-                    let id = String(buku.id_buku);
-                    if (!selected.includes(id) || id === current) {
-                        ts.addOption({ id_buku: id, judul: buku.judul });
+                if (terpilih && inputQty) {
+                    inputQty.setAttribute('max', terpilih.stok);
+                    
+                    // Jika angka yang telanjur diketik user melebihi stok, otomatis pangkas turun!
+                    if (parseInt(inputQty.value) > terpilih.stok) {
+                        inputQty.value = terpilih.stok;
                     }
-                });
-
-                if (current) {
-                    ts.setValue(current, true);
                 }
-
-                ts.refreshOptions(false);
-            });
-        }
-
-        function tambahBuku() {
-            let wrapper = document.getElementById('bukuWrapper');
-
-            let div = document.createElement('div');
-            div.className = "buku-item border border-gray-100 rounded-lg p-3 space-y-2 bg-gray-50 relative";
-
-            div.innerHTML = `
-                <button type="button" onclick="removeBuku(this)"
-                    class="absolute top-2 right-2 text-gray-300 hover:text-red-400 transition">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-                <div>
-                    <label class="block text-xs font-medium text-gray-600 mb-1">Buku</label>
-                    <select name="buku_id[]" class="bukuSelect w-full border border-gray-300 rounded-md px-3 py-2 text-xs"></select>
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Jumlah</label>
-                        <input type="number" name="jumlah[]" value="1" min="1"
-                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-xs focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Status Item</label>
-                        <select name="status_item[]"
-                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-xs focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                            <option value="dipinjam" selected>Dipinjam</option>
-                            <option value="dikembalikan">Dikembalikan</option>
-                            <option value="rusak">Rusak</option>
-                            <option value="hilang">Hilang</option>
-                        </select>
-                    </div>
-                </div>
-            `;
-
-            wrapper.appendChild(div);
-            initSelect(div.querySelector('.bukuSelect'));
-        }
-
-        function removeBuku(btn) {
-            let div = btn.closest('.buku-item');
-            let select = div.querySelector('.bukuSelect');
-            let instance = instances.find(i => i.input === select);
-
-            if (instance) {
-                instance.destroy();
-                instances = instances.filter(i => i !== instance);
             }
+        });
 
-            div.remove();
-            refreshAll();
+        instances.push(ts);
+        refreshAll();
+    }
+
+    function getSelectedValues() {
+        return instances.map(i => String(i.getValue())).filter(v => v !== "");
+    }
+
+    function refreshAll() {
+        let selected = getSelectedValues();
+
+        instances.forEach(ts => {
+            let current = String(ts.getValue());
+            ts.clearOptions();
+
+            bukusData.forEach(buku => {
+                let id = String(buku.id_buku);
+                if (!selected.includes(id) || id === current) {
+                    
+                    // PERBAIKAN PENTING: Melempar data stok dan memblokir opsi jika stok 0
+                    ts.addOption({ 
+                        id_buku: id, 
+                        judul: buku.judul, 
+                        stok: buku.stok,
+                        disabled: buku.stok <= 0 // <--- Membuat buku stok 0 tidak bisa diklik!
+                    });
+                }
+            });
+
+            if (current) ts.setValue(current, true);
+            ts.refreshOptions(false);
+        });
+    }
+
+    function tambahBuku() {
+        let wrapper = document.getElementById('bukuWrapper');
+        let div = document.createElement('div');
+        div.className = "buku-item border border-gray-100 rounded-lg p-3 space-y-2 bg-gray-50 relative";
+
+        div.innerHTML = `
+            <button type="button" onclick="removeBuku(this)"
+                class="absolute top-2 right-2 text-gray-300 hover:text-red-400 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            <div>
+                <label class="block text-xs font-medium text-gray-600 mb-1">Buku</label>
+                <select name="buku_id[]" class="bukuSelect w-full border border-gray-300 rounded-md px-3 py-2 text-xs" required></select>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Jumlah</label>
+                    <input type="number" name="jumlah[]" value="1" min="1" 
+                        class="input-jumlah w-full border border-gray-300 rounded-md px-3 py-2 text-xs focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                        oninput="if(this.max && parseInt(this.value) > parseInt(this.max)) { this.value = this.max; }">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Status Item</label>
+                    <select name="status_item[]" class="w-full border border-gray-300 rounded-md px-3 py-2 text-xs">
+                        <option value="dipinjam" selected>Dipinjam</option>
+                        <option value="dikembalikan">Dikembalikan</option>
+                    </select>
+                </div>
+            </div>
+        `;
+
+        wrapper.appendChild(div);
+        initSelect(div.querySelector('.bukuSelect'));
+    }
+
+    function removeBuku(btn) {
+        let div = btn.closest('.buku-item');
+        let select = div.querySelector('.bukuSelect');
+        let instance = instances.find(i => i.input === select);
+
+        if (instance) {
+            instance.destroy();
+            instances = instances.filter(i => i !== instance);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            instances = [];
-            document.querySelectorAll('.bukuSelect').forEach(el => initSelect(el));
-        });
-    </script>
+        div.remove();
+        refreshAll();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        instances = [];
+        document.querySelectorAll('.bukuSelect').forEach(el => initSelect(el));
+    });
+</script>
 @endsection

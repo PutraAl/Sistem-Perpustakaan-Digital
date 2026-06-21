@@ -71,7 +71,7 @@
                 <div class="flex items-center justify-between bg-gray-50/80 border border-gray-100 rounded-lg p-2 hover:bg-gray-50 transition">
                     <div class="flex items-center gap-3">
                         {{-- Thumbnail Cover Buku --}}
-                        <img src="{{ asset('buku/' . ($item->buku?->foto ?? 'default.png')) }}" 
+                        <img src="{{ asset('img/' . ($item->buku?->foto ?? 'default.png')) }}" 
                              onerror="this.src='https://placehold.co/100x150?text=No+Cover';"
                              class="w-9 h-12 object-cover rounded shadow-2xs">
                         <div>
