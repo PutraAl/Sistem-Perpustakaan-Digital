@@ -10,56 +10,53 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use App\Models\Peminjaman;
 use App\Models\DetailPeminjaman;
-use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     /**
      * Dashboard Admin
      */
-    public function dashboard()
-    {
-        // 1. Jalankan sinkronisasi denda realtime setiap kali admin membuka dashboard
-        if (method_exists(Peminjaman::class, 'perbaruiDendaOtomatis')) {
-            Peminjaman::perbaruiDendaOtomatis();
-        }
-
-        // 2. Hitung Angka Rekap untuk 4 Kotak Metrik Utama
-        $totalBuku    = Buku::sum('stok'); // Menghitung total eksemplar fisik buku
-        $totalAnggota = User::where('role', 'anggota')->count();
-        $bukuDipinjam = DetailPeminjaman::where('status_item', 'dipinjam')->sum('jumlah');
-        $telatKembali = Peminjaman::where('status', 'terlambat')->count();
-
-        // 3. Ambil Data Grafik Batang (Peminjaman Bulanan Tahun Ini)
-        $peminjamanPerBulan = Peminjaman::selectRaw('MONTH(tanggal_pinjam) as bulan, COUNT(*) as total')
-            ->whereYear('tanggal_pinjam', date('Y'))
-            ->groupBy('bulan')
-            ->pluck('total', 'bulan')
-            ->toArray();
-            
-        // Buat susunan array dari bulan 1 sampai 12 (jika kosong diisi angka 0)
-        $dataBar = array_map(fn($i) => $peminjamanPerBulan[$i] ?? 0, range(1, 12));
-
-        // 4. Ambil Data Grafik Donat (Distribusi Buku per Kategori via JOIN)
-        $genreData = Buku::select('tb_kategori.nama_kategori', DB::raw('COUNT(tb_buku.id_buku) as total'))
-            ->join('tb_kategori', 'tb_buku.id_kategori', '=', 'tb_kategori.id_kategori')
-            ->groupBy('tb_kategori.nama_kategori')
-            ->get();
-            
-        $totalSemua = $genreData->sum('total') ?: 1; // Proteksi pembagian dengan angka 0
-        
-        $genreList = $genreData->map(fn($item) => [
-            'label'  => $item->nama_kategori ?: 'Lainnya',
-            'count'  => (int) $item->total,
-            'persen' => round(($item->total / $totalSemua) * 100)
-        ]);
-
-        // 5. Kirimkan seluruh paket data ke halaman view dashboard
-        return view('admin.dashboard', compact(
-            'totalBuku', 'totalAnggota', 'bukuDipinjam', 'telatKembali', 'dataBar', 'genreList'
-        ));
+   public function dashboard()
+{
+    // 1. Sinkronisasi denda otomatis
+    if (method_exists(Peminjaman::class, 'perbaruiDendaOtomatis')) {
+        Peminjaman::perbaruiDendaOtomatis();
     }
+
+    // 2. Metrik 4 Kartu Atas
+    $totalBuku    = Buku::sum('stok'); 
+    $totalAnggota = User::where('role', 'anggota')->count();
+    $bukuDipinjam = DetailPeminjaman::where('status_item', 'dipinjam')->sum('jumlah');
+    $telatKembali = Peminjaman::where('status', 'terlambat')->count();
+
+    // 3. Data Grafik Batang Bulanan
+    $peminjamanPerBulan = Peminjaman::selectRaw('MONTH(tanggal_pinjam) as bulan, COUNT(*) as total')
+        ->whereYear('tanggal_pinjam', date('Y'))
+        ->groupBy('bulan')
+        ->pluck('total', 'bulan')
+        ->toArray();
+        
+    $dataBar = array_map(fn($i) => $peminjamanPerBulan[$i] ?? 0, range(1, 12));
+
+    // 4. Data Grafik Donat (Kategori JOIN)
+    $genreData = Buku::select('tb_kategori.nama_kategori', DB::raw('COUNT(tb_buku.id_buku) as total'))
+        ->join('tb_kategori', 'tb_buku.id_kategori', '=', 'tb_kategori.id_kategori')
+        ->groupBy('tb_kategori.nama_kategori')
+        ->get();
+        
+    $totalSemua = $genreData->sum('total') ?: 1;
+    
+    $genreList = $genreData->map(fn($item) => [
+        'label'  => $item->nama_kategori ?: 'Lainnya',
+        'count'  => (int) $item->total,
+        'persen' => round(($item->total / $totalSemua) * 100)
+    ]);
+
+    return view('admin.dashboard', compact(
+        'totalBuku', 'totalAnggota', 'bukuDipinjam', 'telatKembali', 'dataBar', 'genreList'
+    ));
+}
 
     /**
      * Daftar User

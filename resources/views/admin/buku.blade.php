@@ -9,11 +9,11 @@
             <div>
 
                 <h1 class="text-4xl font-bold
-                            bg-gradient-to-r
-                            from-blue-600
-                            to-cyan-500
-                            bg-clip-text
-                            text-transparent">
+                                        bg-gradient-to-r
+                                        from-blue-600
+                                        to-cyan-500
+                                        bg-clip-text
+                                        text-transparent">
 
                     Koleksi Buku
 
@@ -26,18 +26,18 @@
             </div>
 
             <button data-modal-target="modal-buku" data-modal-toggle="modal-buku" type="button" class="
-                        mt-4 lg:mt-0
-                        inline-flex items-center gap-2
-                        px-6 py-4
-                        rounded-2xl
-                        bg-gradient-to-r
-                        from-blue-500
-                        to-cyan-500
-                        text-white
-                        font-semibold
-                        shadow-lg shadow-blue-500/20
-                        hover:scale-105
-                        transition">
+                                    mt-4 lg:mt-0
+                                    inline-flex items-center gap-2
+                                    px-6 py-4
+                                    rounded-2xl
+                                    bg-gradient-to-r
+                                    from-blue-500
+                                    to-cyan-500
+                                    text-white
+                                    font-semibold
+                                    shadow-lg shadow-blue-500/20
+                                    hover:scale-105
+                                    transition">
 
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
 
@@ -56,15 +56,10 @@
 
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-
             <div class="bg-white rounded-2xl border p-5">
-                <p class="text-sm text-slate-500">
-                    Total Buku
-                </p>
-
+                <p class="text-sm text-slate-500">Total Buku</p>
                 <h2 class="text-3xl font-bold text-slate-800">
-                    {{ $buku->count() }}
-                </h2>
+                    {{ $totalBuku }} {{-- <-- Ganti jadi ini --}} </h2>
             </div>
 
             <div class="bg-white rounded-2xl border p-5">
@@ -91,12 +86,12 @@
 
 
         <form method="GET" action="" class="
-                    bg-white
-                    rounded-3xl
-                    border border-slate-200
-                    p-6
-                    shadow-sm
-                    mb-6">
+                                bg-white
+                                rounded-3xl
+                                border border-slate-200
+                                p-6
+                                shadow-sm
+                                mb-6">
 
             <div class="flex items-center gap-3 mb-5">
 
@@ -118,53 +113,41 @@
                 <div class="md:col-span-6">
 
                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul buku..." class="
-                                w-full
-                                rounded-2xl
-                                border border-slate-200
-                                px-4 py-3
-                                focus:ring-2
-                                focus:ring-blue-400
-                                focus:outline-none">
+                                            w-full
+                                            rounded-2xl
+                                            border border-slate-200
+                                            px-4 py-3
+                                            focus:ring-2
+                                            focus:ring-blue-400
+                                            focus:outline-none">
 
                 </div>
 
                 <div class="md:col-span-4">
 
-                    <select name="id_kategori" class="
-                                w-full
-                                rounded-2xl
-                                border border-slate-200
-                                px-4 py-3
-                                focus:ring-2
-                                focus:ring-blue-400">
 
-                        <option value="">
-                            Semua Kategori
-                        </option>
-
-                        @foreach($kategori as $item)
-
-                            <option value="{{ $item->id_kategori }}">
-                                {{ $item->nama_kategori }}
-                            </option>
-
-                        @endforeach
-
-                    </select>
-
+                        <select name="id_kategori"
+                            class="w-full rounded-2xl border border-slate-200 px-4 py-3 focus:ring-2 focus:ring-blue-400">
+                            <option value="">Semua Kategori</option>
+                            @foreach($kategori as $item)
+                                <option value="{{ $item->id_kategori }}" {{ request('id_kategori') == $item->id_kategori ? 'selected' : '' }}>
+                                    {{ $item->nama_kategori }}
+                                </option>
+                            @endforeach
+                        </select>
                 </div>
 
                 <div class="md:col-span-2">
 
                     <button type="submit" class="
-                                w-full
-                                py-3
-                                rounded-2xl
-                                bg-gradient-to-r
-                                from-blue-500
-                                to-cyan-500
-                                text-white
-                                font-semibold">
+                                            w-full
+                                            py-3
+                                            rounded-2xl
+                                            bg-gradient-to-r
+                                            from-blue-500
+                                            to-cyan-500
+                                            text-white
+                                            font-semibold">
 
                         Filter
 
@@ -178,12 +161,12 @@
 
 
         <div class="
-                    grid
-                    grid-cols-2
-                    md:grid-cols-3
-                    lg:grid-cols-4
-                    xl:grid-cols-5
-                    gap-6">
+                                grid
+                                grid-cols-2
+                                md:grid-cols-3
+                                lg:grid-cols-4
+                                xl:grid-cols-5
+                                gap-6">
             {{-- BAGIAN CARD LOOPING BUKU --}}
             @foreach ($buku as $data)
                 <div
@@ -221,6 +204,10 @@
                     <x-forms.form-buku action="{{ route('buku.update') }}" method="PUT" :buku="$data" :kategoris="$kategori" />
                 </x-modal>
             @endforeach
+        </div>
+        {{-- 🚀 TOMBOL PAGINATION 1, 2, 3 LETAKKAN DISINI --}}
+        <div class="mt-8">
+            {{ $buku->links() }}
         </div>
 
         <x-modal id="modal-buku" title="Tambah Buku">

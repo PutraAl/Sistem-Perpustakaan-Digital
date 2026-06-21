@@ -10,13 +10,32 @@ use Illuminate\Support\Facades\Storage;
 
 class BukuController extends Controller
 {
-    public function index()
-    {
-        $buku = Buku::with('kategori')->orderBy('id_buku', 'desc')->get();
-        $kategori = Kategori::all(); // Mengambil data dari Model Kategori
+ public function index(Request $request)
+{
+    // 1. Ambil data kategori untuk dropdown
+    $kategori = Kategori::all();
 
-        return view('admin.buku', compact('buku', 'kategori'));
+    // 2. Hitung total absolut buku di DB untuk Kartu Metrik (agar angkanya tidak menyusut pas di-filter)
+    $totalBuku = Buku::count();
+
+    // 3. Mulai merakit Query
+    $query = Buku::with('kategori')->orderBy('id_buku', 'desc');
+
+    // --- FILTER 1: Pencarian Judul ---
+    if ($request->filled('search')) {
+        $query->where('judul', 'like', '%' . $request->search . '%');
     }
+
+    // --- FILTER 2: Berdasarkan Kategori ---
+    if ($request->filled('id_kategori')) {
+        $query->where('id_kategori', $request->id_kategori);
+    }
+
+    // 4. Eksekusi Paginasi 15 data + Kunci parameter URL-nya!
+    $buku = $query->paginate(15)->withQueryString();
+
+    return view('admin.buku', compact('buku', 'kategori', 'totalBuku'));
+}   
 
     public function store(Request $request)
     {

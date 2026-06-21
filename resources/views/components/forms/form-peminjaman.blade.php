@@ -148,21 +148,28 @@
                                 onerror="this.src='https://placehold.co/100x150?text=No+Cover';"
                                 class="w-9 h-12 object-cover rounded shadow-2xs border border-gray-100">
                             <div>
-                        <label class="block text-xs font-medium text-gray-600 mb-1">Jumlah</label>
-                        {{-- Tambahkan class 'input-jumlah' dan pembatas oninput otomatis --}}
+                          <p class="text-xs font-bold text-gray-800 line-clamp-1">{{ $item->buku?->judul ?? 'Buku Terhapus' }}</p>
+
+                        {{-- <label class="block text-xs font-medium text-gray-600 mb-1">Jumlah</label>
                         <input type="number" name="jumlah[]" value="1" min="1" 
                             class="input-jumlah w-full border border-gray-300 rounded-md px-3 py-2 text-xs"
-                            oninput="if(this.max && parseInt(this.value) > parseInt(this.max)) { this.value = this.max; }">
+                            oninput="if(this.max && parseInt(this.value) > parseInt(this.max)) { this.value = this.max; }"> --}}
                     </div>
                         </div>
-                        <div class="text-right">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border {{ $itemBadge }}">
-                                {{ str_replace('_', ' ', $item->status_item) }}
-                            </span>
-                            @if($item->tanggal_kembali)
-                                <p class="text-[9px] text-gray-400 mt-1 font-mono">Kembali: {{ date('d/m/y', strtotime($item->tanggal_kembali)) }}</p>
+                         <div class="text-right">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border {{ $itemBadge }}">
+                            @if($peminjaman->status == 'menunggu_konfirmasi')
+                    {{ str_replace('_', ' ', 'Menunggu Konfirmasi') }}
+                @else
+
+                            {{ str_replace('_', ' ', $item->status_item) }}
                             @endif
-                        </div>
+                        </span>
+                        @if($item->tanggal_kembali)
+                            <p class="text-[9px] text-gray-400 mt-1">Kembali: {{ date('d/m/y', strtotime($item->tanggal_kembali)) }}</p>
+                        @endif
+                    </div>
+                </div>
                     </div>
                 @endforeach
             </div>
