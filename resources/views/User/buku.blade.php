@@ -12,7 +12,7 @@
     </div>
 
     {{-- Filter Form --}}
-    <form method="GET" action="{{ route('admin.buku') }}" class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm mb-8">
+    <form method="GET" action="{{ route('user.buku') }}" class="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm mb-8">
         <div class="grid md:grid-cols-12 gap-4">
             <div class="md:col-span-6">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari judul buku..." class="w-full rounded-2xl border border-slate-200 px-4 py-3 focus:ring-2 focus:ring-blue-400 focus:outline-none">

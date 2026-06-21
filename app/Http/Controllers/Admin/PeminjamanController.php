@@ -16,44 +16,40 @@ use Illuminate\Support\Facades\DB;
 class PeminjamanController extends Controller
 {
 
-  public function index(Request $request)
-{
-    Peminjaman::perbaruiDendaOtomatis();
+    public function index(Request $request)
+    {
+        Peminjaman::perbaruiDendaOtomatis();
 
-    $query = Peminjaman::with('user', 'detail.buku');
+        $query = Peminjaman::with('user', 'detail.buku');
 
-    // Filter Pencarian (Search)
-    if ($request->filled('search')) {
-        $search = $request->search;
-        $query->where(function ($q) use ($search) {
-            $q->whereHas('user', fn($user) => $user->where('nama', 'like', "%{$search}%"))
-              ->orWhereHas('detail.buku', fn($buku) => $buku->where('judul', 'like', "%{$search}%"));
-        });
+        // Filter Pencarian (Search)
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->whereHas('user', fn($user) => $user->where('nama', 'like', "%{$search}%"))
+                    ->orWhereHas('detail.buku', fn($buku) => $buku->where('judul', 'like', "%{$search}%"));
+            });
+        }
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('tanggal_pinjam', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('tanggal_pinjam', '<=', $request->end_date);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $data = $query->latest()->paginate(15)->withQueryString();
+
+        $users = User::all();
+        $bukus = Buku::all();
+
+        return view('admin.peminjaman', compact('data', 'users', 'bukus'));
     }
-
-    // Filter Tanggal Mulai (Di luar if search!)
-    if ($request->filled('start_date')) {
-        $query->whereDate('tanggal_pinjam', '>=', $request->start_date);
-    }
-
-    // Filter Tanggal Akhir (Di luar if search!)
-    if ($request->filled('end_date')) {
-        $query->whereDate('tanggal_pinjam', '<=', $request->end_date);
-    }
-
-    // Filter Status (Di luar if search!)
-    if ($request->filled('status')) {
-        $query->where('status', $request->status);
-    }
-
-    // Gunakan paginate(15) dan withQueryString() agar filter tetap aktif saat pindah halaman
-    $data = $query->latest()->paginate(15)->withQueryString();
-
-    $users = User::all();
-    $bukus = Buku::all();
-
-    return view('admin.peminjaman', compact('data', 'users', 'bukus'));
-}
 
     public function store(Request $request)
     {
@@ -96,7 +92,7 @@ class PeminjamanController extends Controller
 
             DB::commit();
 
-          // 🚀 KIRIM EMAIL OTOMATIS (Karena diinput langsung oleh admin, status langsung 'dipinjam' dan siap ambil)
+            // 🚀 KIRIM EMAIL OTOMATIS (Karena diinput langsung oleh admin, status langsung 'dipinjam' dan siap ambil)
             $peminjamanTerbaru = Peminjaman::with('user', 'detail.buku')->find($peminjaman->id_peminjaman);
             if ($peminjamanTerbaru->user && $peminjamanTerbaru->user->email) {
                 Mail::to($peminjamanTerbaru->user->email)->queue(new BukuSiapDiambilMail($peminjamanTerbaru));
@@ -147,7 +143,7 @@ class PeminjamanController extends Controller
         return back()->with('success', 'Buku dikembalikan');
     }
 
-   
+
     private function updateStatus($peminjaman)
     {
         $detail = $peminjaman->detail;
@@ -174,7 +170,7 @@ class PeminjamanController extends Controller
             $peminjaman = Peminjaman::with('user', 'detail.buku')->findOrFail($id);
 
             // 🕵️ Tangkap status sebelum di-save vs status baru dari dropdown
-            $statusLama = $peminjaman->getOriginal('status'); 
+            $statusLama = $peminjaman->getOriginal('status');
             $statusBaru = $request->status;
             $hariIni    = Carbon::today()->toDateString();
 
@@ -214,7 +210,7 @@ class PeminjamanController extends Controller
             // 🚀 3. SKENARIO BUKU BARU SAJA RESMI DI-ACC (KIRIM EMAIL!)
             // ─────────────────────────────────────────────────────────────────
             elseif ($statusLama === 'menunggu_konfirmasi' && $statusBaru === 'dipinjam') {
-                
+
                 // Reset argo pinjam dimulai HARI INI (saat di-ACC)
                 $peminjaman->tanggal_pinjam      = now()->toDateString();
                 $peminjaman->tanggal_jatuh_tempo = now()->addDays(7)->toDateString();
@@ -233,7 +229,6 @@ class PeminjamanController extends Controller
 
             DB::commit();
             return redirect()->route('admin.peminjaman')->with('success', 'Data dan Status berhasil diperbarui! Email otomatis terkirim.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'Gagal memproses: ' . $e->getMessage());
@@ -241,7 +236,7 @@ class PeminjamanController extends Controller
     }
 
     // 1. FUNGSI JIKA ADMIN MENG-ACC PINJAMAN
-  public function konfirmasi($id)
+    public function konfirmasi($id)
     {
         $peminjaman = Peminjaman::with('user', 'detail.buku')->findOrFail($id);
 
@@ -301,20 +296,20 @@ class PeminjamanController extends Controller
     }
 
     public function destroy($id)
-{
-    $peminjaman = Peminjaman::with('detail')->findOrFail($id);
+    {
+        $peminjaman = Peminjaman::with('detail')->findOrFail($id);
 
-    DB::transaction(function () use ($peminjaman) {
-        // Kembalikan stok buku sebelum menghapus data
-        foreach ($peminjaman->detail as $item) {
-            Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
-        }
-        
-        // Hapus detail dan header
-        $peminjaman->detail()->delete();
-        $peminjaman->delete();
-    });
+        DB::transaction(function () use ($peminjaman) {
+            // Kembalikan stok buku sebelum menghapus data
+            foreach ($peminjaman->detail as $item) {
+                Buku::where('id_buku', $item->id_buku)->increment('stok', $item->jumlah);
+            }
 
-    return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil dihapus.');
-}
+            // Hapus detail dan header
+            $peminjaman->detail()->delete();
+            $peminjaman->delete();
+        });
+
+        return redirect()->route('admin.peminjaman')->with('success', 'Data peminjaman berhasil dihapus.');
+    }
 }

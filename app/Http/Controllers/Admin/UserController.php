@@ -17,46 +17,51 @@ class UserController extends Controller
     /**
      * Dashboard Admin
      */
-   public function dashboard()
-{
-    // 1. Sinkronisasi denda otomatis
-    if (method_exists(Peminjaman::class, 'perbaruiDendaOtomatis')) {
-        Peminjaman::perbaruiDendaOtomatis();
+    public function dashboard()
+    {
+        // 1. Sinkronisasi denda otomatis
+        if (method_exists(Peminjaman::class, 'perbaruiDendaOtomatis')) {
+            Peminjaman::perbaruiDendaOtomatis();
+        }
+
+        // 2. Metrik 4 Kartu Atas
+        $totalBuku    = Buku::sum('stok');
+        $totalAnggota = User::where('role', 'anggota')->count();
+        $bukuDipinjam = DetailPeminjaman::where('status_item', 'dipinjam')->sum('jumlah');
+        $telatKembali = Peminjaman::where('status', 'terlambat')->count();
+
+        // 3. Data Grafik Batang Bulanan
+        $peminjamanPerBulan = Peminjaman::selectRaw('MONTH(tanggal_pinjam) as bulan, COUNT(*) as total')
+            ->whereYear('tanggal_pinjam', date('Y'))
+            ->groupBy('bulan')
+            ->pluck('total', 'bulan')
+            ->toArray();
+
+        $dataBar = array_map(fn($i) => $peminjamanPerBulan[$i] ?? 0, range(1, 12));
+
+        // 4. Data Grafik Donat (Kategori JOIN)
+        $genreData = Buku::select('tb_kategori.nama_kategori', DB::raw('COUNT(tb_buku.id_buku) as total'))
+            ->join('tb_kategori', 'tb_buku.id_kategori', '=', 'tb_kategori.id_kategori')
+            ->groupBy('tb_kategori.nama_kategori')
+            ->get();
+
+        $totalSemua = $genreData->sum('total') ?: 1;
+
+        $genreList = $genreData->map(fn($item) => [
+            'label'  => $item->nama_kategori ?: 'Lainnya',
+            'count'  => (int) $item->total,
+            'persen' => round(($item->total / $totalSemua) * 100)
+        ]);
+
+        return view('admin.dashboard', compact(
+            'totalBuku',
+            'totalAnggota',
+            'bukuDipinjam',
+            'telatKembali',
+            'dataBar',
+            'genreList'
+        ));
     }
-
-    // 2. Metrik 4 Kartu Atas
-    $totalBuku    = Buku::sum('stok'); 
-    $totalAnggota = User::where('role', 'anggota')->count();
-    $bukuDipinjam = DetailPeminjaman::where('status_item', 'dipinjam')->sum('jumlah');
-    $telatKembali = Peminjaman::where('status', 'terlambat')->count();
-
-    // 3. Data Grafik Batang Bulanan
-    $peminjamanPerBulan = Peminjaman::selectRaw('MONTH(tanggal_pinjam) as bulan, COUNT(*) as total')
-        ->whereYear('tanggal_pinjam', date('Y'))
-        ->groupBy('bulan')
-        ->pluck('total', 'bulan')
-        ->toArray();
-        
-    $dataBar = array_map(fn($i) => $peminjamanPerBulan[$i] ?? 0, range(1, 12));
-
-    // 4. Data Grafik Donat (Kategori JOIN)
-    $genreData = Buku::select('tb_kategori.nama_kategori', DB::raw('COUNT(tb_buku.id_buku) as total'))
-        ->join('tb_kategori', 'tb_buku.id_kategori', '=', 'tb_kategori.id_kategori')
-        ->groupBy('tb_kategori.nama_kategori')
-        ->get();
-        
-    $totalSemua = $genreData->sum('total') ?: 1;
-    
-    $genreList = $genreData->map(fn($item) => [
-        'label'  => $item->nama_kategori ?: 'Lainnya',
-        'count'  => (int) $item->total,
-        'persen' => round(($item->total / $totalSemua) * 100)
-    ]);
-
-    return view('admin.dashboard', compact(
-        'totalBuku', 'totalAnggota', 'bukuDipinjam', 'telatKembali', 'dataBar', 'genreList'
-    ));
-}
 
     /**
      * Daftar User
@@ -74,16 +79,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'     => 'required|max:255', 
+            'nama'     => 'required|max:255',
             'nim'      => 'required|max:255|unique:users,nim',
-            'email'    => 'required|email|unique:users,email', 
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:3|max:55',
             'role'     => 'required',
             'address'  => 'required|max:255'
         ]);
 
         User::create([
-            'nama'     => $request->nama, 
+            'nama'     => $request->nama,
             'nim'      => $request->nim,
             'address'  => $request->address,
             'email'    => $request->email,
@@ -107,20 +112,25 @@ class UserController extends Controller
     /**
      * Update User (Admin)
      */
-   public function update(Request $request)
+    public function update(Request $request)
     {
         $user = User::findOrFail($request->id);
 
         $request->validate([
-            'nama'    => 'required|max:255', 
-            'nim'     => 'required|max:255|unique:users,nim',
+            'nama'    => 'required|max:255',
+            'nim'     => [
+                'required',
+                'max:255',
+                Rule::unique('users', 'nim')->ignore($user->id)
+            ],
+
             'email'   => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'role'    => 'required',
             'address' => 'required|max:255'
         ]);
 
         $data = [
-            'nama'    => $request->nama, 
+            'nama'    => $request->nama,
             'nim'     => $request->nim,
             'email'   => $request->email,
             'role'    => $request->role,
@@ -167,7 +177,7 @@ class UserController extends Controller
     /**
      * Hapus User
      */
-   public function destroy(Request $request)
+    public function destroy(Request $request)
     {
         $user = User::findOrFail($request->id);
         $user->delete();
