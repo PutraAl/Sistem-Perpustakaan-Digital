@@ -52,30 +52,153 @@
                             </span>
                         </div>
                     <div class="mt-auto pt-3 flex flex-col gap-2">
-    {{-- Tombol Pinjam --}}
-    @if($data->stok > 0)
-      <form action="{{ route('user.buku.pinjam', $data->id_buku) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" onclick="return confirm('Apakah anda yakin ingin meminjam buku ini?')"
-                                            class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-2 rounded-xl transition-all shadow-md text-xs md:text-sm">
-                                            Pinjam
-                                        </button>
-                                    </form>
-      
+  
+    {{-- Tombol Detail --}}
+<div class="flex gap-2">
+    <button
+    data-modal-target="detail-buku-{{ $data->id_buku }}"
+    data-modal-toggle="detail-buku-{{ $data->id_buku }}"
+    class="flex-1 text-center bg-white border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-semibold py-2 rounded-xl transition-all text-xs md:text-sm">
+    Detail
+</button>
+
+    @if ($data->stok > 0)
+        <form action="{{ route('user.buku.pinjam', $data->id_buku) }}" method="POST" class="flex-1">
+            @csrf
+            <button type="submit"
+                onclick="return confirm('Apakah anda yakin ingin meminjam buku ini?')"
+                class="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold py-2 rounded-xl transition-all shadow-md text-xs md:text-sm">
+                Pinjam
+            </button>
+        </form>
     @else
-        <button disabled class="w-full bg-slate-100 text-slate-400 font-semibold py-2 rounded-xl text-xs md:text-sm border border-slate-200 cursor-not-allowed">
+        <button disabled
+            class="flex-1 bg-slate-100 text-slate-400 font-semibold py-2 rounded-xl text-xs md:text-sm border border-slate-200 cursor-not-allowed">
             Habis
         </button>
     @endif
-
-    {{-- Tombol Detail --}}
-    <a href="{{ route('user.detail', $data->id_buku) }}"
-        class="w-full text-center bg-white border border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white font-semibold py-2 rounded-xl transition-all text-xs md:text-sm">
-        Detail
-    </a>
+</div>
 </div>
                 </div>
             </div>
+
+            {{-- Modal Detail Buku --}}
+            <div id="detail-buku-{{ $data->id_buku }}"
+    tabindex="-1"
+    aria-hidden="true"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full bg-black/50">
+
+    <div class="relative p-4 w-full max-w-4xl max-h-full">
+        <div class="relative bg-white rounded-2xl shadow">
+
+            {{-- Header --}}
+            <div class="flex items-center justify-between p-4 border-b">
+                <h3 class="text-lg font-semibold text-slate-800">
+                    Detail Buku
+                </h3>
+
+                <button type="button"
+                    class="text-slate-400 hover:text-slate-700"
+                    data-modal-hide="detail-buku-{{ $data->id_buku }}">
+                    ✕
+                </button>
+            </div>
+
+            {{-- Body --}}
+            <div class="p-6">
+                <div class="grid md:grid-cols-2 gap-8">
+
+                    {{-- Cover --}}
+                    <div>
+                        <img src="{{ asset('img/' . $data->foto) }}"
+                            class="w-full rounded-xl shadow-md object-cover">
+                    </div>
+
+                    {{-- Detail --}}
+                    <div>
+                        <span
+                            class="inline-flex px-3 py-1 text-xs rounded-full bg-blue-50 text-blue-600 font-medium">
+                            {{ $data->kategori->nama_kategori }}
+                        </span>
+
+                        <h2 class="text-2xl font-bold text-slate-800 mt-3">
+                            {{ $data->judul }}
+                        </h2>
+
+                        <p class="text-slate-500 mt-1">
+                            {{ $data->penulis }}
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4 mt-6">
+                            <div>
+                                <p class="text-xs text-slate-400">Penerbit</p>
+                                <p class="font-medium">{{ $data->penerbit }}</p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-400">Tahun Terbit</p>
+                                <p class="font-medium">{{ $data->tahun_terbit }}</p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-400">Stok</p>
+                                <p class="font-medium">
+                                    {{ $data->stok }} Buku
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="text-xs text-slate-400">Status</p>
+
+                                @if($data->stok > 0)
+                                    <span class="text-green-600 font-medium">
+                                        Tersedia
+                                    </span>
+                                @else
+                                    <span class="text-red-600 font-medium">
+                                        Habis
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <p class="text-xs text-slate-400 mb-2">
+                                Deskripsi
+                            </p>
+
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                {{ $data->deskripsi }}
+                            </p>
+                        </div>
+
+                        {{-- Tombol Pinjam --}}
+                        <div class="mt-8">
+                            @if($data->stok > 0)
+                                <form action="{{ route('user.buku.pinjam', $data->id_buku) }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                        onclick="return confirm('Apakah anda yakin ingin meminjam buku ini?')"
+                                        class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold hover:shadow-lg transition">
+                                        Pinjam Buku
+                                    </button>
+                                </form>
+                            @else
+                                <button disabled
+                                    class="w-full py-3 rounded-xl bg-slate-100 text-slate-400 cursor-not-allowed">
+                                    Stok Habis
+                                </button>
+                            @endif
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
         @endforeach
     </div>
 
